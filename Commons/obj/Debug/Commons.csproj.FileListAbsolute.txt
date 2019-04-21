@@ -1,0 +1,6 @@
+C:\Users\birkankader\source\repos\RentaCarApp\Commons\bin\Debug\Commons.dll
+C:\Users\birkankader\source\repos\RentaCarApp\Commons\bin\Debug\Commons.pdb
+C:\Users\birkankader\source\repos\RentaCarApp\Commons\obj\Debug\Commons.csprojAssemblyReference.cache
+C:\Users\birkankader\source\repos\RentaCarApp\Commons\obj\Debug\Commons.csproj.CoreCompileInputs.cache
+C:\Users\birkankader\source\repos\RentaCarApp\Commons\obj\Debug\Commons.dll
+C:\Users\birkankader\source\repos\RentaCarApp\Commons\obj\Debug\Commons.pdb

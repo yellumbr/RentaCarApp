@@ -1,0 +1,13 @@
+C:\Users\birkankader\source\repos\RentaCarApp\DataAccesLayer\obj\Debug\DataAccesLayer.csprojAssemblyReference.cache
+C:\Users\birkankader\source\repos\RentaCarApp\DataAccesLayer\obj\Debug\DataAccesLayer.csproj.CoreCompileInputs.cache
+C:\Users\birkankader\source\repos\RentaCarApp\RentaCar.DataAccesLayer\obj\Debug\DataAccesLayer.csprojAssemblyReference.cache
+C:\Users\birkankader\source\repos\RentaCarApp\RentaCar.DataAccesLayer\obj\Debug\DataAccesLayer.csproj.CoreCompileInputs.cache
+C:\Users\birkankader\source\repos\RentaCarApp\DataAccesLayer\bin\Debug\DataAccesLayer.dll
+C:\Users\birkankader\source\repos\RentaCarApp\DataAccesLayer\bin\Debug\DataAccesLayer.pdb
+C:\Users\birkankader\source\repos\RentaCarApp\DataAccesLayer\bin\Debug\Commons.dll
+C:\Users\birkankader\source\repos\RentaCarApp\DataAccesLayer\bin\Debug\Models.dll
+C:\Users\birkankader\source\repos\RentaCarApp\DataAccesLayer\bin\Debug\Commons.pdb
+C:\Users\birkankader\source\repos\RentaCarApp\DataAccesLayer\bin\Debug\Models.pdb
+C:\Users\birkankader\source\repos\RentaCarApp\DataAccesLayer\obj\Debug\DataAccesLayer.csproj.CopyComplete
+C:\Users\birkankader\source\repos\RentaCarApp\DataAccesLayer\obj\Debug\DataAccesLayer.dll
+C:\Users\birkankader\source\repos\RentaCarApp\DataAccesLayer\obj\Debug\DataAccesLayer.pdb

@@ -1,0 +1,5 @@
+C:\Users\birkankader\source\repos\RentaCarApp\Models\bin\Debug\Models.dll
+C:\Users\birkankader\source\repos\RentaCarApp\Models\bin\Debug\Models.pdb
+C:\Users\birkankader\source\repos\RentaCarApp\Models\obj\Debug\Models.csproj.CoreCompileInputs.cache
+C:\Users\birkankader\source\repos\RentaCarApp\Models\obj\Debug\Models.dll
+C:\Users\birkankader\source\repos\RentaCarApp\Models\obj\Debug\Models.pdb
