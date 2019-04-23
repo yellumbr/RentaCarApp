@@ -26,7 +26,7 @@ namespace DataAccesLayer.Concretes
 
         public bool Ekle(Musteriler entity)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException();    
         }
 
         public bool Guncelle(Musteriler entity)
