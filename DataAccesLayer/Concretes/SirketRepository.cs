@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 using DataAccesLayer.Abstractions;
 using Models.Concretes;
 using System.Data.Common;
-using System.Data;
-using Commons.Concretes;
 
 namespace DataAccesLayer.Concretes
 {

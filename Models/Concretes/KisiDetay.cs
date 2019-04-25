@@ -8,7 +8,7 @@ namespace Models.Concretes
 {
     public class KisiDetay
     {
-        public double TcKimlik { get; set; }
+        public string TcKimlik { get; set; }
         public string Ad { get; set; }
         public string Soyad { get; set; }
         public string Adres { get; set; }
