@@ -14,8 +14,10 @@ namespace Models.Concretes
         }
 
         public int YoneticiId { get; set; }
+        public int SirketId { get; set; }
         public string Sifre { get; set; }
         public KisiDetay Kisi { get; set; }
+       
 
     }
 }

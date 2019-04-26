@@ -11,14 +11,33 @@ using Commons.Concretes;
 
 namespace DataAccesLayer.Concretes
 {
-    public class SirketRepository : IRepository<Sirket>
+    public class SirketRepository : IRepository<Sirket>,IDisposable
     {
         private string _connectionString;
         private string _dbProviderName;
         private DbProviderFactory _dbProviderFactory;
         private int _rowsAffected, _errorCode;
         private bool _bDisposed;
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
 
+        protected virtual void Dispose(bool bDisposing)
+        {
+            // Check the Dispose method called before.
+            if (!_bDisposed)
+            {
+                if (bDisposing)
+                {
+                    // Clean the resources used.
+                    _dbProviderFactory = null;
+                }
+
+                _bDisposed = true;
+            }
+        }
         public SirketRepository()
         {
             _connectionString = DBHelper.GetConnectionString();
