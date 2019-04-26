@@ -41,10 +41,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Concretes\AraclarBusiness.cs" />
+    <Compile Include="Concretes\MusterilerBusiness.cs" />
+    <Compile Include="Concretes\OdemelerBusiness.cs" />
+    <Compile Include="Concretes\SirketBusiness.cs" />
+    <Compile Include="Concretes\YoneticiBusiness.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Concretes\" />
+    <ProjectReference Include="..\DataAccesLayer\DataAccesLayer.csproj">
+      <Project>{46b65356-c877-4f9c-bf83-7602a239dfea}</Project>
+      <Name>DataAccesLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Models\Models.csproj">
+      <Project>{f706cdc9-8098-4473-869d-cd1126cbaa72}</Project>
+      <Name>Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
