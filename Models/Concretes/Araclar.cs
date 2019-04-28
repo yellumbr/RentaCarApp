@@ -20,7 +20,7 @@
         public int GunlukKiraBedeli { get; set; }
         public bool Rezerv { get; set; }
         public bool Kirada { get; set; }
-        public byte YakitTipi { get; set; }
+        public int YakitTipi { get; set; }
         public bool VitesTipi { get; set; }
         public string AracResmi { get; set; }
         public Musteriler Musteri { get; set; }

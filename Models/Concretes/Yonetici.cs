@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using System.ComponentModel.DataAnnotations;
 namespace Models.Concretes
 {
     public class Yonetici
@@ -18,6 +14,8 @@ namespace Models.Concretes
         public string Adres { get; set; }
         public string Telefon { get; set; }
         public string Email { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime DogumTarihi { get; set; }
         public int YoneticiId { get; set; }
         public int SirketId { get; set; }

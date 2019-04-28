@@ -52,12 +52,9 @@ namespace DataAccesLayer.Concretes
             try
             {
                 var query = new StringBuilder();
-                query.Append("INSERT INTO tblMusteri(TCKimlik,Ad,Soyad,Adres,Telefon,Email,DogumTarihi,KaraListe,KullaniciAdi,Sifre,EhliyetTarih,EhliyetTipi) ");
-                query.Append("VALUES(@TCKimlik,@Ad,@Soyad,@Adres,@Telefon,@Email,@DogumTarihi, @KaraListe, @KullaniciAdi, @Sifre,@EhliyetTarih,@EhliyetTipi )");
+                query.Append("INSERT INTO tblMusteri(TCKimlik,Ad,Soyad,Adres,Telefon,Email,KaraListe,KullaniciAdi,Sifre,EhliyetTipi)");
+                query.Append("VALUES(@TCKimlik,@Ad,@Soyad,@Adres,@Telefon,@Email,@KaraListe,@KullaniciAdi,@Sifre,@EhliyetTipi)");
                 
-                  
-                query.Append("SELECT @intErrorCode=@@ERROR;");
-
                 var commandText = query.ToString();
                 query.Clear();
 
@@ -77,10 +74,10 @@ namespace DataAccesLayer.Concretes
                         dbCommand.CommandText = commandText;
 
                         //Input Params
-                        DBHelper.AddParameter(dbCommand, "@KaraLise", entity.KaraListe);
+                        DBHelper.AddParameter(dbCommand, "@KaraListe", entity.KaraListe);
                         DBHelper.AddParameter(dbCommand, "@KullaniciAdi", entity.KullaniciAdi);
                         DBHelper.AddParameter(dbCommand, "@Sifre", entity.Sifre);
-                        DBHelper.AddParameter(dbCommand, "@EhliyetTarih", entity.EhliyetYil);
+                      //  DBHelper.AddParameter(dbCommand, "@EhliyetTarih", entity.EhliyetYil);
                         DBHelper.AddParameter(dbCommand, "@EhliyetTipi", entity.EhliyetTipi);
                         DBHelper.AddParameter(dbCommand, "@TCKimlik", entity.TcKimlik);
                         DBHelper.AddParameter(dbCommand, "@Ad", entity.Ad);
@@ -88,11 +85,9 @@ namespace DataAccesLayer.Concretes
                         DBHelper.AddParameter(dbCommand, "@Adres", entity.Adres);
                         DBHelper.AddParameter(dbCommand, "@Telefon", entity.Telefon);
                         DBHelper.AddParameter(dbCommand, "@Email", entity.Email);
-                        DBHelper.AddParameter(dbCommand, "@DogumTarihi", entity.DogumTarihi);
+                      //  DBHelper.AddParameter(dbCommand, "@DogumTarihi", entity.DogumTarihi);
                       
 
-                        //Output Params
-                        DBHelper.AddParameter(dbCommand, "@intErrorCode", null);
 
                         //Open Connection
                         if (dbConnection.State != ConnectionState.Open)
@@ -100,10 +95,7 @@ namespace DataAccesLayer.Concretes
 
                         //Execute query
                         _rowsAffected = dbCommand.ExecuteNonQuery();
-                        _errorCode = int.Parse(dbCommand.Parameters["@intErrorCode"].Value.ToString());
-
-                        if (_errorCode != 0)
-                            throw new Exception("Inserting Error for entity [tblMusteri] reported the Database ErrorCode: " + _errorCode);
+                      
                     }
                 }
                 //Return the results of query/ies
@@ -126,11 +118,10 @@ namespace DataAccesLayer.Concretes
                 var query = new StringBuilder();
                 query.Append(" UPDATE [dbo].[tblMusteri] ");
                 //KaraListe,KullaniciAdi,Sifre,EhliyetTarih,EhliyetTipi
-                query.Append(" SET [TCKimlik] = @TCKimlik, [Ad] = @Ad, [Soyad] =  @Soyad, [Adres] = @Adres, [Telefon] = @Telefon, [Email] = @Email, [DogumTarihi] =  @DogumTarihi, [KaraListe] = @KaraListe, [KullaniciAdi] = @KullaniciAdi, [Sifre] =  @Sifre, [EhliyetTarih] = @EhliyetTarih, [EhliyetTipi] = @EhliyetTipi ");
+                query.Append(" SET [TCKimlik] = @TCKimlik, [Ad] = @Ad, [Soyad] =  @Soyad, [Adres] = @Adres, [Telefon] = @Telefon, [Email] = @Email,  [KaraListe] = @KaraListe, [KullaniciAdi] = @KullaniciAdi, [Sifre] =  @Sifre, [EhliyetTipi] = @EhliyetTipi ");
                 query.Append(" WHERE ");
                 query.Append(" [MusteriID] = @MusteriID ");
 
-                query.Append(" SELECT @intErrorCode = @@ERROR; ");
 
                 var commandText = query.ToString();
                 query.Clear();
@@ -155,7 +146,7 @@ namespace DataAccesLayer.Concretes
                         DBHelper.AddParameter(dbCommand, "@KaraLise", entity.KaraListe);
                         DBHelper.AddParameter(dbCommand, "@KullaniciAdi", entity.KullaniciAdi);
                         DBHelper.AddParameter(dbCommand, "@Sifre", entity.Sifre);
-                        DBHelper.AddParameter(dbCommand, "@EhliyetTarih", entity.EhliyetYil);
+                     //   DBHelper.AddParameter(dbCommand, "@EhliyetTarih", entity.EhliyetYil);
                         DBHelper.AddParameter(dbCommand, "@EhliyetTipi", entity.EhliyetTipi);
                         DBHelper.AddParameter(dbCommand, "@TCKimlik", entity.TcKimlik);
                         DBHelper.AddParameter(dbCommand, "@Ad", entity.Ad);
@@ -163,10 +154,8 @@ namespace DataAccesLayer.Concretes
                         DBHelper.AddParameter(dbCommand, "@Adres", entity.Adres);
                         DBHelper.AddParameter(dbCommand, "@Telefon", entity.Telefon);
                         DBHelper.AddParameter(dbCommand, "@Email", entity.Email);
-                        DBHelper.AddParameter(dbCommand, "@DogumTarihi", entity.DogumTarihi);
+                     //   DBHelper.AddParameter(dbCommand, "@DogumTarihi", entity.DogumTarihi);
 
-                        //Output Params
-                        DBHelper.AddParameter(dbCommand, "@intErrorCode", null);
 
                         //Open Connection
                         if (dbConnection.State != ConnectionState.Open)
@@ -174,10 +163,7 @@ namespace DataAccesLayer.Concretes
 
                         //Execute query
                         _rowsAffected = dbCommand.ExecuteNonQuery();
-                        _errorCode = int.Parse(dbCommand.Parameters["@intErrorCode"].Value.ToString());
 
-                        if (_errorCode != 0)
-                            throw new Exception("Updating Error for entity [tblMusteri] reported the Database ErrorCode: " + _errorCode);
                     }
                 }
                 //Return the results of query/ies
@@ -201,9 +187,8 @@ namespace DataAccesLayer.Concretes
                 var query = new StringBuilder();
                 query.Append("SELECT ");
                 query.Append(
-                    "[MusteriID], [KullaniciAdi], [Sifre], [EhliyetTipi], [EhliyetYil],[Ad],[Soyad],[TCKimlik],[Telefon],[Email],[DogumTarihi],[Adres] ");
+                    "[MusteriID], [KullaniciAdi], [Sifre], [EhliyetTipi],[Ad],[Soyad],[TCKimlik],[Telefon],[Email],[Adres] ");
                 query.Append("FROM [dbo].[tblMusteri]");
-                query.Append("SELECT @intErrorCode=@@ERROR; ");
 
                 var commandText = query.ToString();
                 query.Clear();
@@ -224,11 +209,7 @@ namespace DataAccesLayer.Concretes
                         dbCommand.Connection = dbConnection;
                         dbCommand.CommandText = commandText;
 
-                        //Input Parameters - None
-
-                        //Output Parameters
-                        DBHelper.AddParameter(dbCommand, "@intErrorCode", null);
-
+                       
                         //Open Connection
                         if (dbConnection.State != ConnectionState.Open)
                             dbConnection.Open();
@@ -245,28 +226,19 @@ namespace DataAccesLayer.Concretes
                                     entity.KaraListe = reader.GetBoolean(1);
                                     entity.Sifre = reader.GetString(2);
                                     entity.EhliyetTipi = reader.GetString(3);
-                                    entity.EhliyetYil = reader.GetDateTime(4);
-                                    entity.Ad = reader.GetString(5);
-                                    entity.Soyad = reader.GetString(6);
-                                    entity.TcKimlik = reader.GetString(7);
-                                    entity.Telefon = reader.GetString(8);
-                                    entity.Email = reader.GetString(9);
-                                    entity.DogumTarihi = reader.GetDateTime(10);
-                                    entity.Adres = reader.GetString(11);
+                                   // entity.EhliyetYil = reader.GetDateTime(4);
+                                    entity.Ad = reader.GetString(4);
+                                    entity.Soyad = reader.GetString(5);
+                                    entity.TcKimlik = reader.GetString(6);
+                                    entity.Telefon = reader.GetString(7);
+                                    entity.Email = reader.GetString(8);
+                                   // entity.DogumTarihi = reader.GetDateTime(10);
+                                    entity.Adres = reader.GetString(9);
                                     musteriler.Add(entity);
                                 }
                             }
 
-                        }
-
-                        _errorCode = int.Parse(dbCommand.Parameters["@intErrorCode"].Value.ToString());
-
-                        if (_errorCode != 0)
-                        {
-                            // Throw error.
-                            throw new Exception("Selecting All Error for entity [tblMusteri] reported the Database ErrorCode: " + _errorCode);
-
-                        }
+                        }   
                     }
                 }
                 // Return list
@@ -280,7 +252,7 @@ namespace DataAccesLayer.Concretes
 
         public Musteriler IdSec(int id)
         {
-            _errorCode = 0;
+           
             _rowsAffected = 0;
 
             Musteriler musteri = null;
@@ -294,7 +266,6 @@ namespace DataAccesLayer.Concretes
                 query.Append("FROM [dbo].[tblMusteri]");
                 query.Append("WHERE ");
                 query.Append("[MusteriID] = @id ");
-                query.Append("SELECT @intErrorCode=@@ERROR; ");
 
                 var commandText = query.ToString();
                 query.Clear();
@@ -318,9 +289,7 @@ namespace DataAccesLayer.Concretes
                         //Input Parameters
                         DBHelper.AddParameter(dbCommand, "@id", id);
 
-                        //Output Parameters
-                        DBHelper.AddParameter(dbCommand, "@intErrorCode", null);
-
+                       
                         //Open Connection
                         if (dbConnection.State != ConnectionState.Open)
                             dbConnection.Open();
@@ -337,27 +306,21 @@ namespace DataAccesLayer.Concretes
                                     entity.KaraListe = reader.GetBoolean(1);
                                     entity.Sifre = reader.GetString(2);
                                     entity.EhliyetTipi = reader.GetString(3);
-                                    entity.EhliyetYil = reader.GetDateTime(4);
-                                    entity.Ad = reader.GetString(5);
-                                    entity.Soyad = reader.GetString(6);
-                                    entity.TcKimlik = reader.GetString(7);
-                                    entity.Telefon = reader.GetString(8);
-                                    entity.Email = reader.GetString(9);
-                                    entity.DogumTarihi = reader.GetDateTime(10);
-                                    entity.Adres = reader.GetString(11);
+                                   // entity.EhliyetYil = reader.GetDateTime(4);
+                                    entity.Ad = reader.GetString(4);
+                                    entity.Soyad = reader.GetString(5);
+                                    entity.TcKimlik = reader.GetString(6);
+                                    entity.Telefon = reader.GetString(7);
+                                    entity.Email = reader.GetString(8);
+                                   // entity.DogumTarihi = reader.GetDateTime(10);
+                                    entity.Adres = reader.GetString(9);
                                     musteri = entity;
                                     break;
                                 }
                             }
                         }
 
-                        _errorCode = int.Parse(dbCommand.Parameters["@intErrorCode"].Value.ToString());
-
-                        if (_errorCode != 0)
-                        {
-                            // Throw error.
-                            throw new Exception("Selecting Error for entity [tblMusteri] reported the Database ErrorCode: " + _errorCode);
-                        }
+                       
                     }
                 }
 
@@ -371,7 +334,7 @@ namespace DataAccesLayer.Concretes
 
         public bool IdSil(int id)
         {
-            _errorCode = 0;
+            
             _rowsAffected = 0;
 
             try
@@ -381,7 +344,7 @@ namespace DataAccesLayer.Concretes
                 query.Append("FROM [dbo].[tblMusteri] ");
                 query.Append("WHERE ");
                 query.Append("[tblMusteri] = @id ");
-                query.Append("SELECT @intErrorCode=@@ERROR; ");
+               
 
                 var commandText = query.ToString();
                 query.Clear();
@@ -405,20 +368,13 @@ namespace DataAccesLayer.Concretes
                         //Input Parameters
                         DBHelper.AddParameter(dbCommand, "@id",  id);
 
-                        //Output Parameters
-                        DBHelper.AddParameter(dbCommand, "@intErrorCode",  null);
 
                         //Open Connection
                         if (dbConnection.State != ConnectionState.Open)
                             dbConnection.Open();
                         //Execute query
                         _rowsAffected = dbCommand.ExecuteNonQuery();
-                        _errorCode = int.Parse(dbCommand.Parameters["@intErrorCode"].Value.ToString());
-
-                        if (_errorCode != 0)
-                            throw new Exception(
-                                "Deleting Error for entity [tblMusteri] reported the Database ErrorCode: " +
-                                _errorCode);
+                        
                     }
                 }
                 //Return the results of query/ies
