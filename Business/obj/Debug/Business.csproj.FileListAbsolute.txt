@@ -4,6 +4,7 @@ C:\Users\birkankader\source\repos\RentaCarApp\Business\obj\Debug\Business.csproj
 C:\Users\birkankader\source\repos\RentaCarApp\Business\obj\Debug\Business.csproj.CoreCompileInputs.cache
 C:\Users\birkankader\source\repos\RentaCarApp\Business\obj\Debug\Business.dll
 C:\Users\birkankader\source\repos\RentaCarApp\Business\obj\Debug\Business.pdb
+\\Mac\SoaOdev\rentacar\Business\obj\Debug\Business.csproj.CoreCompileInputs.cache
 \\Mac\SoaOdev\rentacar\Business\bin\Debug\Business.dll
 \\Mac\SoaOdev\rentacar\Business\bin\Debug\Business.pdb
 \\Mac\SoaOdev\rentacar\Business\bin\Debug\DataAccesLayer.dll
@@ -13,7 +14,6 @@ C:\Users\birkankader\source\repos\RentaCarApp\Business\obj\Debug\Business.pdb
 \\Mac\SoaOdev\rentacar\Business\bin\Debug\Models.pdb
 \\Mac\SoaOdev\rentacar\Business\bin\Debug\Commons.pdb
 \\Mac\SoaOdev\rentacar\Business\obj\Debug\Business.csprojAssemblyReference.cache
-\\Mac\SoaOdev\rentacar\Business\obj\Debug\Business.csproj.CoreCompileInputs.cache
 \\Mac\SoaOdev\rentacar\Business\obj\Debug\Business.csproj.CopyComplete
 \\Mac\SoaOdev\rentacar\Business\obj\Debug\Business.dll
 \\Mac\SoaOdev\rentacar\Business\obj\Debug\Business.pdb

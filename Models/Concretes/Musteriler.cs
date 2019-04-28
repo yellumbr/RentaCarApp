@@ -10,13 +10,19 @@ namespace Models.Concretes
     {
         public Musteriler()
         {
-            Kisi = new KisiDetay();
+            
             Araclar = new List<Araclar>();
         }
+        public string TcKimlik { get; set; }
+        public string Ad { get; set; }
+        public string Soyad { get; set; }
+        public string Adres { get; set; }
+        public string Telefon { get; set; }
+        public string Email { get; set; }
+        public DateTime DogumTarihi { get; set; }
         public int MusteriId { get; set; }
         public bool KaraListe { get; set; }
         public List<Araclar> Araclar { get; set; }
-        public KisiDetay Kisi { get; set; }
         public string Sifre { get; set; }
         public string KullaniciAdi { get; set; }
         public DateTime EhliyetYil { get; set; }

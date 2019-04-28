@@ -52,12 +52,9 @@ namespace DataAccesLayer.Concretes
             try
             {
                 var query = new StringBuilder();
-                query.Append("INSERT INTO tblMusteri(KaraListe,KullaniciAdi,Sifre,EhliyetTarih,EhliyetTipi) ");
-                query.Append("VALUES( @KaraListe, @KullaniciAdi, @Sifre,@EhliyetTarih,@EhliyetTipi )");
-                query.Append("declare @sonID int");
-                query.Append("set @sonID = SCOPE_IDENTITY()");
-                query.Append("INSERT INTO tblKisiDetay(TCKimlik,Ad,Soyad,Adres,Telefon,Email,DogumTarihi,MusteriID)");
-                query.Append("Values(@TCKimlik,@Ad,@Soyad,@Adres,@Telefon,@Email,@DogumTarihi,@sonID)");
+                query.Append("INSERT INTO tblMusteri(TCKimlik,Ad,Soyad,Adres,Telefon,Email,DogumTarihi,KaraListe,KullaniciAdi,Sifre,EhliyetTarih,EhliyetTipi) ");
+                query.Append("VALUES(@TCKimlik,@Ad,@Soyad,@Adres,@Telefon,@Email,@DogumTarihi, @KaraListe, @KullaniciAdi, @Sifre,@EhliyetTarih,@EhliyetTipi )");
+                
                   
                 query.Append("SELECT @intErrorCode=@@ERROR;");
 
@@ -85,12 +82,13 @@ namespace DataAccesLayer.Concretes
                         DBHelper.AddParameter(dbCommand, "@Sifre", entity.Sifre);
                         DBHelper.AddParameter(dbCommand, "@EhliyetTarih", entity.EhliyetYil);
                         DBHelper.AddParameter(dbCommand, "@EhliyetTipi", entity.EhliyetTipi);
-                        DBHelper.AddParameter(dbCommand, "@Ad", entity.Kisi.Ad);
-                        DBHelper.AddParameter(dbCommand, "@Soyad", entity.Kisi.Soyad);
-                        DBHelper.AddParameter(dbCommand, "@Adres", entity.Kisi.Adres);
-                        DBHelper.AddParameter(dbCommand, "@Telefon", entity.Kisi.Telefon);
-                        DBHelper.AddParameter(dbCommand, "@Email", entity.Kisi.Email);
-                        DBHelper.AddParameter(dbCommand, "@DogumTarihi", entity.Kisi.DogumTarihi);
+                        DBHelper.AddParameter(dbCommand, "@TCKimlik", entity.TcKimlik);
+                        DBHelper.AddParameter(dbCommand, "@Ad", entity.Ad);
+                        DBHelper.AddParameter(dbCommand, "@Soyad", entity.Soyad);
+                        DBHelper.AddParameter(dbCommand, "@Adres", entity.Adres);
+                        DBHelper.AddParameter(dbCommand, "@Telefon", entity.Telefon);
+                        DBHelper.AddParameter(dbCommand, "@Email", entity.Email);
+                        DBHelper.AddParameter(dbCommand, "@DogumTarihi", entity.DogumTarihi);
                       
 
                         //Output Params
@@ -128,14 +126,10 @@ namespace DataAccesLayer.Concretes
                 var query = new StringBuilder();
                 query.Append(" UPDATE [dbo].[tblMusteri] ");
                 //KaraListe,KullaniciAdi,Sifre,EhliyetTarih,EhliyetTipi
-                query.Append(" SET [KaraListe] = @KaraListe, [KullaniciAdi] = @KullaniciAdi, [Sifre] =  @Sifre, [EhliyetTarih] = @EhliyetTarih, [EhliyetTipi] = @EhliyetTipi ");
+                query.Append(" SET [TCKimlik] = @TCKimlik, [Ad] = @Ad, [Soyad] =  @Soyad, [Adres] = @Adres, [Telefon] = @Telefon, [Email] = @Email, [DogumTarihi] =  @DogumTarihi, [KaraListe] = @KaraListe, [KullaniciAdi] = @KullaniciAdi, [Sifre] =  @Sifre, [EhliyetTarih] = @EhliyetTarih, [EhliyetTipi] = @EhliyetTipi ");
                 query.Append(" WHERE ");
                 query.Append(" [MusteriID] = @MusteriID ");
 
-                query.Append(" UPDATE [dbo].[tblKisiDetay] ");
-                query.Append(" SET [TCKimlik] = @TCKimlik, [Ad] = @Ad, [Soyad] =  @Soyad, [Adres] = @Adres, [Telefon] = @Telefon, [Email] = @Email, [DogumTarihi] =  @DogumTarihi");
-                query.Append(" WHERE ");
-                query.Append(" [MusteriID] = @MusteriID ");
                 query.Append(" SELECT @intErrorCode = @@ERROR; ");
 
                 var commandText = query.ToString();
@@ -163,12 +157,13 @@ namespace DataAccesLayer.Concretes
                         DBHelper.AddParameter(dbCommand, "@Sifre", entity.Sifre);
                         DBHelper.AddParameter(dbCommand, "@EhliyetTarih", entity.EhliyetYil);
                         DBHelper.AddParameter(dbCommand, "@EhliyetTipi", entity.EhliyetTipi);
-                        DBHelper.AddParameter(dbCommand, "@Ad", entity.Kisi.Ad);
-                        DBHelper.AddParameter(dbCommand, "@Soyad", entity.Kisi.Soyad);
-                        DBHelper.AddParameter(dbCommand, "@Adres", entity.Kisi.Adres);
-                        DBHelper.AddParameter(dbCommand, "@Telefon", entity.Kisi.Telefon);
-                        DBHelper.AddParameter(dbCommand, "@Email", entity.Kisi.Email);
-                        DBHelper.AddParameter(dbCommand, "@DogumTarihi", entity.Kisi.DogumTarihi);
+                        DBHelper.AddParameter(dbCommand, "@TCKimlik", entity.TcKimlik);
+                        DBHelper.AddParameter(dbCommand, "@Ad", entity.Ad);
+                        DBHelper.AddParameter(dbCommand, "@Soyad", entity.Soyad);
+                        DBHelper.AddParameter(dbCommand, "@Adres", entity.Adres);
+                        DBHelper.AddParameter(dbCommand, "@Telefon", entity.Telefon);
+                        DBHelper.AddParameter(dbCommand, "@Email", entity.Email);
+                        DBHelper.AddParameter(dbCommand, "@DogumTarihi", entity.DogumTarihi);
 
                         //Output Params
                         DBHelper.AddParameter(dbCommand, "@intErrorCode", null);
@@ -207,7 +202,7 @@ namespace DataAccesLayer.Concretes
                 query.Append("SELECT ");
                 query.Append(
                     "[MusteriID], [KullaniciAdi], [Sifre], [EhliyetTipi], [EhliyetYil],[Ad],[Soyad],[TCKimlik],[Telefon],[Email],[DogumTarihi],[Adres] ");
-                query.Append("FROM [dbo].[tblMusteri], [dbo].[tblKisiDetay] ");
+                query.Append("FROM [dbo].[tblMusteri]");
                 query.Append("SELECT @intErrorCode=@@ERROR; ");
 
                 var commandText = query.ToString();
@@ -251,13 +246,13 @@ namespace DataAccesLayer.Concretes
                                     entity.Sifre = reader.GetString(2);
                                     entity.EhliyetTipi = reader.GetString(3);
                                     entity.EhliyetYil = reader.GetDateTime(4);
-                                    entity.Kisi.Ad = reader.GetString(5);
-                                    entity.Kisi.Soyad = reader.GetString(6);
-                                    entity.Kisi.TcKimlik = reader.GetString(7);
-                                    entity.Kisi.Telefon = reader.GetString(8);
-                                    entity.Kisi.Email = reader.GetString(9);
-                                    entity.Kisi.DogumTarihi = reader.GetDateTime(10);
-                                    entity.Kisi.Adres = reader.GetString(11);
+                                    entity.Ad = reader.GetString(5);
+                                    entity.Soyad = reader.GetString(6);
+                                    entity.TcKimlik = reader.GetString(7);
+                                    entity.Telefon = reader.GetString(8);
+                                    entity.Email = reader.GetString(9);
+                                    entity.DogumTarihi = reader.GetDateTime(10);
+                                    entity.Adres = reader.GetString(11);
                                     musteriler.Add(entity);
                                 }
                             }
@@ -296,7 +291,7 @@ namespace DataAccesLayer.Concretes
                 query.Append("SELECT ");
                 query.Append(
                     "[MusteriID], [KullaniciAdi], [Sifre], [EhliyetTipi], [EhliyetYil],[Ad],[Soyad],[TCKimlik],[Telefon],[Email],[DogumTarihi],[Adres] ");
-                query.Append("FROM [dbo].[tblMusteri], [dbo].[tblKisiDetay] ");
+                query.Append("FROM [dbo].[tblMusteri]");
                 query.Append("WHERE ");
                 query.Append("[MusteriID] = @id ");
                 query.Append("SELECT @intErrorCode=@@ERROR; ");
@@ -343,13 +338,13 @@ namespace DataAccesLayer.Concretes
                                     entity.Sifre = reader.GetString(2);
                                     entity.EhliyetTipi = reader.GetString(3);
                                     entity.EhliyetYil = reader.GetDateTime(4);
-                                    entity.Kisi.Ad = reader.GetString(5);
-                                    entity.Kisi.Soyad = reader.GetString(6);
-                                    entity.Kisi.TcKimlik = reader.GetString(7);
-                                    entity.Kisi.Telefon = reader.GetString(8);
-                                    entity.Kisi.Email = reader.GetString(9);
-                                    entity.Kisi.DogumTarihi = reader.GetDateTime(10);
-                                    entity.Kisi.Adres = reader.GetString(11);
+                                    entity.Ad = reader.GetString(5);
+                                    entity.Soyad = reader.GetString(6);
+                                    entity.TcKimlik = reader.GetString(7);
+                                    entity.Telefon = reader.GetString(8);
+                                    entity.Email = reader.GetString(9);
+                                    entity.DogumTarihi = reader.GetDateTime(10);
+                                    entity.Adres = reader.GetString(11);
                                     musteri = entity;
                                     break;
                                 }

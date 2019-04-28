@@ -42,7 +42,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Concretes\Araclar.cs" />
-    <Compile Include="Concretes\KisiDetay.cs" />
     <Compile Include="Concretes\Musteriler.cs" />
     <Compile Include="Concretes\Odemeler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

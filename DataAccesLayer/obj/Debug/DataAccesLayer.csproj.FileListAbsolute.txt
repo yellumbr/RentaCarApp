@@ -11,14 +11,14 @@ C:\Users\birkankader\source\repos\RentaCarApp\DataAccesLayer\bin\Debug\Models.pd
 C:\Users\birkankader\source\repos\RentaCarApp\DataAccesLayer\obj\Debug\DataAccesLayer.csproj.CopyComplete
 C:\Users\birkankader\source\repos\RentaCarApp\DataAccesLayer\obj\Debug\DataAccesLayer.dll
 C:\Users\birkankader\source\repos\RentaCarApp\DataAccesLayer\obj\Debug\DataAccesLayer.pdb
+\\Mac\SoaOdev\rentacar\DataAccesLayer\obj\Debug\DataAccesLayer.csprojAssemblyReference.cache
+\\Mac\SoaOdev\rentacar\DataAccesLayer\obj\Debug\DataAccesLayer.csproj.CoreCompileInputs.cache
 \\Mac\SoaOdev\rentacar\DataAccesLayer\bin\Debug\DataAccesLayer.dll
 \\Mac\SoaOdev\rentacar\DataAccesLayer\bin\Debug\DataAccesLayer.pdb
 \\Mac\SoaOdev\rentacar\DataAccesLayer\bin\Debug\Commons.dll
 \\Mac\SoaOdev\rentacar\DataAccesLayer\bin\Debug\Models.dll
 \\Mac\SoaOdev\rentacar\DataAccesLayer\bin\Debug\Commons.pdb
 \\Mac\SoaOdev\rentacar\DataAccesLayer\bin\Debug\Models.pdb
-\\Mac\SoaOdev\rentacar\DataAccesLayer\obj\Debug\DataAccesLayer.csprojAssemblyReference.cache
-\\Mac\SoaOdev\rentacar\DataAccesLayer\obj\Debug\DataAccesLayer.csproj.CoreCompileInputs.cache
 \\Mac\SoaOdev\rentacar\DataAccesLayer\obj\Debug\DataAccesLayer.csproj.CopyComplete
 \\Mac\SoaOdev\rentacar\DataAccesLayer\obj\Debug\DataAccesLayer.dll
 \\Mac\SoaOdev\rentacar\DataAccesLayer\obj\Debug\DataAccesLayer.pdb

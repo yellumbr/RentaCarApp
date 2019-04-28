@@ -10,13 +10,18 @@ namespace Models.Concretes
     {
         public Yonetici()
         {
-            Kisi = new KisiDetay();
+            
         }
-
+        public string TcKimlik { get; set; }
+        public string Ad { get; set; }
+        public string Soyad { get; set; }
+        public string Adres { get; set; }
+        public string Telefon { get; set; }
+        public string Email { get; set; }
+        public DateTime DogumTarihi { get; set; }
         public int YoneticiId { get; set; }
         public int SirketId { get; set; }
         public string Sifre { get; set; }
-        public KisiDetay Kisi { get; set; }
        
 
     }
