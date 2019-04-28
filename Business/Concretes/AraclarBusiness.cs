@@ -8,8 +8,12 @@ using DataAccesLayer.Concretes;
 
 namespace Business.Concretes
 {
-    public class AraclarBusiness
+    public class AraclarBusiness:IDisposable
     {
+        public void Dispose()
+        {
+            GC.SuppressFinalize(true);
+        }
         public AraclarBusiness()
         {
 

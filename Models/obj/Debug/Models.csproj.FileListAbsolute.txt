@@ -3,3 +3,9 @@ C:\Users\birkankader\source\repos\RentaCarApp\Models\bin\Debug\Models.pdb
 C:\Users\birkankader\source\repos\RentaCarApp\Models\obj\Debug\Models.csproj.CoreCompileInputs.cache
 C:\Users\birkankader\source\repos\RentaCarApp\Models\obj\Debug\Models.dll
 C:\Users\birkankader\source\repos\RentaCarApp\Models\obj\Debug\Models.pdb
+\\Mac\SoaOdev\rentacar\Models\bin\Debug\Models.dll
+\\Mac\SoaOdev\rentacar\Models\bin\Debug\Models.pdb
+\\Mac\SoaOdev\rentacar\Models\obj\Debug\Models.csprojAssemblyReference.cache
+\\Mac\SoaOdev\rentacar\Models\obj\Debug\Models.csproj.CoreCompileInputs.cache
+\\Mac\SoaOdev\rentacar\Models\obj\Debug\Models.dll
+\\Mac\SoaOdev\rentacar\Models\obj\Debug\Models.pdb

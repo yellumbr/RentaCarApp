@@ -8,8 +8,12 @@ using DataAccesLayer.Concretes;
 
 namespace Business.Concretes
 {
-    public class OdemelerBusiness
+    public class OdemelerBusiness:IDisposable
     {
+        public void Dispose()
+        {
+            GC.SuppressFinalize(true);
+        }
         public OdemelerBusiness()
         {
 

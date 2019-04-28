@@ -8,8 +8,12 @@ using DataAccesLayer.Concretes;
 
 namespace Business.Concretes
 {
-    public class YoneticiBusiness
+    public class YoneticiBusiness:IDisposable
     {
+        public void Dispose()
+        {
+            GC.SuppressFinalize(true);
+        }
         public YoneticiBusiness()
         {
 

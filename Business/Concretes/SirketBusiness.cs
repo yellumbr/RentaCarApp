@@ -9,11 +9,33 @@ using DataAccesLayer.Concretes;
 
 namespace Business.Concretes
 {
-    public class SirketBusiness
+    public class SirketBusiness:IDisposable
     {
+        private YoneticiBusiness _yoneticiBusiness = new YoneticiBusiness();
+        private bool _bDisposed;
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(true);
+        }
+
+        protected virtual void Dispose(bool bDisposing)
+        {
+            // Check the Dispose method called before.
+            if (!_bDisposed)
+            {
+                if (bDisposing)
+                {
+                    // Clean the resources used.
+                    _yoneticiBusiness = null;
+                }
+
+                _bDisposed = true;
+            }
+        }
         public SirketBusiness()
         {
-
+            _yoneticiBusiness = new YoneticiBusiness();
         }
 
         public bool SirketEkle(Sirket entity)

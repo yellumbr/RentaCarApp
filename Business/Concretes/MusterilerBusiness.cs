@@ -8,8 +8,12 @@ using DataAccesLayer.Concretes;
 
 namespace Business.Concretes
 {
-    public class MusterilerBusiness
+    public class MusterilerBusiness:IDisposable
     {
+        public void Dispose()
+        {
+            GC.SuppressFinalize(true);
+        }
         public MusterilerBusiness()
         {
 
