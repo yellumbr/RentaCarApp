@@ -108,5 +108,29 @@ namespace Business.Concretes
                 throw new Exception("BusinessLogic:CustomerBusiness::SelectAllCustomers::Error occured.", ex);
             }
         }
+
+        public bool AracKirala(Musteriler musteri, Araclar arac)
+        {
+
+            try
+            {
+                bool basariliRepo,basariliRepo2;
+                using (var repo = new AraclarRepository() )
+                {
+                    
+                    basariliRepo = repo.Guncelle(arac);
+                    using (var repo2 = new MusterilerRepository())
+                    {
+                       basariliRepo2=repo2.Guncelle(musteri);
+                    }
+                    return (basariliRepo && basariliRepo2);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

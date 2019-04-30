@@ -58,7 +58,6 @@ namespace DataAccesLayer.Concretes
                 query.Append("VALUES ");
                 query.Append(
                     "( @OdemeMiktari, @Tarih, @Basarili ) ");
-                query.Append("SELECT @intErrorCode=@@ERROR;");
 
                 var commandText = query.ToString();
                 query.Clear();
@@ -83,8 +82,7 @@ namespace DataAccesLayer.Concretes
                         DBHelper.AddParameter(dbCommand, "@OdemeTarihi",  entity.OdemeTarihi);
                         DBHelper.AddParameter(dbCommand, "@OdemeBasarili", entity.OdemeBasarili);
 
-                        //Output Params
-                        DBHelper.AddParameter(dbCommand, "@intErrorCode", null);
+                        
 
                         //Open Connection
                         if (dbConnection.State != ConnectionState.Open)
@@ -92,11 +90,7 @@ namespace DataAccesLayer.Concretes
 
                         //Execute query
                         _rowsAffected = dbCommand.ExecuteNonQuery();
-                        _errorCode = int.Parse(dbCommand.Parameters["@intErrorCode"].Value.ToString());
-
-                        if (_errorCode != 0)
-                            throw new Exception("Inserting Error for entity [tblOdeme] reported the Database ErrorCode: " + _errorCode);
-                    }
+                        }
                 }
                 //Return the results of query/ies
                 return true;
@@ -120,7 +114,6 @@ namespace DataAccesLayer.Concretes
                 query.Append(" SET [OdemeID] = @OdemeID, [OdemeMiktari] = @OdemeMiktari, [OdemeBasarili] =  @OdemeBasarili, [OdemeTarihi] = @OdemeTarihi ");
                 query.Append(" WHERE ");
                 query.Append(" [OdemeID] = @OdemeID ");
-                query.Append(" SELECT @intErrorCode = @@ERROR; ");
 
                 var commandText = query.ToString();
                 query.Clear();
@@ -146,20 +139,14 @@ namespace DataAccesLayer.Concretes
                         DBHelper.AddParameter(dbCommand, "@OdemeBasarili", entity.OdemeBasarili);
                         DBHelper.AddParameter(dbCommand, "@OdemeTarihi", entity.OdemeTarihi);
 
-                        //Output Params
-                        DBHelper.AddParameter(dbCommand, "@intErrorCode", null);
-
+                       
                         //Open Connection
                         if (dbConnection.State != ConnectionState.Open)
                             dbConnection.Open();
 
                         //Execute query
                         _rowsAffected = dbCommand.ExecuteNonQuery();
-                        _errorCode = int.Parse(dbCommand.Parameters["@intErrorCode"].Value.ToString());
-
-                        if (_errorCode != 0)
-                            throw new Exception("Updating Error for entity [tblOdeme] reported the Database ErrorCode: " + _errorCode);
-                    }
+                       }
                 }
                 //Return the results of query/ies
                 return true;
@@ -186,7 +173,7 @@ namespace DataAccesLayer.Concretes
                 query.Append(
                     "[OdemeID], [OdemeMiktari], [OdemeBasarili], [OdemeTarihi]");
                 query.Append("FROM [dbo].[tblOdeme] ");
-                query.Append("SELECT @intErrorCode=@@ERROR; ");
+                
 
                 var commandText = query.ToString();
                 query.Clear();
@@ -209,9 +196,7 @@ namespace DataAccesLayer.Concretes
 
                         //Input Parameters - None
 
-                        //Output Parameters
-                        DBHelper.AddParameter(dbCommand, "@intErrorCode", null);
-
+                        
                         //Open Connection
                         if (dbConnection.State != ConnectionState.Open)
                             dbConnection.Open();
@@ -234,14 +219,7 @@ namespace DataAccesLayer.Concretes
 
                         }
 
-                        _errorCode = int.Parse(dbCommand.Parameters["@intErrorCode"].Value.ToString());
-
-                        if (_errorCode != 0)
-                        {
-                            // Throw error.
-                            throw new Exception("Selecting All Error for entity [tblOdeme] reported the Database ErrorCode: " + _errorCode);
-
-                        }
+                        
                     }
                 }
                 // Return list
@@ -269,7 +247,7 @@ namespace DataAccesLayer.Concretes
                 query.Append("FROM [dbo].[tblOdeme] ");
                 query.Append("WHERE ");
                 query.Append("[OdemeID] = @id ");
-                query.Append("SELECT @intErrorCode=@@ERROR; ");
+             
 
                 var commandText = query.ToString();
                 query.Clear();
@@ -293,9 +271,7 @@ namespace DataAccesLayer.Concretes
                         //Input Parameters
                         DBHelper.AddParameter(dbCommand, "@id", id);
 
-                        //Output Parameters
-                        DBHelper.AddParameter(dbCommand, "@intErrorCode", null);
-
+                       
                         //Open Connection
                         if (dbConnection.State != ConnectionState.Open)
                             dbConnection.Open();
@@ -318,13 +294,7 @@ namespace DataAccesLayer.Concretes
                             }
                         }
 
-                        _errorCode = int.Parse(dbCommand.Parameters["@intErrorCode"].Value.ToString());
-
-                        if (_errorCode != 0)
-                        {
-                            // Throw error.
-                            throw new Exception("Selecting Error for entity [tblOdeme] reported the Database ErrorCode: " + _errorCode);
-                        }
+                       
                     }
                 }
 
@@ -349,7 +319,7 @@ namespace DataAccesLayer.Concretes
                 query.Append("FROM [dbo].[tblOdeme] ");
                 query.Append("WHERE ");
                 query.Append("[tblOdeme] = @OdemeID ");
-                query.Append("SELECT @intErrorCode=@@ERROR; ");
+                
 
                 var commandText = query.ToString();
                 query.Clear();
@@ -373,20 +343,13 @@ namespace DataAccesLayer.Concretes
                         //Input Parameters
                         DBHelper.AddParameter(dbCommand, "@id", id);
 
-                        //Output Parameters
-                        DBHelper.AddParameter(dbCommand, "@intErrorCode", null);
-
+                        
                         //Open Connection
                         if (dbConnection.State != ConnectionState.Open)
                             dbConnection.Open();
                         //Execute query
                         _rowsAffected = dbCommand.ExecuteNonQuery();
-                        _errorCode = int.Parse(dbCommand.Parameters["@intErrorCode"].Value.ToString());
-
-                        if (_errorCode != 0)
-                            throw new Exception(
-                                "Deleting Error for entity [tblOdeme] reported the Database ErrorCode: " +
-                                _errorCode);
+                        
                     }
                 }
                 //Return the results of query/ies

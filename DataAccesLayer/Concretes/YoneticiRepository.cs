@@ -55,8 +55,6 @@ namespace DataAccesLayer.Concretes
                 query.Append("INSERT INTO tblYonetici(TCKimlik,Ad,Soyad,Adres,Telefon,Email,DogumTarihi,Sifre,SirketID) ");
                 query.Append("VALUES( @TCKimlik,@Ad,@Soyad,@Adres,@Telefon,@Email,@DogumTarihi,@Sifre, @SirketID)");
 
-                query.Append("SELECT @intErrorCode=@@ERROR;");
-
                 var commandText = query.ToString();
                 query.Clear();
 
@@ -88,19 +86,14 @@ namespace DataAccesLayer.Concretes
                         DBHelper.AddParameter(dbCommand, "@DogumTarihi", entity.DogumTarihi);
 
 
-                        //Output Params
-                        DBHelper.AddParameter(dbCommand, "@intErrorCode", null);
-
+                       
                         //Open Connection
                         if (dbConnection.State != ConnectionState.Open)
                             dbConnection.Open();
 
                         //Execute query
                         _rowsAffected = dbCommand.ExecuteNonQuery();
-                        _errorCode = int.Parse(dbCommand.Parameters["@intErrorCode"].Value.ToString());
-
-                        if (_errorCode != 0)
-                            throw new Exception("Inserting Error for entity [tblYonetici] reported the Database ErrorCode: " + _errorCode);
+                      
                     }
                 }
                 //Return the results of query/ies
@@ -157,8 +150,7 @@ namespace DataAccesLayer.Concretes
                         DBHelper.AddParameter(dbCommand, "@Email", entity.Email);
                         DBHelper.AddParameter(dbCommand, "@DogumTarihi", entity.DogumTarihi);
 
-                        //Output Params
-                        DBHelper.AddParameter(dbCommand, "@intErrorCode", null);
+                       
 
                         //Open Connection
                         if (dbConnection.State != ConnectionState.Open)
@@ -166,10 +158,7 @@ namespace DataAccesLayer.Concretes
 
                         //Execute query
                         _rowsAffected = dbCommand.ExecuteNonQuery();
-                        _errorCode = int.Parse(dbCommand.Parameters["@intErrorCode"].Value.ToString());
-
-                        if (_errorCode != 0)
-                            throw new Exception("Updating Error for entity [tblYonetici] reported the Database ErrorCode: " + _errorCode);
+                       
                     }
                 }
                 //Return the results of query/ies
@@ -195,7 +184,7 @@ namespace DataAccesLayer.Concretes
                 query.Append(
                     "[YoneticiID], [Sifre],[Ad],[Soyad],[TCKimlik],[Telefon],[Email],[DogumTarihi],[Adres],[SirketID] ");
                 query.Append("FROM [dbo].[tblYonetici] ");
-                query.Append("SELECT @intErrorCode=@@ERROR; ");
+                
 
                 var commandText = query.ToString();
                 query.Clear();
@@ -216,10 +205,6 @@ namespace DataAccesLayer.Concretes
                         dbCommand.Connection = dbConnection;
                         dbCommand.CommandText = commandText;
 
-                        //Input Parameters - None
-
-                        //Output Parameters
-                        DBHelper.AddParameter(dbCommand, "@intErrorCode", null);
 
                         //Open Connection
                         if (dbConnection.State != ConnectionState.Open)
@@ -249,14 +234,7 @@ namespace DataAccesLayer.Concretes
 
                         }
 
-                        _errorCode = int.Parse(dbCommand.Parameters["@intErrorCode"].Value.ToString());
-
-                        if (_errorCode != 0)
-                        {
-                            // Throw error.
-                            throw new Exception("Selecting All Error for entity [tblMusteri] reported the Database ErrorCode: " + _errorCode);
-
-                        }
+                        
                     }
                 }
                 // Return list
@@ -284,7 +262,7 @@ namespace DataAccesLayer.Concretes
                 query.Append("FROM [dbo].[tblYonetici] ");
                 query.Append("WHERE ");
                 query.Append("[YoneticiID] = @id ");
-                query.Append("SELECT @intErrorCode=@@ERROR; ");
+               
 
                 var commandText = query.ToString();
                 query.Clear();
@@ -307,9 +285,6 @@ namespace DataAccesLayer.Concretes
 
                         //Input Parameters
                         DBHelper.AddParameter(dbCommand, "@id", id);
-
-                        //Output Parameters
-                        DBHelper.AddParameter(dbCommand, "@intErrorCode", null);
 
                         //Open Connection
                         if (dbConnection.State != ConnectionState.Open)
@@ -339,13 +314,7 @@ namespace DataAccesLayer.Concretes
                             }
                         }
 
-                        _errorCode = int.Parse(dbCommand.Parameters["@intErrorCode"].Value.ToString());
-
-                        if (_errorCode != 0)
-                        {
-                            // Throw error.
-                            throw new Exception("Selecting Error for entity [tblYonetici] reported the Database ErrorCode: " + _errorCode);
-                        }
+                      
                     }
                 }
 
@@ -369,7 +338,7 @@ namespace DataAccesLayer.Concretes
                 query.Append("FROM [dbo].[tblYonetici] ");
                 query.Append("WHERE ");
                 query.Append("[tblYonetici] = @id ");
-                query.Append("SELECT @intErrorCode=@@ERROR; ");
+               
 
                 var commandText = query.ToString();
                 query.Clear();
@@ -393,20 +362,14 @@ namespace DataAccesLayer.Concretes
                         //Input Parameters
                         DBHelper.AddParameter(dbCommand, "@id", id);
 
-                        //Output Parameters
-                        DBHelper.AddParameter(dbCommand, "@intErrorCode", null);
+                        
 
                         //Open Connection
                         if (dbConnection.State != ConnectionState.Open)
                             dbConnection.Open();
                         //Execute query
                         _rowsAffected = dbCommand.ExecuteNonQuery();
-                        _errorCode = int.Parse(dbCommand.Parameters["@intErrorCode"].Value.ToString());
 
-                        if (_errorCode != 0)
-                            throw new Exception(
-                                "Deleting Error for entity [tblYonetici] reported the Database ErrorCode: " +
-                                _errorCode);
                     }
                 }
                 //Return the results of query/ies

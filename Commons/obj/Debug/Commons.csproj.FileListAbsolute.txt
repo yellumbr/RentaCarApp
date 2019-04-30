@@ -9,4 +9,3 @@ C:\Users\birkankader\source\repos\RentaCarApp\Commons\obj\Debug\Commons.pdb
 \\Mac\SoaOdev\rentacar\Commons\obj\Debug\Commons.csproj.CoreCompileInputs.cache
 \\Mac\SoaOdev\rentacar\Commons\obj\Debug\Commons.dll
 \\Mac\SoaOdev\rentacar\Commons\obj\Debug\Commons.pdb
-\\Mac\SoaOdev\rentacar\Commons\obj\Debug\Commons.csprojAssemblyReference.cache

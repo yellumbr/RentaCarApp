@@ -58,7 +58,7 @@ namespace DataAccesLayer.Concretes
                 query.Append("VALUES ");
                 query.Append(
                     "( @SirketId, @SirketAdi, @Sehir, @Adres, @AracSayisi, @SirketPuani ) ");
-                query.Append("SELECT @intErrorCode=@@ERROR;");
+                
 
                 var commandText = query.ToString();
                 query.Clear();
@@ -86,19 +86,12 @@ namespace DataAccesLayer.Concretes
                         DBHelper.AddParameter(dbCommand, "@AracSayisi", entity.AracSayisi);
                         DBHelper.AddParameter(dbCommand, "@SirketPuani", entity.SirketPuani);
 
-                        //Output Params
-                        DBHelper.AddParameter(dbCommand, "@intErrorCode", null);
-
-                        //Open Connection
+                       //Open Connection
                         if (dbConnection.State != ConnectionState.Open)
                             dbConnection.Open();
 
                         //Execute query
                         _rowsAffected = dbCommand.ExecuteNonQuery();
-                        _errorCode = int.Parse(dbCommand.Parameters["@intErrorCode"].Value.ToString());
-
-                        if (_errorCode != 0)
-                            throw new Exception("Inserting Error for entity [tblSirket] reported the Database ErrorCode: " + _errorCode);
                     }
                 }
                 //Return the results of query/ies
@@ -123,7 +116,7 @@ namespace DataAccesLayer.Concretes
                 query.Append("SET [SirketID] = @SirketId, [SirketAdi] = @SirketAdi, [Sehir] =  @Sehir, [Adres] = @Adres, [AracSayisi] = @AracSayisi, [SirketPuani] = @SirketPuani ");
                 query.Append("WHERE ");
                 query.Append(" [SirketID] = @SirketId ");
-                query.Append("SELECT @intErrorCode=@@ERROR;");
+               
 
                 var commandText = query.ToString();
                 query.Clear();
@@ -150,19 +143,13 @@ namespace DataAccesLayer.Concretes
                         DBHelper.AddParameter(dbCommand, "@Adres", entity.Adres);
                         DBHelper.AddParameter(dbCommand, "@AracSayisi", entity.AracSayisi);
                         DBHelper.AddParameter(dbCommand, "@SirketPuani", entity.SirketPuani);
-                        //Output Params
-                        DBHelper.AddParameter(dbCommand, "@intErrorCode", null);
-
+                       
                         //Open Connection
                         if (dbConnection.State != ConnectionState.Open)
                             dbConnection.Open();
 
                         //Execute query
                         _rowsAffected = dbCommand.ExecuteNonQuery();
-                        _errorCode = int.Parse(dbCommand.Parameters["@intErrorCode"].Value.ToString());
-
-                        if (_errorCode != 0)
-                            throw new Exception("Updating Error for entity [tblSirket] reported the Database ErrorCode: " + _errorCode);
                     }
                 }
                 //Return the results of query/ies
@@ -188,7 +175,7 @@ namespace DataAccesLayer.Concretes
                 query.Append(
                     "[SirketId], [SirketAdi], [Sehir], [Adres], [AracSayisi], [SirketPuani] ");
                 query.Append("FROM [dbo].[tblSirket] ");
-                query.Append("SELECT @intErrorCode=@@ERROR; ");
+               
 
                 var commandText = query.ToString();
                 query.Clear();
@@ -208,11 +195,6 @@ namespace DataAccesLayer.Concretes
 
                         dbCommand.Connection = dbConnection;
                         dbCommand.CommandText = commandText;
-
-                        //Input Parameters - None
-
-                        //Output Parameters
-                        DBHelper.AddParameter(dbCommand, "@intErrorCode", null);
 
                         //Open Connection
                         if (dbConnection.State != ConnectionState.Open)
@@ -238,14 +220,7 @@ namespace DataAccesLayer.Concretes
 
                         }
 
-                        _errorCode = int.Parse(dbCommand.Parameters["@intErrorCode"].Value.ToString());
-
-                        if (_errorCode != 0)
-                        {
-                            // Throw error.
-                            throw new Exception("Selecting All Error for entity [tblSirket] reported the Database ErrorCode: " + _errorCode);
-
-                        }
+                       
                     }
                 }
                 // Return list
@@ -273,7 +248,7 @@ namespace DataAccesLayer.Concretes
                 query.Append("FROM [dbo].[tblSirket] ");
                 query.Append("WHERE ");
                 query.Append("[SirketID] = @id ");
-                query.Append("SELECT @intErrorCode=@@ERROR; ");
+               
 
                 var commandText = query.ToString();
                 query.Clear();
@@ -296,9 +271,6 @@ namespace DataAccesLayer.Concretes
 
                         //Input Parameters
                         DBHelper.AddParameter(dbCommand, "@id", id);
-
-                        //Output Parameters
-                        DBHelper.AddParameter(dbCommand, "@intErrorCode",null);
 
                         //Open Connection
                         if (dbConnection.State != ConnectionState.Open)
@@ -324,13 +296,7 @@ namespace DataAccesLayer.Concretes
                             }
                         }
 
-                        _errorCode = int.Parse(dbCommand.Parameters["@intErrorCode"].Value.ToString());
-
-                        if (_errorCode != 0)
-                        {
-                            // Throw error.
-                            throw new Exception("Selecting Error for entity [tblSirket] reported the Database ErrorCode: " + _errorCode);
-                        }
+                       
                     }
                 }
 
@@ -355,7 +321,7 @@ namespace DataAccesLayer.Concretes
                 query.Append("FROM [dbo].[tblSirket] ");
                 query.Append("WHERE ");
                 query.Append("[tblSirket] = @id ");
-                query.Append("SELECT @intErrorCode=@@ERROR; ");
+             
 
                 var commandText = query.ToString();
                 query.Clear();
@@ -379,20 +345,12 @@ namespace DataAccesLayer.Concretes
                         //Input Parameters
                         DBHelper.AddParameter(dbCommand, "@id", id);
 
-                        //Output Parameters
-                        DBHelper.AddParameter(dbCommand, "@intErrorCode", null);
-
                         //Open Connection
                         if (dbConnection.State != ConnectionState.Open)
                             dbConnection.Open();
                         //Execute query
                         _rowsAffected = dbCommand.ExecuteNonQuery();
-                        _errorCode = int.Parse(dbCommand.Parameters["@intErrorCode"].Value.ToString());
-
-                        if (_errorCode != 0)
-                            throw new Exception(
-                                "Deleting Error for entity [tblSirket] reported the Database ErrorCode: " +
-                                _errorCode);
+                       
                     }
                 }
                 //Return the results of query/ies

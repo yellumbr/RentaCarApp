@@ -14,7 +14,7 @@ namespace DataAccesLayer.Concretes
         private string _connectionString;
         private string _dbProviderName;
         private DbProviderFactory _dbProviderFactory;
-        private int _rowsAffected, _errorCode;
+        private int _rowsAffected;
         private bool _bDisposed;
         public void Dispose()
         {
@@ -45,7 +45,7 @@ namespace DataAccesLayer.Concretes
         public bool Ekle(Araclar entity)
         {
             _rowsAffected = 0;
-            _errorCode = 0;
+            
 
             try
             {
@@ -55,7 +55,6 @@ namespace DataAccesLayer.Concretes
                 query.Append("VALUES ");
                 query.Append(
                     "( @AracAdi, @AracModel, @GerekenEhliyetYasi,@MinimumYasSiniri,@GunlukKmSiniri,@AracKm,@HavaYastigi,@BagajHacmi,@KoltukSayisi,@GunlukKiraBedeli,@Rezerv,@Kirada,@YakitTipi,@VitesTipi,@Plaka,@AracResmi ) ");
-                query.Append("SELECT @intErrorCode=@@ERROR;");
 
                 var commandText = query.ToString();
                 query.Clear();
@@ -93,19 +92,13 @@ namespace DataAccesLayer.Concretes
                         DBHelper.AddParameter(dbCommand, "@VitesTipi", entity.VitesTipi);
                         DBHelper.AddParameter(dbCommand, "@YakitTipi", entity.YakitTipi);
 
-                        //Output Params
-                        DBHelper.AddParameter(dbCommand, "@intErrorCode", null);
-
                         //Open Connection
                         if (dbConnection.State != ConnectionState.Open)
                             dbConnection.Open();
 
                         //Execute query
                         _rowsAffected = dbCommand.ExecuteNonQuery();
-                        _errorCode = int.Parse(dbCommand.Parameters["@intErrorCode"].Value.ToString());
-
-                        if (_errorCode != 0)
-                            throw new Exception("Inserting Error for entity [tblArac] reported the Database ErrorCode: " + _errorCode);
+                       
                     }
                 }
                 //Return the results of query/ies
@@ -121,7 +114,7 @@ namespace DataAccesLayer.Concretes
         public bool Guncelle(Araclar entity)
         {
             _rowsAffected = 0;
-            _errorCode = 0;
+           
 
             try
             {
@@ -131,7 +124,6 @@ namespace DataAccesLayer.Concretes
                     "[AracKm] = @AracKm, [HavaYastigi] = @HavaYastigi, [BagajHacmi] = @BagajHacmi, [KoltukSayisi] = @KoltukSayisi, [GunlukKiraBedeli] = @GunlukKiraBedeli, [Rezerv] = @Rezerv, [Kirada] = @Kirada, [YakitTipi] = @YakitTipi, [VitesTipi] = @VitesTipi, [AracResmi] = @AracResmi, ");
                 query.Append("WHERE ");
                 query.Append(" [AracId] = @AracId ");
-                query.Append("SELECT @intErrorCode=@@ERROR;");
 
                 var commandText = query.ToString();
                 query.Clear();
@@ -170,19 +162,14 @@ namespace DataAccesLayer.Concretes
                         DBHelper.AddParameter(dbCommand, "@VitesTipi", entity.VitesTipi);
                         DBHelper.AddParameter(dbCommand, "@YakitTipi", entity.YakitTipi);
 
-                        //Output Params
-                        DBHelper.AddParameter(dbCommand, "@intErrorCode", null);
-
+                        
                         //Open Connection
                         if (dbConnection.State != ConnectionState.Open)
                             dbConnection.Open();
 
                         //Execute query
                         _rowsAffected = dbCommand.ExecuteNonQuery();
-                        _errorCode = int.Parse(dbCommand.Parameters["@intErrorCode"].Value.ToString());
-
-                        if (_errorCode != 0)
-                            throw new Exception("Updating Error for entity [tblArac] reported the Database ErrorCode: " + _errorCode);
+                        
                     }
                 }
                 //Return the results of query/ies
@@ -196,7 +183,7 @@ namespace DataAccesLayer.Concretes
 
         public IList<Araclar> HepsiniSec()
         {
-            _errorCode = 0;
+           
             _rowsAffected = 0;
 
             IList<Araclar> araclar = new List<Araclar>();
@@ -208,7 +195,6 @@ namespace DataAccesLayer.Concretes
                 query.Append(
                     "[AracId], [Plaka], [AracAdi], [AracModeli], [GerekenEhliyetYasi], [MinimumYasSiniri], [GunlukKmSiniri], [AracKm], [HavaYastigi], [BagajHacmi], [KoltukSayisi], [GunlukKiraBedeli], [Rezerv], [Kirada], [YakitTipi], [VitesTipi], [AracResmi] ");
                 query.Append("FROM [dbo].[tblArac] ");
-                query.Append("SELECT @intErrorCode=@@ERROR; ");
 
                 var commandText = query.ToString();
                 query.Clear();
@@ -231,9 +217,7 @@ namespace DataAccesLayer.Concretes
 
                         //Input Parameters - None
 
-                        //Output Parameters
-                        DBHelper.AddParameter(dbCommand, "@intErrorCode"
-                            , null);
+                       
 
                         //Open Connection
                         if (dbConnection.State != ConnectionState.Open)
@@ -255,14 +239,14 @@ namespace DataAccesLayer.Concretes
                                     entity.MinimumYasSiniri = reader.GetInt32(5);
                                     entity.GunlukKmSiniri = reader.GetInt32(6);
                                     entity.AracKm = reader.GetInt32(7);
-                                    entity.HavaYastigi = reader.GetBoolean(8);
+                                    entity.HavaYastigi = reader.GetString(8);
                                     entity.BagajHacmi = reader.GetInt32(9);
                                     entity.KoltukSayisi = reader.GetInt32(10);
                                     entity.GunlukKiraBedeli = reader.GetInt32(11);
                                     entity.Rezerv = reader.GetBoolean(12);
                                     entity.Kirada = reader.GetBoolean(13);
-                                    entity.YakitTipi = reader.GetByte(14);
-                                    entity.VitesTipi = reader.GetBoolean(15);
+                                    entity.YakitTipi = reader.GetString(14);
+                                    entity.VitesTipi = reader.GetString(15);
                                     entity.AracResmi = reader.GetString(16);
                                     araclar.Add(entity);
                                 }
@@ -270,14 +254,6 @@ namespace DataAccesLayer.Concretes
 
                         }
 
-                        _errorCode = int.Parse(dbCommand.Parameters["@intErrorCode"].Value.ToString());
-
-                        if (_errorCode != 0)
-                        {
-                            // Throw error.
-                            throw new Exception("Selecting All Error for entity [tblArac] reported the Database ErrorCode: " + _errorCode);
-
-                        }
                     }
                 }
                 // Return list
@@ -291,7 +267,7 @@ namespace DataAccesLayer.Concretes
 
         public Araclar IdSec(int id)
         {
-            _errorCode = 0;
+            
             _rowsAffected = 0;
 
             Araclar arac = null;
@@ -305,7 +281,6 @@ namespace DataAccesLayer.Concretes
                 query.Append("FROM [dbo].[tblArac] ");
                 query.Append("WHERE ");
                 query.Append("[AracId] = @id ");
-                query.Append("SELECT @intErrorCode=@@ERROR; ");
 
                 var commandText = query.ToString();
                 query.Clear();
@@ -329,8 +304,7 @@ namespace DataAccesLayer.Concretes
                         //Input Parameters
                         DBHelper.AddParameter(dbCommand, "@id", id);
 
-                        //Output Parameters
-                        DBHelper.AddParameter(dbCommand, "@intErrorCode", null);
+                       
 
                         //Open Connection
                         if (dbConnection.State != ConnectionState.Open)
@@ -352,14 +326,14 @@ namespace DataAccesLayer.Concretes
                                     entity.MinimumYasSiniri = reader.GetInt32(5);
                                     entity.GunlukKmSiniri = reader.GetInt32(6);
                                     entity.AracKm = reader.GetInt32(7);
-                                    entity.HavaYastigi = reader.GetBoolean(8);
+                                    entity.HavaYastigi = reader.GetString(8);
                                     entity.BagajHacmi = reader.GetInt32(9);
                                     entity.KoltukSayisi = reader.GetInt32(10);
                                     entity.GunlukKiraBedeli = reader.GetInt32(11);
                                     entity.Rezerv = reader.GetBoolean(12);
                                     entity.Kirada = reader.GetBoolean(13);
-                                    entity.YakitTipi = reader.GetByte(14);
-                                    entity.VitesTipi = reader.GetBoolean(15);
+                                    entity.YakitTipi = reader.GetString(14);
+                                    entity.VitesTipi = reader.GetString(15);
                                     entity.AracResmi = reader.GetString(16);
                                     arac= entity;
                                     break;
@@ -367,13 +341,7 @@ namespace DataAccesLayer.Concretes
                             }
                         }
 
-                        _errorCode = int.Parse(dbCommand.Parameters["@intErrorCode"].Value.ToString());
-
-                        if (_errorCode != 0)
-                        {
-                            // Throw error.
-                            throw new Exception("Selecting Error for entity [tblArac] reported the Database ErrorCode: " + _errorCode);
-                        }
+                        
                     }
                 }
 
@@ -387,7 +355,7 @@ namespace DataAccesLayer.Concretes
 
         public bool IdSil(int id)
         {
-            _errorCode = 0;
+            
             _rowsAffected = 0;
 
             try
@@ -397,8 +365,6 @@ namespace DataAccesLayer.Concretes
                 query.Append("FROM [dbo].[tblArac] ");
                 query.Append("WHERE ");
                 query.Append("[tblArac] = @id ");
-                //TODO: SAÇMA
-                query.Append("SELECT @intErrorCode=@@ERROR; ");
 
                 var commandText = query.ToString();
                 query.Clear();
@@ -422,20 +388,12 @@ namespace DataAccesLayer.Concretes
                         //Input Parameters
                         DBHelper.AddParameter(dbCommand, "@id", id);
 
-                        //Output Parameters
-                        DBHelper.AddParameter(dbCommand, "@intErrorCode", null);
-
                         //Open Connection
                         if (dbConnection.State != ConnectionState.Open)
                             dbConnection.Open();
                         //Execute query
                         _rowsAffected = dbCommand.ExecuteNonQuery();
-                        _errorCode = int.Parse(dbCommand.Parameters["@intErrorCode"].Value.ToString());
-
-                        if (_errorCode != 0)
-                            throw new Exception(
-                                "Deleting Error for entity [tblArac] reported the Database ErrorCode: " +
-                                _errorCode);
+                       
                     }
                 }
                 //Return the results of query/ies

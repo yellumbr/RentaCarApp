@@ -1,16 +1,14 @@
-﻿using System;
-using System.Data;
-using System.Data.Common;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Commons.Concretes;
 using DataAccesLayer.Abstractions;
 using Models.Concretes;
-using Commons.Concretes;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
+using System.Text;
 namespace DataAccesLayer.Concretes
 {
-    public class MusterilerRepository : IRepository<Musteriler>,IDisposable
+    public class MusterilerRepository : IRepository<Musteriler>, IDisposable
     {
         private string _connectionString;
         private string _dbProviderName;
@@ -47,14 +45,13 @@ namespace DataAccesLayer.Concretes
         public bool Ekle(Musteriler entity)
         {
             _rowsAffected = 0;
-            _errorCode = 0;
 
             try
             {
                 var query = new StringBuilder();
-                query.Append("INSERT INTO tblMusteri(TCKimlik,Ad,Soyad,Adres,Telefon,Email,KaraListe,KullaniciAdi,Sifre,EhliyetTipi)");
-                query.Append("VALUES(@TCKimlik,@Ad,@Soyad,@Adres,@Telefon,@Email,@KaraListe,@KullaniciAdi,@Sifre,@EhliyetTipi)");
-                
+                query.Append("INSERT INTO tblMusteri(TCKimlik,Ad,Soyad,Adres,Telefon,Email,KaraListe,KullaniciAdi,Sifre,EhliyetTipi)");//,EhliyetTarih,DogumTarihi
+                query.Append("VALUES(@TCKimlik,@Ad,@Soyad,@Adres,@Telefon,@Email,@KaraListe,@KullaniciAdi,@Sifre,@EhliyetTipi)");//,@EhliyetTarih,@DogumTarihi
+
                 var commandText = query.ToString();
                 query.Clear();
 
@@ -77,7 +74,7 @@ namespace DataAccesLayer.Concretes
                         DBHelper.AddParameter(dbCommand, "@KaraListe", entity.KaraListe);
                         DBHelper.AddParameter(dbCommand, "@KullaniciAdi", entity.KullaniciAdi);
                         DBHelper.AddParameter(dbCommand, "@Sifre", entity.Sifre);
-                      //  DBHelper.AddParameter(dbCommand, "@EhliyetTarih", entity.EhliyetYil);
+                        DBHelper.AddParameter(dbCommand, "@EhliyetTarih", entity.EhliyetYil);
                         DBHelper.AddParameter(dbCommand, "@EhliyetTipi", entity.EhliyetTipi);
                         DBHelper.AddParameter(dbCommand, "@TCKimlik", entity.TcKimlik);
                         DBHelper.AddParameter(dbCommand, "@Ad", entity.Ad);
@@ -85,8 +82,8 @@ namespace DataAccesLayer.Concretes
                         DBHelper.AddParameter(dbCommand, "@Adres", entity.Adres);
                         DBHelper.AddParameter(dbCommand, "@Telefon", entity.Telefon);
                         DBHelper.AddParameter(dbCommand, "@Email", entity.Email);
-                      //  DBHelper.AddParameter(dbCommand, "@DogumTarihi", entity.DogumTarihi);
-                      
+                        DBHelper.AddParameter(dbCommand, "@DogumTarihi", entity.DogumTarihi);
+
 
 
                         //Open Connection
@@ -95,7 +92,7 @@ namespace DataAccesLayer.Concretes
 
                         //Execute query
                         _rowsAffected = dbCommand.ExecuteNonQuery();
-                      
+
                     }
                 }
                 //Return the results of query/ies
@@ -118,7 +115,7 @@ namespace DataAccesLayer.Concretes
                 var query = new StringBuilder();
                 query.Append(" UPDATE [dbo].[tblMusteri] ");
                 //KaraListe,KullaniciAdi,Sifre,EhliyetTarih,EhliyetTipi
-                query.Append(" SET [TCKimlik] = @TCKimlik, [Ad] = @Ad, [Soyad] =  @Soyad, [Adres] = @Adres, [Telefon] = @Telefon, [Email] = @Email,  [KaraListe] = @KaraListe, [KullaniciAdi] = @KullaniciAdi, [Sifre] =  @Sifre, [EhliyetTipi] = @EhliyetTipi ");
+                query.Append(" SET [TCKimlik] = @TCKimlik, [Ad] = @Ad, [Soyad] =  @Soyad, [Adres] = @Adres, [Telefon] = @Telefon, [Email] = @Email,  [KaraListe] = @KaraListe, [KullaniciAdi] = @KullaniciAdi, [Sifre] =  @Sifre, [EhliyetTipi] = @EhliyetTipi,[EhliyetTarih]=@EhliyetTarih,[DogumTarihi]=@DogumTarihi ");
                 query.Append(" WHERE ");
                 query.Append(" [MusteriID] = @MusteriID ");
 
@@ -146,7 +143,7 @@ namespace DataAccesLayer.Concretes
                         DBHelper.AddParameter(dbCommand, "@KaraLise", entity.KaraListe);
                         DBHelper.AddParameter(dbCommand, "@KullaniciAdi", entity.KullaniciAdi);
                         DBHelper.AddParameter(dbCommand, "@Sifre", entity.Sifre);
-                     //   DBHelper.AddParameter(dbCommand, "@EhliyetTarih", entity.EhliyetYil);
+                        DBHelper.AddParameter(dbCommand, "@EhliyetTarih", entity.EhliyetYil);
                         DBHelper.AddParameter(dbCommand, "@EhliyetTipi", entity.EhliyetTipi);
                         DBHelper.AddParameter(dbCommand, "@TCKimlik", entity.TcKimlik);
                         DBHelper.AddParameter(dbCommand, "@Ad", entity.Ad);
@@ -154,7 +151,7 @@ namespace DataAccesLayer.Concretes
                         DBHelper.AddParameter(dbCommand, "@Adres", entity.Adres);
                         DBHelper.AddParameter(dbCommand, "@Telefon", entity.Telefon);
                         DBHelper.AddParameter(dbCommand, "@Email", entity.Email);
-                     //   DBHelper.AddParameter(dbCommand, "@DogumTarihi", entity.DogumTarihi);
+                        DBHelper.AddParameter(dbCommand, "@DogumTarihi", entity.DogumTarihi);
 
 
                         //Open Connection
@@ -177,7 +174,6 @@ namespace DataAccesLayer.Concretes
 
         public IList<Musteriler> HepsiniSec()
         {
-            _errorCode = 0;
             _rowsAffected = 0;
 
             IList<Musteriler> musteriler = new List<Musteriler>();
@@ -209,7 +205,7 @@ namespace DataAccesLayer.Concretes
                         dbCommand.Connection = dbConnection;
                         dbCommand.CommandText = commandText;
 
-                       
+
                         //Open Connection
                         if (dbConnection.State != ConnectionState.Open)
                             dbConnection.Open();
@@ -226,19 +222,19 @@ namespace DataAccesLayer.Concretes
                                     entity.KaraListe = reader.GetBoolean(1);
                                     entity.Sifre = reader.GetString(2);
                                     entity.EhliyetTipi = reader.GetString(3);
-                                   // entity.EhliyetYil = reader.GetDateTime(4);
+                                    entity.EhliyetYil = reader.GetDateTime(4);
                                     entity.Ad = reader.GetString(4);
                                     entity.Soyad = reader.GetString(5);
                                     entity.TcKimlik = reader.GetString(6);
                                     entity.Telefon = reader.GetString(7);
                                     entity.Email = reader.GetString(8);
-                                   // entity.DogumTarihi = reader.GetDateTime(10);
+                                    entity.DogumTarihi = reader.GetDateTime(10);
                                     entity.Adres = reader.GetString(9);
                                     musteriler.Add(entity);
                                 }
                             }
 
-                        }   
+                        }
                     }
                 }
                 // Return list
@@ -252,7 +248,7 @@ namespace DataAccesLayer.Concretes
 
         public Musteriler IdSec(int id)
         {
-           
+
             _rowsAffected = 0;
 
             Musteriler musteri = null;
@@ -289,7 +285,7 @@ namespace DataAccesLayer.Concretes
                         //Input Parameters
                         DBHelper.AddParameter(dbCommand, "@id", id);
 
-                       
+
                         //Open Connection
                         if (dbConnection.State != ConnectionState.Open)
                             dbConnection.Open();
@@ -306,13 +302,13 @@ namespace DataAccesLayer.Concretes
                                     entity.KaraListe = reader.GetBoolean(1);
                                     entity.Sifre = reader.GetString(2);
                                     entity.EhliyetTipi = reader.GetString(3);
-                                   // entity.EhliyetYil = reader.GetDateTime(4);
+                                    // entity.EhliyetYil = reader.GetDateTime(4);
                                     entity.Ad = reader.GetString(4);
                                     entity.Soyad = reader.GetString(5);
                                     entity.TcKimlik = reader.GetString(6);
                                     entity.Telefon = reader.GetString(7);
                                     entity.Email = reader.GetString(8);
-                                   // entity.DogumTarihi = reader.GetDateTime(10);
+                                    // entity.DogumTarihi = reader.GetDateTime(10);
                                     entity.Adres = reader.GetString(9);
                                     musteri = entity;
                                     break;
@@ -320,7 +316,7 @@ namespace DataAccesLayer.Concretes
                             }
                         }
 
-                       
+
                     }
                 }
 
@@ -334,7 +330,7 @@ namespace DataAccesLayer.Concretes
 
         public bool IdSil(int id)
         {
-            
+
             _rowsAffected = 0;
 
             try
@@ -344,7 +340,7 @@ namespace DataAccesLayer.Concretes
                 query.Append("FROM [dbo].[tblMusteri] ");
                 query.Append("WHERE ");
                 query.Append("[tblMusteri] = @id ");
-               
+
 
                 var commandText = query.ToString();
                 query.Clear();
@@ -366,7 +362,7 @@ namespace DataAccesLayer.Concretes
                         dbCommand.CommandText = commandText;
 
                         //Input Parameters
-                        DBHelper.AddParameter(dbCommand, "@id",  id);
+                        DBHelper.AddParameter(dbCommand, "@id", id);
 
 
                         //Open Connection
@@ -374,7 +370,7 @@ namespace DataAccesLayer.Concretes
                             dbConnection.Open();
                         //Execute query
                         _rowsAffected = dbCommand.ExecuteNonQuery();
-                        
+
                     }
                 }
                 //Return the results of query/ies

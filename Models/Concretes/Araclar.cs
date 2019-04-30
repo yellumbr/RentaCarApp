@@ -1,4 +1,7 @@
-﻿namespace Models.Concretes
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+namespace Models.Concretes
 {
     public class Araclar
     {
@@ -14,14 +17,16 @@
         public int MinimumYasSiniri { get; set; }
         public int GunlukKmSiniri { get; set; }
         public int AracKm { get; set; }
-        public bool HavaYastigi { get; set; }
+        public string HavaYastigi { get; set; }
         public int BagajHacmi  { get; set; }
         public int KoltukSayisi { get; set; }
         public int GunlukKiraBedeli { get; set; }
         public bool Rezerv { get; set; }
         public bool Kirada { get; set; }
-        public int YakitTipi { get; set; }
-        public bool VitesTipi { get; set; }
+        public string YakitTipi { get; set; }
+        public string VitesTipi { get; set; }
+        public DateTime KiralanmaTarihi { get; set; }
+        public DateTime KiradanDonusTarihi { get; set; }
         public string AracResmi { get; set; }
         public Musteriler Musteri { get; set; }
 
