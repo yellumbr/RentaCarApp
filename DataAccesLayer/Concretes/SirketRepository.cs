@@ -16,7 +16,7 @@ namespace DataAccesLayer.Concretes
         private string _connectionString;
         private string _dbProviderName;
         private DbProviderFactory _dbProviderFactory;
-        private int _rowsAffected, _errorCode;
+        private int _rowsAffected;
         private bool _bDisposed;
         public void Dispose()
         {
@@ -48,13 +48,13 @@ namespace DataAccesLayer.Concretes
         public bool Ekle(Sirket entity)
         {
             _rowsAffected = 0;
-            _errorCode = 0;
+            
 
             try
             {
                 var query = new StringBuilder();
                 query.Append("INSERT [dbo].[tblSirket] ");
-                query.Append("( [SirketId], [SirketAdi], [Sehir], [Adres], [AracSayisi], [SirketPuani] ) ");
+                query.Append("( [SirketID], [SirketAdi], [Sehir], [Adres], [AracSayisi], [SirketPuani] ) ");
                 query.Append("VALUES ");
                 query.Append(
                     "( @SirketId, @SirketAdi, @Sehir, @Adres, @AracSayisi, @SirketPuani ) ");
@@ -107,13 +107,13 @@ namespace DataAccesLayer.Concretes
         public bool Guncelle(Sirket entity)
         {
             _rowsAffected = 0;
-            _errorCode = 0;
+            
 
             try
             {
                 var query = new StringBuilder();
                 query.Append("UPDATE [dbo].[tblSirket] ");
-                query.Append("SET [SirketID] = @SirketId, [SirketAdi] = @SirketAdi, [Sehir] =  @Sehir, [Adres] = @Adres, [AracSayisi] = @AracSayisi, [SirketPuani] = @SirketPuani ");
+                query.Append("SET [SirketAdi] = @SirketAdi, [Sehir] =  @Sehir, [Adres] = @Adres, [AracSayisi] = @AracSayisi, [SirketPuani] = @SirketPuani ");
                 query.Append("WHERE ");
                 query.Append(" [SirketID] = @SirketId ");
                
@@ -163,7 +163,7 @@ namespace DataAccesLayer.Concretes
 
         public IList<Sirket> HepsiniSec()
         {
-            _errorCode = 0;
+            
             _rowsAffected = 0;
 
             IList<Sirket> sirketler = new List<Sirket>();
@@ -173,7 +173,7 @@ namespace DataAccesLayer.Concretes
                 var query = new StringBuilder();
                 query.Append("SELECT ");
                 query.Append(
-                    "[SirketId], [SirketAdi], [Sehir], [Adres], [AracSayisi], [SirketPuani] ");
+                    "[SirketID], [SirketAdi], [Sehir], [Adres], [AracSayisi] ");
                 query.Append("FROM [dbo].[tblSirket] ");
                
 
@@ -213,7 +213,7 @@ namespace DataAccesLayer.Concretes
                                     entity.Sehir = reader.GetString(2);
                                     entity.Adres = reader.GetString(3);
                                     entity.AracSayisi = reader.GetInt32(4);
-                                    entity.SirketPuani = reader.GetFloat(5);
+                                    //entity.SirketPuani = reader.GetFloat(5);
                                     sirketler.Add(entity);
                                 }
                             }
@@ -234,7 +234,7 @@ namespace DataAccesLayer.Concretes
 
         public Sirket IdSec(int id)
         {
-            _errorCode = 0;
+            
             _rowsAffected = 0;
 
             Sirket sirket= null;
@@ -244,7 +244,7 @@ namespace DataAccesLayer.Concretes
                 var query = new StringBuilder();
                 query.Append("SELECT ");
                 query.Append(
-                    "[SirketId], [SirketAdi], [Sehir], [Adres], [AracSayisi], [SirketPuani] ");
+                    "[SirketID], [SirketAdi], [Sehir], [Adres], [AracSayisi], [SirketPuani] ");
                 query.Append("FROM [dbo].[tblSirket] ");
                 query.Append("WHERE ");
                 query.Append("[SirketID] = @id ");
@@ -311,7 +311,7 @@ namespace DataAccesLayer.Concretes
 
         public bool IdSil(int id)
         {
-            _errorCode = 0;
+            
             _rowsAffected = 0;
 
             try

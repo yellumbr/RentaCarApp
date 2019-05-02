@@ -7,7 +7,7 @@ namespace Models.Concretes
     {
         public Araclar()
         {
-           Musteri = new Musteriler();
+           
         }
         public int AracId { get; set; }
         public string Plaka { get; set; }
@@ -20,7 +20,7 @@ namespace Models.Concretes
         public string HavaYastigi { get; set; }
         public int BagajHacmi  { get; set; }
         public int KoltukSayisi { get; set; }
-        public int GunlukKiraBedeli { get; set; }
+        public decimal GunlukKiraBedeli { get; set; }
         public bool Rezerv { get; set; }
         public bool Kirada { get; set; }
         public string YakitTipi { get; set; }
@@ -28,7 +28,8 @@ namespace Models.Concretes
         public DateTime KiralanmaTarihi { get; set; }
         public DateTime KiradanDonusTarihi { get; set; }
         public string AracResmi { get; set; }
-        public Musteriler Musteri { get; set; }
+        public int MusteriId { get; set; }
+        public int SirketId { get; set; }
 
 
     }

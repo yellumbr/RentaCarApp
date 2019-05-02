@@ -26,6 +26,8 @@ namespace Business.Concretes
                 using (var repo = new YoneticiRepository())
                 {
                     basarilimi = repo.Ekle(entity);
+
+
                 }
                 return basarilimi;
             }

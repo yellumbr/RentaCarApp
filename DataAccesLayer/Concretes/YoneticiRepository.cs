@@ -83,7 +83,7 @@ namespace DataAccesLayer.Concretes
                         DBHelper.AddParameter(dbCommand, "@Adres", entity.Adres);
                         DBHelper.AddParameter(dbCommand, "@Telefon", entity.Telefon);
                         DBHelper.AddParameter(dbCommand, "@Email", entity.Email);
-                        DBHelper.AddParameter(dbCommand, "@DogumTarihi", entity.DogumTarihi);
+                        DBHelper.AddParameter(dbCommand, "@DogumTarihi", entity.DogumTarihi.Date);
 
 
                        
@@ -148,7 +148,7 @@ namespace DataAccesLayer.Concretes
                         DBHelper.AddParameter(dbCommand, "@Adres", entity.Adres);
                         DBHelper.AddParameter(dbCommand, "@Telefon", entity.Telefon);
                         DBHelper.AddParameter(dbCommand, "@Email", entity.Email);
-                        DBHelper.AddParameter(dbCommand, "@DogumTarihi", entity.DogumTarihi);
+                        DBHelper.AddParameter(dbCommand, "@DogumTarihi", entity.DogumTarihi.Date);
 
                        
 
@@ -182,7 +182,7 @@ namespace DataAccesLayer.Concretes
                 var query = new StringBuilder();
                 query.Append("SELECT ");
                 query.Append(
-                    "[YoneticiID], [Sifre],[Ad],[Soyad],[TCKimlik],[Telefon],[Email],[DogumTarihi],[Adres],[SirketID] ");
+                    "[YoneticiID],[SirketID], [Sifre],[TCKimlik],[Ad],[Soyad],[Adres],[Telefon],[Email],[DogumTarihi]");
                 query.Append("FROM [dbo].[tblYonetici] ");
                 
 
@@ -221,13 +221,14 @@ namespace DataAccesLayer.Concretes
                                     entity.YoneticiId = reader.GetInt32(0);
                                     entity.SirketId = reader.GetInt32(1);
                                     entity.Sifre = reader.GetString(2);
-                                    entity.Ad = reader.GetString(3);
-                                    entity.Soyad = reader.GetString(4);
-                                    entity.TcKimlik = reader.GetString(5);
-                                    entity.Telefon = reader.GetString(6);
-                                    entity.Email = reader.GetString(7);
-                                    entity.DogumTarihi = reader.GetDateTime(8);
-                                    entity.Adres = reader.GetString(9);
+                                    entity.TcKimlik = reader.GetString(3);
+                                    entity.Ad = reader.GetString(4);
+                                    entity.Soyad = reader.GetString(5);
+                                    entity.Adres = reader.GetString(6);
+                                    entity.Telefon = reader.GetString(7);
+                                    entity.Email = reader.GetString(8);
+                                    entity.DogumTarihi = reader.GetDateTime(9).Date;
+                                    
                                     yoneticiler.Add(entity);
                                 }
                             }
@@ -258,7 +259,7 @@ namespace DataAccesLayer.Concretes
                 var query = new StringBuilder();
                 query.Append("SELECT ");
                 query.Append(
-                    "[YoneticiID], [SirketID], [Sifre], [Ad],[Soyad],[TCKimlik],[Telefon],[Email],[DogumTarihi],[Adres] ");
+                    "[YoneticiID],[SirketID], [Sifre],[TCKimlik],[Ad],[Soyad],[Adres],[Telefon],[Email],[DogumTarihi]");
                 query.Append("FROM [dbo].[tblYonetici] ");
                 query.Append("WHERE ");
                 query.Append("[YoneticiID] = @id ");
@@ -301,13 +302,14 @@ namespace DataAccesLayer.Concretes
                                     entity.YoneticiId = reader.GetInt32(0);
                                     entity.SirketId = reader.GetInt32(1);
                                     entity.Sifre = reader.GetString(2);
-                                    entity.Ad = reader.GetString(3);
-                                    entity.Soyad = reader.GetString(4);
-                                    entity.TcKimlik = reader.GetString(5);
-                                    entity.Telefon = reader.GetString(6);
-                                    entity.Email = reader.GetString(7);
-                                    entity.DogumTarihi = reader.GetDateTime(8);
-                                    entity.Adres = reader.GetString(9);
+                                    entity.TcKimlik = reader.GetString(3);
+                                    entity.Ad = reader.GetString(4);
+                                    entity.Soyad = reader.GetString(5);
+                                    entity.Adres = reader.GetString(6);
+                                    entity.Telefon = reader.GetString(7);
+                                    entity.Email = reader.GetString(8);
+                                    entity.DogumTarihi = reader.GetDateTime(9).Date;
+
                                     yonetici = entity;
                                     break;
                                 }

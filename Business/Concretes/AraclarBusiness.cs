@@ -18,16 +18,22 @@ namespace Business.Concretes
         {
 
         }
-        public bool AracEkle(Araclar entity)
+        public bool AracEkle(Araclar arac, Sirket sirket)
         {
             try
             {
-                bool basarilimi;
+                bool basarilimiArac,basarilimiSirket;
                 using (var repo = new AraclarRepository())
                 {
-                    basarilimi = repo.Ekle(entity);
+                    basarilimiArac = repo.Ekle(arac);
+
+                    using (var repo2 = new SirketRepository())
+                    {
+
+                        basarilimiSirket = repo2.Guncelle(sirket);
+                    }
                 }
-                return basarilimi;
+                return (basarilimiArac && basarilimiSirket);
             }
             catch (Exception ex)
             {
@@ -109,28 +115,6 @@ namespace Business.Concretes
             }
         }
 
-        public bool AracKirala(Musteriler musteri, Araclar arac)
-        {
-
-            try
-            {
-                bool basariliRepo,basariliRepo2;
-                using (var repo = new AraclarRepository() )
-                {
-                    
-                    basariliRepo = repo.Guncelle(arac);
-                    using (var repo2 = new MusterilerRepository())
-                    {
-                       basariliRepo2=repo2.Guncelle(musteri);
-                    }
-                    return (basariliRepo && basariliRepo2);
-                }
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        }
+        
     }
 }

@@ -15,7 +15,7 @@ namespace DataAccesLayer.Concretes
         private string _connectionString;
         private string _dbProviderName;
         private DbProviderFactory _dbProviderFactory;
-        private int _rowsAffected, _errorCode;
+        private int _rowsAffected;
         private bool _bDisposed;
         public void Dispose()
         {
@@ -48,17 +48,17 @@ namespace DataAccesLayer.Concretes
         public bool Ekle(Odemeler entity)
         {
             _rowsAffected = 0;
-            _errorCode = 0;
+          
 
             try
             {
                 var query = new StringBuilder();
                 query.Append("INSERT [dbo.tblOdeme] ");
-                query.Append("( [OdemeMiktari], [Tarih], [Basarili] ) ");
+                query.Append("( [OdemeMiktari], [Tarih], [Basarili],[MusteriID] ) ");
                 query.Append("VALUES ");
                 query.Append(
-                    "( @OdemeMiktari, @Tarih, @Basarili ) ");
-
+                    "( @OdemeMiktari, @Tarih, @Basarili,@MusteriId ) ");
+                
                 var commandText = query.ToString();
                 query.Clear();
 
@@ -79,8 +79,9 @@ namespace DataAccesLayer.Concretes
 
                         //Input Params
                         DBHelper.AddParameter(dbCommand, "@OdemeMiktari", entity.OdemeMiktari);
-                        DBHelper.AddParameter(dbCommand, "@OdemeTarihi",  entity.OdemeTarihi);
+                        DBHelper.AddParameter(dbCommand, "@OdemeTarihi",  entity.OdemeTarihi.Date);
                         DBHelper.AddParameter(dbCommand, "@OdemeBasarili", entity.OdemeBasarili);
+                        DBHelper.AddParameter(dbCommand, "@MusteriId", entity.MusteriId);
 
                         
 
@@ -105,13 +106,13 @@ namespace DataAccesLayer.Concretes
         public bool Guncelle(Odemeler entity)
         {
             _rowsAffected = 0;
-            _errorCode = 0;
+            
 
             try
             {
                 var query = new StringBuilder();
                 query.Append(" UPDATE [dbo].[tblOdeme] ");
-                query.Append(" SET [OdemeID] = @OdemeID, [OdemeMiktari] = @OdemeMiktari, [OdemeBasarili] =  @OdemeBasarili, [OdemeTarihi] = @OdemeTarihi ");
+                query.Append(" SET [OdemeID] = @OdemeID, [OdemeMiktari] = @OdemeMiktari, [OdemeBasarili] =  @OdemeBasarili, [OdemeTarihi] = @OdemeTarihi,[MusteriID] = @MusteriId ");
                 query.Append(" WHERE ");
                 query.Append(" [OdemeID] = @OdemeID ");
 
@@ -137,9 +138,12 @@ namespace DataAccesLayer.Concretes
                         DBHelper.AddParameter(dbCommand, "@OdemeID", entity.OdemeID);
                         DBHelper.AddParameter(dbCommand, "@OdemeMiktari",  entity.OdemeMiktari);
                         DBHelper.AddParameter(dbCommand, "@OdemeBasarili", entity.OdemeBasarili);
-                        DBHelper.AddParameter(dbCommand, "@OdemeTarihi", entity.OdemeTarihi);
+                        DBHelper.AddParameter(dbCommand, "@OdemeTarihi", entity.OdemeTarihi.Date);
+                        DBHelper.AddParameter(dbCommand, "@MusteriId", entity.MusteriId);
 
-                       
+
+
+
                         //Open Connection
                         if (dbConnection.State != ConnectionState.Open)
                             dbConnection.Open();
@@ -161,7 +165,7 @@ namespace DataAccesLayer.Concretes
 
         public IList<Odemeler> HepsiniSec()
         {
-            _errorCode = 0;
+            
             _rowsAffected = 0;
 
             IList<Odemeler> odemeler = new List<Odemeler>();
@@ -171,7 +175,7 @@ namespace DataAccesLayer.Concretes
                 var query = new StringBuilder();
                 query.Append("SELECT ");
                 query.Append(
-                    "[OdemeID], [OdemeMiktari], [OdemeBasarili], [OdemeTarihi]");
+                    "[OdemeID], [OdemeMiktari], [OdemeBasarili], [OdemeTarihi],[MusteriID]");
                 query.Append("FROM [dbo].[tblOdeme] ");
                 
 
@@ -212,7 +216,8 @@ namespace DataAccesLayer.Concretes
                                     entity.OdemeID = reader.GetInt32(0);
                                     entity.OdemeMiktari = reader.GetDecimal(1);
                                     entity.OdemeBasarili = reader.GetBoolean(2);
-                                    entity.OdemeTarihi = reader.GetDateTime(3);
+                                    entity.OdemeTarihi = reader.GetDateTime(3).Date;
+                                    entity.MusteriId = reader.GetInt32(4);
                                     odemeler.Add(entity);
                                 }
                             }
@@ -233,7 +238,7 @@ namespace DataAccesLayer.Concretes
 
         public Odemeler IdSec(int id)
         {
-            _errorCode = 0;
+            
             _rowsAffected = 0;
 
             Odemeler odemeler = null;
@@ -243,7 +248,7 @@ namespace DataAccesLayer.Concretes
                 var query = new StringBuilder();
                 query.Append("SELECT ");
                 query.Append(
-                    "[OdemeID], [OdemeMiktari], [OdemeBasarili], [OdemeTarihi] ");
+                    "[OdemeID], [OdemeMiktari], [OdemeBasarili], [OdemeTarihi],[MusteriID] ");
                 query.Append("FROM [dbo].[tblOdeme] ");
                 query.Append("WHERE ");
                 query.Append("[OdemeID] = @id ");
@@ -287,7 +292,8 @@ namespace DataAccesLayer.Concretes
                                     entity.OdemeID = reader.GetInt32(0);
                                     entity.OdemeMiktari = reader.GetDecimal(1);
                                     entity.OdemeBasarili = reader.GetBoolean(2);
-                                    entity.OdemeTarihi = reader.GetDateTime(3);
+                                    entity.OdemeTarihi = reader.GetDateTime(3).Date;
+                                    entity.MusteriId = reader.GetInt32(4);
                                     odemeler = entity;
                                     break;
                                 }
@@ -309,7 +315,7 @@ namespace DataAccesLayer.Concretes
 
         public bool IdSil(int id)
         {
-            _errorCode = 0;
+            
             _rowsAffected = 0;
 
             try
@@ -318,7 +324,7 @@ namespace DataAccesLayer.Concretes
                 query.Append("DELETE ");
                 query.Append("FROM [dbo].[tblOdeme] ");
                 query.Append("WHERE ");
-                query.Append("[tblOdeme] = @OdemeID ");
+                query.Append("[OdemeID] = @OdemeID ");
                 
 
                 var commandText = query.ToString();
