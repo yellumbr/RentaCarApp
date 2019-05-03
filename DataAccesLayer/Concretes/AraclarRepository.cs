@@ -53,10 +53,10 @@ namespace DataAccesLayer.Concretes
                 //query.Append("INSERT INTO tblMusteri(TCKimlik,Ad,Soyad,Adres,Telefon,Email,KaraListe,KullaniciAdi,Sifre,EhliyetTipi,EhliyetTarih,DogumTarihi)");//
                 //query.Append("VALUES(@TCKimlik,@Ad,@Soyad,@Adres,@Telefon,@Email,@KaraListe,@KullaniciAdi,@Sifre,@EhliyetTipi,@EhliyetTarih,@DogumTarihi)");//
                 query.Append("INSERT INTO tblArac ");
-                query.Append("( AracAdi, AracModel, GerekenEhliyetYasi,MinimumYasSiniri,GunlukKmSiniri,AracKm,HavaYastigi,BagajHacmi,KoltukSayisi,GunlukKiraBedeli,Rezerv,Kirada,YakitTipi,VitesTipi,Plaka,AracResmi,KiralanmaTarihi,KiradanDonusTarihi,SirketID,MusteriID ) ");//
+                query.Append("( AracAdi, AracModel, GerekenEhliyetYasi,MinimumYasSiniri,GunlukKmSiniri,AracKm,HavaYastigi,BagajHacmi,KoltukSayisi,GunlukKiraBedeli,Rezerv,Kirada,YakitTipi,VitesTipi,Plaka,AracResmi,SirketID,MusteriID ) ");//
                 query.Append("VALUES ");
                 query.Append(
-                    "( @AracAdi, @AracModeli, @GerekenEhliyetYasi,@MinimumYasSiniri,@GunlukKmSiniri,@AracKm,@HavaYastigi,@BagajHacmi,@KoltukSayisi,@GunlukKiraBedeli,@Rezerv,@Kirada,@YakitTipi,@VitesTipi,@Plaka,@AracResmi,@KiralanmaTarihi,@KiradanDonusTarihi,@SirketID,@MusteriID ) ");//
+                    "( @AracAdi, @AracModeli, @GerekenEhliyetYasi,@MinimumYasSiniri,@GunlukKmSiniri,@AracKm,@HavaYastigi,@BagajHacmi,@KoltukSayisi,@GunlukKiraBedeli,@Rezerv,@Kirada,@YakitTipi,@VitesTipi,@Plaka,@AracResmi,@SirketID,@MusteriID ) ");//
 
                 var commandText = query.ToString();
                 query.Clear();
@@ -93,8 +93,7 @@ namespace DataAccesLayer.Concretes
                         DBHelper.AddParameter(dbCommand, "@Rezerv", entity.Rezerv);
                         DBHelper.AddParameter(dbCommand, "@VitesTipi", entity.VitesTipi);
                         DBHelper.AddParameter(dbCommand, "@YakitTipi", entity.YakitTipi);
-                        DBHelper.AddParameter(dbCommand, "@KiralanmaTarihi", entity.KiralanmaTarihi.Date);
-                        DBHelper.AddParameter(dbCommand, "@KiradanDonusTarihi", entity.KiradanDonusTarihi.Date);
+                       
                         DBHelper.AddParameter(dbCommand, "@SirketID",entity.SirketId );
                         DBHelper.AddParameter(dbCommand, "@MusteriID", entity.MusteriId);
 
@@ -126,7 +125,7 @@ namespace DataAccesLayer.Concretes
             {
                 var query = new StringBuilder();
                 query.Append("UPDATE [dbo].[tblArac] ");
-                query.Append("SET [AracID] = @AracId, [Plaka] = @Plaka, [AracAdi] =  @AracAdi, [AracModel] = @AracModeli, [GerekenEhliyetYasi] = @GerekenEhliyetYasi, [MinimumYasSiniri] = @MinimumYasSiniri, [GunlukKmSiniri] = @GunlukKmSiniri," +
+                query.Append("SET [Plaka] = @Plaka, [AracAdi] =  @AracAdi, [AracModel] = @AracModeli, [GerekenEhliyetYasi] = @GerekenEhliyetYasi, [MinimumYasSiniri] = @MinimumYasSiniri, [GunlukKmSiniri] = @GunlukKmSiniri," +
                     "[AracKm] = @AracKm, [HavaYastigi] = @HavaYastigi, [BagajHacmi] = @BagajHacmi, [KoltukSayisi] = @KoltukSayisi, [GunlukKiraBedeli] = @GunlukKiraBedeli, [Rezerv] = @Rezerv, [Kirada] = @Kirada, [YakitTipi] = @YakitTipi, [VitesTipi] = @VitesTipi, [AracResmi] = @AracResmi,[KiralanmaTarihi] =@KiralanmaTarihi,[KiradanDonusTarihi]=@KiradanDonusTarihi,[SirketID]=@SirketID,[MusteriID]=@MusteriID ");
                 query.Append("WHERE ");
                 query.Append(" [AracID] = @AracId ");
@@ -256,10 +255,11 @@ namespace DataAccesLayer.Concretes
                                     entity.Kirada = reader.GetBoolean(13);
                                     entity.YakitTipi = reader.GetString(14);
                                     entity.VitesTipi = reader.GetString(15);
-                                   // entity.AracResmi = reader.GetString(16);
-                                   if(reader.GetDateTime(17).Date != null)
+                                    if (!reader.IsDBNull(16))
+                                         entity.AracResmi = reader.GetString(16);
+                                    if (!reader.IsDBNull(17))
                                         entity.KiralanmaTarihi = reader.GetDateTime(17).Date;
-                                   if (reader.GetDateTime(18).Date != null)
+                                    if (!reader.IsDBNull(18))
                                         entity.KiradanDonusTarihi = reader.GetDateTime(18).Date;
                                     entity.SirketId = reader.GetInt32(19);
                                     entity.MusteriId = reader.GetInt32(20);
@@ -297,7 +297,7 @@ namespace DataAccesLayer.Concretes
                     "[AracID], [Plaka], [AracAdi], [AracModel], [GerekenEhliyetYasi], [MinimumYasSiniri], [GunlukKmSiniri], [AracKm], [HavaYastigi], [BagajHacmi], [KoltukSayisi], [GunlukKiraBedeli], [Rezerv], [Kirada], [YakitTipi], [VitesTipi], [AracResmi], [SirketID] ");
                 query.Append("FROM [dbo].[tblArac] ");
                 query.Append("WHERE ");
-                query.Append("[AracId] = @id ");
+                query.Append("[AracID] = @id ");
 
                 var commandText = query.ToString();
                 query.Clear();
@@ -352,8 +352,12 @@ namespace DataAccesLayer.Concretes
                                     entity.YakitTipi = reader.GetString(14);
                                     entity.VitesTipi = reader.GetString(15);
                                     entity.AracResmi = reader.GetString(16);
-                                    entity.KiralanmaTarihi = reader.GetDateTime(17).Date;
-                                    entity.KiradanDonusTarihi = reader.GetDateTime(18).Date;
+                                    if (!reader.IsDBNull(16))
+                                        entity.AracResmi = reader.GetString(16);
+                                    if (!reader.IsDBNull(17))
+                                        entity.KiralanmaTarihi = reader.GetDateTime(17).Date;
+                                    if (!reader.IsDBNull(18))
+                                        entity.KiradanDonusTarihi = reader.GetDateTime(18).Date;
                                     entity.SirketId = reader.GetInt32(19);
                                     arac = entity;
                                     break;

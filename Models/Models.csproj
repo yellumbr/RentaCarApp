@@ -45,6 +45,7 @@
     <Compile Include="Concretes\Araclar.cs" />
     <Compile Include="Concretes\Musteriler.cs" />
     <Compile Include="Concretes\Odemeler.cs" />
+    <Compile Include="Concretes\Rezervasyon.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Concretes\Sirket.cs" />
     <Compile Include="Concretes\Yonetici.cs" />

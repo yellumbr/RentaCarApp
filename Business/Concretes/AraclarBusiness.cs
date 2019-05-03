@@ -58,16 +58,21 @@ namespace Business.Concretes
             }
         }
 
-        public bool AracIdSil(int ID)
+        public bool AracIdSil(int ID,Sirket sirket)
         {
             try
             {
-                bool basarilimi;
+                bool basarilimi,basarilimi2;
                 using (var repo = new AraclarRepository())
                 {
                     basarilimi = repo.IdSil(ID);
+
+                    using (var repo2 = new SirketRepository())
+                    {
+                        basarilimi2 = repo2.Guncelle(sirket);
+                    }
                 }
-                return basarilimi;
+                return (basarilimi&&basarilimi2);
             }
             catch (Exception ex)
             {
