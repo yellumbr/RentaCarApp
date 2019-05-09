@@ -47,6 +47,7 @@
     <Compile Include="Concretes\OdemelerRepository.cs" />
     <Compile Include="Concretes\SirketRepository.cs" />
     <Compile Include="Concretes\YoneticiRepository.cs" />
+    <Compile Include="Concretes\KullaniciRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

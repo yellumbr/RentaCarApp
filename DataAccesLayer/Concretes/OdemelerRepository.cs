@@ -10,7 +10,7 @@ using System.Data.Common;
 using Commons.Concretes;
 namespace DataAccesLayer.Concretes
 {
-    public class OdemelerRepository : IRepository<Odemeler>,IDisposable
+    public class OdemelerRepository : IRepository<Odeme>,IDisposable
     {
         private string _connectionString;
         private string _dbProviderName;
@@ -45,7 +45,7 @@ namespace DataAccesLayer.Concretes
         }
 
 
-        public bool Ekle(Odemeler entity)
+        public bool Ekle(Odeme entity)
         {
             _rowsAffected = 0;
           
@@ -103,7 +103,7 @@ namespace DataAccesLayer.Concretes
             }
         }
 
-        public bool Guncelle(Odemeler entity)
+        public bool Guncelle(Odeme entity)
         {
             _rowsAffected = 0;
             
@@ -163,12 +163,12 @@ namespace DataAccesLayer.Concretes
         }
     
 
-        public IList<Odemeler> HepsiniSec()
+        public IList<Odeme> HepsiniSec()
         {
             
             _rowsAffected = 0;
 
-            IList<Odemeler> odemeler = new List<Odemeler>();
+            IList<Odeme> odemeler = new List<Odeme>();
 
             try
             {
@@ -212,7 +212,7 @@ namespace DataAccesLayer.Concretes
                             {
                                 while (reader.Read())
                                 {
-                                    var entity = new Odemeler();
+                                    var entity = new Odeme();
                                     entity.OdemeID = reader.GetInt32(0);
                                     entity.OdemeMiktari = reader.GetDecimal(1);
                                     entity.OdemeBasarili = reader.GetBoolean(2);
@@ -236,12 +236,12 @@ namespace DataAccesLayer.Concretes
             }
         }
 
-        public Odemeler IdSec(int id)
+        public Odeme IdSec(int id)
         {
             
             _rowsAffected = 0;
 
-            Odemeler odemeler = null;
+            Odeme odemeler = null;
 
             try
             {
@@ -288,7 +288,7 @@ namespace DataAccesLayer.Concretes
                             {
                                 while (reader.Read())
                                 {
-                                    var entity = new Odemeler();
+                                    var entity = new Odeme();
                                     entity.OdemeID = reader.GetInt32(0);
                                     entity.OdemeMiktari = reader.GetDecimal(1);
                                     entity.OdemeBasarili = reader.GetBoolean(2);

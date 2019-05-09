@@ -8,7 +8,7 @@ using System.Data.Common;
 using System.Text;
 namespace DataAccesLayer.Concretes
 {
-    public class MusterilerRepository : IRepository<Musteriler>, IDisposable
+    public class MusteriRepository : IRepository<Musteri>, IDisposable
     {
         private string _connectionString;
         private string _dbProviderName;
@@ -35,22 +35,22 @@ namespace DataAccesLayer.Concretes
                 _bDisposed = true;
             }
         }
-        public MusterilerRepository()
+        public MusteriRepository()
         {
             _connectionString = DBHelper.GetConnectionString();
             _dbProviderName = DBHelper.GetConnectionProvider();
             _dbProviderFactory = DbProviderFactories.GetFactory(_dbProviderName);
         }
 
-        public bool Ekle(Musteriler entity)
+        public bool Ekle(Musteri entity)
         {
             _rowsAffected = 0;
 
             try
             {
                 var query = new StringBuilder();
-                query.Append("INSERT INTO tblMusteri(TCKimlik,Ad,Soyad,Adres,Telefon,Email,KaraListe,KullaniciAdi,Sifre,EhliyetTipi,EhliyetTarih,DogumTarihi)");//
-                query.Append("VALUES(@TCKimlik,@Ad,@Soyad,@Adres,@Telefon,@Email,@KaraListe,@KullaniciAdi,@Sifre,@EhliyetTipi,@EhliyetTarih,@DogumTarihi)");//
+                query.Append("INSERT INTO tblMusteri(KullaniciID,EhliyetTipi,EhliyetTarihi,KaraListe,Ceza)");
+                query.Append("VALUES((SELECT IDENT_CURRENT('tblKullanici') WHERE KullaniciTipi = 'Müşteri'),@EhliyetTipi,@EhliyetTarihi,@KaraListe,@Ceza)");
 
                 var commandText = query.ToString();
                 query.Clear();
@@ -65,25 +65,17 @@ namespace DataAccesLayer.Concretes
                     using (var dbCommand = _dbProviderFactory.CreateCommand())
                     {
                         if (dbCommand == null)
-                            throw new ArgumentNullException("dbCommand" + " The db Insert command for entity [tblMusteriler] can't be null. ");
+                            throw new ArgumentNullException("dbCommand" + " The db Insert command for entity [tblMusteri] can't be null. ");
 
                         dbCommand.Connection = dbConnection;
                         dbCommand.CommandText = commandText;
 
                         //Input Params
-                        DBHelper.AddParameter(dbCommand, "@KaraListe", entity.KaraListe);
-                        DBHelper.AddParameter(dbCommand, "@KullaniciAdi", entity.KullaniciAdi);
-                        DBHelper.AddParameter(dbCommand, "@Sifre", entity.Sifre);
-                        DBHelper.AddParameter(dbCommand, "@EhliyetTarih", entity.EhliyetYil.Date);
                         DBHelper.AddParameter(dbCommand, "@EhliyetTipi", entity.EhliyetTipi);
-                        DBHelper.AddParameter(dbCommand, "@TCKimlik", entity.TcKimlik);
-                        DBHelper.AddParameter(dbCommand, "@Ad", entity.Ad);
-                        DBHelper.AddParameter(dbCommand, "@Soyad", entity.Soyad);
-                        DBHelper.AddParameter(dbCommand, "@Adres", entity.Adres);
-                        DBHelper.AddParameter(dbCommand, "@Telefon", entity.Telefon);
-                        DBHelper.AddParameter(dbCommand, "@Email", entity.Email);
-                        DBHelper.AddParameter(dbCommand, "@DogumTarihi", entity.DogumTarihi.Date);
-
+                        DBHelper.AddParameter(dbCommand, "@EhliyetTarihi", entity.EhliyetTarihi.Date);
+                        DBHelper.AddParameter(dbCommand, "@KaraListe", entity.KaraListe);
+                        DBHelper.AddParameter(dbCommand, "@Ceza", entity.Ceza);
+                       
 
 
                         //Open Connection
@@ -101,11 +93,11 @@ namespace DataAccesLayer.Concretes
             catch (Exception ex)
             {
 
-                throw new Exception("TransactionsRepository::Insert:Error occured.", ex);
+                throw new Exception("MusteriRepository:Ekleme Hatası", ex);
             }
         }
-
-        public bool Guncelle(Musteriler entity)
+        
+        public bool Guncelle(Musteri entity)
         {
             _rowsAffected = 0;
             _errorCode = 0;
@@ -114,8 +106,7 @@ namespace DataAccesLayer.Concretes
             {
                 var query = new StringBuilder();
                 query.Append(" UPDATE [dbo].[tblMusteri] ");
-                //KaraListe,KullaniciAdi,Sifre,EhliyetTarih,EhliyetTipi
-                query.Append(" SET [TCKimlik] = @TCKimlik, [Ad] = @Ad, [Soyad] =  @Soyad, [Adres] = @Adres, [Telefon] = @Telefon, [Email] = @Email,  [KaraListe] = @KaraListe, [KullaniciAdi] = @KullaniciAdi, [Sifre] =  @Sifre, [EhliyetTipi] = @EhliyetTipi,[EhliyetTarih]=@EhliyetTarih,[DogumTarihi]=@DogumTarihi ");
+                query.Append(" SET [EhliyetTipi] = @EhliyetTipi,[EhliyetTarih]=@EhliyetTarih, [KaraListe] = @KaraListe,[Ceza] = @Ceza ");
                 query.Append(" WHERE ");
                 query.Append(" [MusteriID] = @MusteriID ");
 
@@ -139,19 +130,11 @@ namespace DataAccesLayer.Concretes
                         dbCommand.CommandText = commandText;
 
                         //Input Params
-                        DBHelper.AddParameter(dbCommand, "@MusteriID", entity.MusteriId);
+                        DBHelper.AddParameter(dbCommand, "@MusteriID", entity.MusteriID);
                         DBHelper.AddParameter(dbCommand, "@KaraListe", entity.KaraListe);
-                        DBHelper.AddParameter(dbCommand, "@KullaniciAdi", entity.KullaniciAdi);
-                        DBHelper.AddParameter(dbCommand, "@Sifre", entity.Sifre);
-                        DBHelper.AddParameter(dbCommand, "@EhliyetTarih", entity.EhliyetYil.Date);
+                        DBHelper.AddParameter(dbCommand, "@EhliyetTarih", entity.EhliyetTarihi.Date);
                         DBHelper.AddParameter(dbCommand, "@EhliyetTipi", entity.EhliyetTipi);
-                        DBHelper.AddParameter(dbCommand, "@TCKimlik", entity.TcKimlik);
-                        DBHelper.AddParameter(dbCommand, "@Ad", entity.Ad);
-                        DBHelper.AddParameter(dbCommand, "@Soyad", entity.Soyad);
-                        DBHelper.AddParameter(dbCommand, "@Adres", entity.Adres);
-                        DBHelper.AddParameter(dbCommand, "@Telefon", entity.Telefon);
-                        DBHelper.AddParameter(dbCommand, "@Email", entity.Email);
-                        DBHelper.AddParameter(dbCommand, "@DogumTarihi", entity.DogumTarihi.Date);
+                       
 
 
                         //Open Connection
@@ -168,22 +151,21 @@ namespace DataAccesLayer.Concretes
             }
             catch (Exception ex)
             {
-                throw new Exception("CustomersRepository::Update:Error occured.", ex);
+                throw new Exception("MusteriRepository:Güncelleme Hatası", ex);
             }
         }
 
-        public IList<Musteriler> HepsiniSec()
+        public IList<Musteri> HepsiniSec()
         {
             _rowsAffected = 0;
 
-            IList<Musteriler> musteriler = new List<Musteriler>();
+            IList<Musteri> Musteri = new List<Musteri>();
 
             try
             {
                 var query = new StringBuilder();
                 query.Append("SELECT ");
-                query.Append(
-                    "[MusteriID], [TCKimlik], [Ad], [Soyad],[DogumTarihi],[Adres],[Telefon],[Email],[KullaniciAdi],[Sifre],[EhliyetTipi],[EhliyetTarih],[KaraListe] ");
+                query.Append("MusteriID,KullaniciID,EhliyetTipi,EhliyetTarihi,KaraListe,Ceza");
                 query.Append("FROM [dbo].[tblMusteri]");
 
                 var commandText = query.ToString();
@@ -217,21 +199,13 @@ namespace DataAccesLayer.Concretes
                             {
                                 while (reader.Read())
                                 {
-                                    var entity = new Musteriler();
-                                    entity.MusteriId = reader.GetInt32(0);
-                                    entity.TcKimlik = reader.GetString(1);
-                                    entity.Ad = reader.GetString(2);
-                                    entity.Soyad = reader.GetString(3);
-                                    entity.DogumTarihi = reader.GetDateTime(4).Date;
-                                    entity.Adres = reader.GetString(5);
-                                    entity.Telefon = reader.GetString(6);
-                                    entity.Email = reader.GetString(7);
-                                    entity.KullaniciAdi = reader.GetString(8);
-                                    entity.Sifre = reader.GetString(9);
-                                    entity.EhliyetTipi = reader.GetString(10);
-                                    entity.EhliyetYil = reader.GetDateTime(11).Date;
-                                    entity.KaraListe = reader.GetBoolean(12);
-                                    musteriler.Add(entity);
+                                    var entity = new Musteri();
+                                    entity.MusteriID = reader.GetInt32(0);
+                                    entity.KullaniciID = reader.GetInt32(1);
+                                    entity.EhliyetTipi = reader.GetString(2);
+                                    entity.EhliyetTarihi = reader.GetDateTime(3).Date;
+                                    entity.KaraListe = reader.GetBoolean(4);
+                                    Musteri.Add(entity);
                                 }
                             }
 
@@ -239,27 +213,26 @@ namespace DataAccesLayer.Concretes
                     }
                 }
                 // Return list
-                return musteriler;
+                return Musteri;
             }
             catch (Exception ex)
             {
-                throw new Exception("CustomersRepository::SelectAll:Error occured.", ex);
+                throw new Exception("MusteriRepository:Hepsini Seçme Hatası", ex);
             }
         }
 
-        public Musteriler IdSec(int id)
+        public Musteri IdSec(int id)
         {
 
             _rowsAffected = 0;
 
-            Musteriler musteri = null;
+            Musteri musteri = null;
 
             try
             {
                 var query = new StringBuilder();
                 query.Append("SELECT ");
-                query.Append(
-                    "[MusteriID], [TCKimlik], [Ad], [Soyad],[DogumTarihi],[Adres],[Telefon],[Email],[KullaniciAdi],[Sifre],[EhliyetTipi],[EhliyetTarih],[KaraListe] ");
+                query.Append("MusteriID,KullaniciID,EhliyetTipi,EhliyetTarihi,KaraListe,Ceza");
                 query.Append("FROM [dbo].[tblMusteri]");
                 query.Append("WHERE ");
                 query.Append("[MusteriID] = @id ");
@@ -298,20 +271,13 @@ namespace DataAccesLayer.Concretes
                             {
                                 while (reader.Read())
                                 {
-                                    var entity = new Musteriler();
-                                    entity.MusteriId = reader.GetInt32(0);
-                                    entity.TcKimlik = reader.GetString(1);
-                                    entity.Ad = reader.GetString(2);
-                                    entity.Soyad = reader.GetString(3);
-                                    entity.DogumTarihi = reader.GetDateTime(4).Date;
-                                    entity.Adres = reader.GetString(5);
-                                    entity.Telefon = reader.GetString(6);
-                                    entity.Email = reader.GetString(7);
-                                    entity.KullaniciAdi = reader.GetString(8);
-                                    entity.Sifre = reader.GetString(9);
-                                    entity.EhliyetTipi = reader.GetString(10);
-                                    entity.EhliyetYil = reader.GetDateTime(11).Date;
-                                    entity.KaraListe = reader.GetBoolean(12);
+                                    var entity = new Musteri();
+                                    entity.MusteriID = reader.GetInt32(0);
+                                    entity.KullaniciID = reader.GetInt32(1);
+                                    entity.EhliyetTipi = reader.GetString(2);
+                                    entity.EhliyetTarihi = reader.GetDateTime(3).Date;
+                                    entity.KaraListe = reader.GetBoolean(4);
+                                    entity.Ceza = reader.GetDecimal(5);
                                     musteri = entity;
                                     break;
                                 }
@@ -326,7 +292,7 @@ namespace DataAccesLayer.Concretes
             }
             catch (Exception ex)
             {
-                throw new Exception("TransactionsRepository::SelectById:Error occured.", ex);
+                throw new Exception("MusteriRepository:ID ile Seçme Hatası", ex);
             }
         }
 
@@ -380,7 +346,7 @@ namespace DataAccesLayer.Concretes
             }
             catch (Exception ex)
             {
-                throw new Exception("TransactionsRepository::Insert:Error occured.", ex);
+                throw new Exception("MusteriRepository:Silme Hatası", ex);
             }
         }
     }

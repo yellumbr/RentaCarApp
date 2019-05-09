@@ -6,21 +6,12 @@ namespace Models.Concretes
     {
         public Yonetici()
         {
-            
+            Kullanici = new Kullanici();
         }
-        public string TcKimlik { get; set; }
-        public string Ad { get; set; }
-        public string Soyad { get; set; }
-        public string Adres { get; set; }
-        public string Telefon { get; set; }
-        public string Email { get; set; }
-
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-        public DateTime DogumTarihi { get; set; }
-        public int YoneticiId { get; set; }
-        public int SirketId { get; set; }
-        public string Sifre { get; set; }
-       
+        public int YoneticiID { get; set; }
+        public int SirketID { get; set; }
+        public int KullaniciID { get; set; }
+        public Kullanici Kullanici { get; set; }
 
     }
 }

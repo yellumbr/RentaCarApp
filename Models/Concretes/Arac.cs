@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 namespace Models.Concretes
 {
-    public class Araclar
+    public class Arac
     {
-        public Araclar()
+        public Arac()
         {
-           
+            Sirket = new Sirket();
         }
-        public int AracId { get; set; }
+        public int AracID { get; set; }
         public string Plaka { get; set; }
         public string AracAdi { get; set; }
         public string AracModeli { get; set; }
@@ -28,8 +28,10 @@ namespace Models.Concretes
         public DateTime KiralanmaTarihi { get; set; }
         public DateTime KiradanDonusTarihi { get; set; }
         public string AracResmi { get; set; }
-        public int MusteriId { get; set; }
-        public int SirketId { get; set; }
+        public int MusteriID { get; set; }
+        public int SirketID { get; set; }
+        public Sirket Sirket { get; set; }
+        public decimal AracGider { get; set; }
 
 
     }

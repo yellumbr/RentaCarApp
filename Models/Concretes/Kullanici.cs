@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Models.Concretes
 {
-    public class Musteriler
+    public class Kullanici
     {
-        public Musteriler()
-        {   
-            Araclar = new List<Araclar>();
-        }
-        public int MusteriId { get; set; }
+        public int KullaniciID { get; set; }
         public string TcKimlik { get; set; }
         public string Ad { get; set; }
         public string Soyad { get; set; }
@@ -19,11 +17,10 @@ namespace Models.Concretes
         public string Telefon { get; set; }
         public string Email { get; set; }
         public string KullaniciAdi { get; set; }
-        public string Sifre { get; set; }
-        public string EhliyetTipi { get; set; }
-        public DateTime EhliyetYil { get; set; }
-        public bool KaraListe { get; set; }
-        public List<Araclar> Araclar { get; set; }
-
+        public string Parola { get; set; }
+        public bool Durum { get; set; }
+        public string KullaniciTipi { get; set; }
+        public Musteri Musteri { get; set; }
+        public Yonetici Yonetici { get; set; }
     }
 }

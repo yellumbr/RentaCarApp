@@ -18,7 +18,7 @@ namespace Business.Concretes
         {
 
         }
-        public bool OdemeEkle(Odemeler entity)
+        public bool OdemeEkle(Odeme entity)
         {
             try
             {
@@ -35,7 +35,7 @@ namespace Business.Concretes
             }
         }
 
-        public bool OdemeGuncelle(Odemeler entity)
+        public bool OdemeGuncelle(Odeme entity)
         {
             try
             {
@@ -69,11 +69,11 @@ namespace Business.Concretes
             }
         }
 
-        public Odemeler OdemeIdSec(int OdemeId)
+        public Odeme OdemeIdSec(int OdemeId)
         {
             try
             {
-                Odemeler responseEntitiy;
+                Odeme responseEntitiy;
                 using (var repo = new OdemelerRepository())
                 {
                     responseEntitiy = repo.IdSec(OdemeId);
@@ -88,9 +88,9 @@ namespace Business.Concretes
             }
         }
 
-        public List<Odemeler> OdemeHepsiniSec()
+        public List<Odeme> OdemeHepsiniSec()
         {
-            var responseEntities = new List<Odemeler>();
+            var responseEntities = new List<Odeme>();
 
             try
             {

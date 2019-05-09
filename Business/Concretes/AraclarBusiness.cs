@@ -18,7 +18,7 @@ namespace Business.Concretes
         {
 
         }
-        public bool AracEkle(Araclar arac, Sirket sirket)
+        public bool AracEkle(Arac arac, Sirket sirket)
         {
             try
             {
@@ -41,7 +41,7 @@ namespace Business.Concretes
             }
         }
 
-        public bool AracGuncelle(Araclar entity)
+        public bool AracGuncelle(Arac entity)
         {
             try
             {
@@ -80,11 +80,11 @@ namespace Business.Concretes
             }
         }
 
-        public Araclar AracIdSec(int AracId)
+        public Arac AracIdSec(int AracId)
         {
             try
             {
-                Araclar responseEntitiy;
+                Arac responseEntitiy;
                 using (var repo = new AraclarRepository())
                 {
                     responseEntitiy = repo.IdSec(AracId);
@@ -99,9 +99,9 @@ namespace Business.Concretes
             }
         }
 
-        public List<Araclar> AracHepsiniSec()
+        public List<Arac> AracHepsiniSec()
         {
-            var responseEntities = new List<Araclar>();
+            var responseEntities = new List<Arac>();
 
             try
             {
