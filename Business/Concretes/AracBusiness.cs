@@ -8,13 +8,13 @@ using DataAccesLayer.Concretes;
 
 namespace Business.Concretes
 {
-    public class AraclarBusiness:IDisposable
+    public class AracBusiness:IDisposable
     {
         public void Dispose()
         {
             GC.SuppressFinalize(true);
         }
-        public AraclarBusiness()
+        public AracBusiness()
         {
 
         }
@@ -23,7 +23,7 @@ namespace Business.Concretes
             try
             {
                 bool basarilimiArac,basarilimiSirket;
-                using (var repo = new AraclarRepository())
+                using (var repo = new AracRepository())
                 {
                     basarilimiArac = repo.Ekle(arac);
 
@@ -46,7 +46,7 @@ namespace Business.Concretes
             try
             {
                 bool basarilimi;
-                using (var repo = new AraclarRepository())
+                using (var repo = new AracRepository())
                 {
                     basarilimi = repo.Guncelle(entity);
                 }
@@ -63,7 +63,7 @@ namespace Business.Concretes
             try
             {
                 bool basarilimi,basarilimi2;
-                using (var repo = new AraclarRepository())
+                using (var repo = new AracRepository())
                 {
                     basarilimi = repo.IdSil(ID);
 
@@ -85,7 +85,7 @@ namespace Business.Concretes
             try
             {
                 Arac responseEntitiy;
-                using (var repo = new AraclarRepository())
+                using (var repo = new AracRepository())
                 {
                     responseEntitiy = repo.IdSec(AracId);
                     if (responseEntitiy == null)
@@ -105,7 +105,7 @@ namespace Business.Concretes
 
             try
             {
-                using (var repo = new AraclarRepository())
+                using (var repo = new AracRepository())
                 {
                     foreach (var entity in repo.HepsiniSec())
                     {

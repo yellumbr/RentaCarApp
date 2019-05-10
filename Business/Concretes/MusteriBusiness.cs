@@ -8,87 +8,87 @@ using DataAccesLayer.Concretes;
 
 namespace Business.Concretes
 {
-    public class YoneticiBusiness : IDisposable
+    public class MusteriBusiness:IDisposable
     {
         public void Dispose()
         {
             GC.SuppressFinalize(true);
         }
-        public YoneticiBusiness()
+        public MusteriBusiness()
         {
 
         }
-        public bool YoneticiEkle(Yonetici Yonetici, Kullanici kullanici)
+        public bool MusteriEkle(Musteri musteri, Kullanici kullanici)
         {
             try
             {
-                bool YoneticiBasarilimi, kullaniciBasarilimi;
+                bool musteriBasarilimi, kullaniciBasarilimi;
                 using (var kullaniciRepo = new KullaniciRepository())
                 {
                     kullaniciBasarilimi = kullaniciRepo.Ekle(kullanici);
-                    using (var YoneticiRepo = new YoneticiRepository())
+                    using (var musteriRepo = new MusteriRepository())
                     {
-                        YoneticiBasarilimi = YoneticiRepo.Ekle(Yonetici);
+                        musteriBasarilimi = musteriRepo.Ekle(musteri);
                     }
                 }
-
-                return (kullaniciBasarilimi && YoneticiBasarilimi);
+                
+                return (kullaniciBasarilimi && musteriBasarilimi);
             }
             catch (Exception ex)
             {
-                throw new Exception("YoneticiBusiness:KullaniciRepo||YoneticiRepo:Ekleme Hatası", ex);
+                throw new Exception("MusteriBusiness:KullaniciRepo||MusteriRepo:Ekleme Hatası", ex);
             }
         }
 
-        public bool YoneticiGuncelle(Yonetici Yonetici, Kullanici kullanici)
+        public bool MusteriGuncelle(Musteri musteri,Kullanici kullanici)
         {
             try
             {
-                bool YoneticiBasarilimi, kullaniciBasarilimi;
+                bool musteriBasarilimi, kullaniciBasarilimi;
                 using (var kullaniciRepo = new KullaniciRepository())
                 {
                     kullaniciBasarilimi = kullaniciRepo.Guncelle(kullanici);
-                    using (var YoneticiRepo = new YoneticiRepository())
+                    using (var musteriRepo = new MusteriRepository())
                     {
-                        YoneticiBasarilimi = YoneticiRepo.Guncelle(Yonetici);
+                        musteriBasarilimi = musteriRepo.Guncelle(musteri);
                     }
                 }
 
-                return (kullaniciBasarilimi && YoneticiBasarilimi);
+                return (kullaniciBasarilimi && musteriBasarilimi);
             }
             catch (Exception ex)
             {
-                throw new Exception("YoneticiBusiness:KullaniciRepo||YoneticiRepo:Güncelleme Hatası", ex);
+                throw new Exception("MusteriBusiness:KullaniciRepo||MusteriRepo:Güncelleme Hatası", ex);
             }
         }
 
         //TODO
-        public bool YoneticiIdSil(int ID)
+        public bool MusteriIdSil(int ID)
         {
             try
             {
-                bool YoneticiBasarilimi;
-                using (var YoneticiRepo = new YoneticiRepository())
-                {
-                    YoneticiBasarilimi = YoneticiRepo.IdSil(ID);
+                bool musteriBasarilimi;
+                using (var musteriRepo = new MusteriRepository())
+                {  
+                        musteriBasarilimi = musteriRepo.IdSil(ID);          
                 }
 
-                return (YoneticiBasarilimi);
+                return (musteriBasarilimi);
             }
             catch (Exception ex)
             {
-                throw new Exception("YoneticiBusiness:YoneticiRepo:IDSil Hatası", ex);
+                throw new Exception("MusteriBusiness:MusteriRepo:IDSil Hatası", ex);
             }
         }
 
-        public Yonetici YoneticiIdSec(int YoneticiId)
+        public Musteri MusteriIdSec(int MusteriId)
         {
             try
             {
-                Yonetici responseEntitiy;
-                using (var repo = new YoneticiRepository())
+                Musteri responseEntitiy;
+                using (var repo = new MusteriRepository())
                 {
-                    responseEntitiy = repo.IdSec(YoneticiId);
+                    responseEntitiy = repo.IdSec(MusteriId);
                     if (responseEntitiy == null)
                         throw new NullReferenceException("Böyle Bir Müşteri Yok!");
                 }
@@ -96,17 +96,17 @@ namespace Business.Concretes
             }
             catch (Exception ex)
             {
-                throw new Exception("YoneticiBusiness:YoneticiRepo:IDSec Hatası", ex);
+                throw new Exception("MusteriBusiness:MusteriRepo:IDSec Hatası", ex);
             }
         }
 
-        public List<Yonetici> YoneticiHepsiniSec()
+        public List<Musteri> MusteriHepsiniSec()
         {
-            var responseEntities = new List<Yonetici>();
+            var responseEntities = new List<Musteri>();
 
             try
             {
-                using (var repo = new YoneticiRepository())
+                using (var repo = new MusteriRepository())
                 {
                     foreach (var entity in repo.HepsiniSec())
                     {
@@ -117,7 +117,7 @@ namespace Business.Concretes
             }
             catch (Exception ex)
             {
-                throw new Exception("YoneticiBusiness:YoneticiRepo:YoneticiHepsiniSec Hatası", ex);
+                throw new Exception("MusteriBusiness:MusteriRepo:MusteriHepsiniSec Hatası", ex);
             }
         }
     }

@@ -9,7 +9,7 @@ using Commons.Concretes;
 
 namespace DataAccesLayer.Concretes
 {
-    public class AraclarRepository : IRepository<Arac>,IDisposable
+    public class AracRepository : IRepository<Arac>,IDisposable
     {
         private string _connectionString;
         private string _dbProviderName;
@@ -36,7 +36,7 @@ namespace DataAccesLayer.Concretes
                 _bDisposed = true;
             }
         }
-        public AraclarRepository()
+        public AracRepository()
         {
             _connectionString = DBHelper.GetConnectionString();
             _dbProviderName = DBHelper.GetConnectionProvider();

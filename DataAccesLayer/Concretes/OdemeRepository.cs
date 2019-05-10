@@ -10,7 +10,7 @@ using System.Data.Common;
 using Commons.Concretes;
 namespace DataAccesLayer.Concretes
 {
-    public class OdemelerRepository : IRepository<Odeme>,IDisposable
+    public class OdemeRepository : IRepository<Odeme>,IDisposable
     {
         private string _connectionString;
         private string _dbProviderName;
@@ -37,7 +37,7 @@ namespace DataAccesLayer.Concretes
                 _bDisposed = true;
             }
         }
-        public OdemelerRepository()
+        public OdemeRepository()
         {
             _connectionString = DBHelper.GetConnectionString();
             _dbProviderName = DBHelper.GetConnectionProvider();

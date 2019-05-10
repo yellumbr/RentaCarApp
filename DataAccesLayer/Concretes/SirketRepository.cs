@@ -54,10 +54,10 @@ namespace DataAccesLayer.Concretes
             {
                 var query = new StringBuilder();
                 query.Append("INSERT [dbo].[tblSirket] ");
-                query.Append("( [SirketID], [SirketAdi], [Sehir], [Adres], [AracSayisi], [SirketPuani] ) ");
+                query.Append("( [SirketID], [SirketAdi], [Sehir], [Adres], [AracSayisi], [SirketPuani],[SirketLogo],[SirketGelir],[SirketGider] ) ");
                 query.Append("VALUES ");
                 query.Append(
-                    "( @SirketId, @SirketAdi, @Sehir, @Adres, @AracSayisi, @SirketPuani ) ");
+                    "( @SirketId, @SirketAdi, @Sehir, @Adres, @AracSayisi, @SirketPuani,@SirketLogo,@SirketGelir,@SirketGider ) ");
                 
 
                 var commandText = query.ToString();
@@ -79,14 +79,17 @@ namespace DataAccesLayer.Concretes
                         dbCommand.CommandText = commandText;
 
                         //Input Params
-                        DBHelper.AddParameter(dbCommand, "@SirketId",  entity.SirketId);
+                        DBHelper.AddParameter(dbCommand, "@SirketId",  entity.SirketID);
                         DBHelper.AddParameter(dbCommand, "@SirketAdi", entity.SirketAdi);
                         DBHelper.AddParameter(dbCommand, "@Sehir", entity.Sehir);
                         DBHelper.AddParameter(dbCommand, "@Adres", entity.Adres);
                         DBHelper.AddParameter(dbCommand, "@AracSayisi", entity.AracSayisi);
                         DBHelper.AddParameter(dbCommand, "@SirketPuani", entity.SirketPuani);
+                        DBHelper.AddParameter(dbCommand, "@SirketGelir", entity.SirketGelir);
+                        DBHelper.AddParameter(dbCommand, "@SirketGider", entity.SirketGider);
 
-                       //Open Connection
+
+                        //Open Connection
                         if (dbConnection.State != ConnectionState.Open)
                             dbConnection.Open();
 
@@ -99,7 +102,7 @@ namespace DataAccesLayer.Concretes
             }
             catch (Exception ex)
             {
-                throw new Exception("TransactionsRepository::Insert:Error occured.", ex);
+                throw new Exception("SirketRepository:Ekleme Hatası", ex);
             }
         }
     
@@ -113,7 +116,8 @@ namespace DataAccesLayer.Concretes
             {
                 var query = new StringBuilder();
                 query.Append("UPDATE [dbo].[tblSirket] ");
-                query.Append("SET [SirketAdi] = @SirketAdi, [Sehir] =  @Sehir, [Adres] = @Adres, [AracSayisi] = @AracSayisi, [SirketPuani] = @SirketPuani ");
+                query.Append("SET [SirketAdi] = @SirketAdi, [Sehir] =  @Sehir, [Adres] = @Adres, [AracSayisi] = @AracSayisi, " +
+                    "[SirketPuani] = @SirketPuani,[SirketGelir]=@SirketGelir,[SirketGider]=@SirketGider ");
                 query.Append("WHERE ");
                 query.Append(" [SirketID] = @SirketId ");
                
@@ -137,13 +141,15 @@ namespace DataAccesLayer.Concretes
                         dbCommand.CommandText = commandText;
 
                         //Input Params
-                        DBHelper.AddParameter(dbCommand, "@SirketId", entity.SirketId);
+                        DBHelper.AddParameter(dbCommand, "@SirketId", entity.SirketID);
                         DBHelper.AddParameter(dbCommand, "@SirketAdi", entity.SirketAdi);
                         DBHelper.AddParameter(dbCommand, "@Sehir", entity.Sehir);
                         DBHelper.AddParameter(dbCommand, "@Adres", entity.Adres);
                         DBHelper.AddParameter(dbCommand, "@AracSayisi", entity.AracSayisi);
                         DBHelper.AddParameter(dbCommand, "@SirketPuani", entity.SirketPuani);
-                       
+                        DBHelper.AddParameter(dbCommand, "@SirketGelir", entity.SirketGelir);
+                        DBHelper.AddParameter(dbCommand, "@SirketGider", entity.SirketGider);
+
                         //Open Connection
                         if (dbConnection.State != ConnectionState.Open)
                             dbConnection.Open();
@@ -157,7 +163,7 @@ namespace DataAccesLayer.Concretes
             }
             catch (Exception ex)
             {
-                throw new Exception("TransactionsRepository::Update:Error occured.", ex);
+                throw new Exception("SirketRepository:Güncelleme Hatası", ex);
             }
         }
 
@@ -173,7 +179,7 @@ namespace DataAccesLayer.Concretes
                 var query = new StringBuilder();
                 query.Append("SELECT ");
                 query.Append(
-                    "[SirketID], [SirketAdi], [Sehir], [Adres], [AracSayisi] ");
+                    "[SirketID], [SirketAdi], [Sehir], [Adres], [AracSayisi],[SirketGelir],[SirketGider] ");
                 query.Append("FROM [dbo].[tblSirket] ");
                
 
@@ -208,12 +214,14 @@ namespace DataAccesLayer.Concretes
                                 while (reader.Read())
                                 {
                                     var entity = new Sirket();
-                                    entity.SirketId = reader.GetInt32(0);
+                                    entity.SirketID = reader.GetInt32(0);
                                     entity.SirketAdi = reader.GetString(1);
                                     entity.Sehir = reader.GetString(2);
                                     entity.Adres = reader.GetString(3);
                                     entity.AracSayisi = reader.GetInt32(4);
-                                    //entity.SirketPuani = reader.GetFloat(5);
+                                    entity.SirketPuani = reader.GetFloat(5);
+                                    entity.SirketGelir = reader.GetDecimal(6);
+                                    entity.SirketGider = reader.GetDecimal(7);
                                     sirketler.Add(entity);
                                 }
                             }
@@ -228,7 +236,7 @@ namespace DataAccesLayer.Concretes
             }
             catch (Exception ex)
             {
-                throw new Exception("TransactionsRepository::SelectAll:Error occured.", ex);
+                throw new Exception("SirketRepository:Hepsini Seçme Hatası", ex);
             }
         }
 
@@ -284,12 +292,14 @@ namespace DataAccesLayer.Concretes
                                 while (reader.Read())
                                 {
                                     var entity = new Sirket();
-                                    entity.SirketId = reader.GetInt32(0);
+                                    entity.SirketID = reader.GetInt32(0);
                                     entity.SirketAdi = reader.GetString(1);
                                     entity.Sehir = reader.GetString(2);
                                     entity.Adres = reader.GetString(3);
                                     entity.AracSayisi = reader.GetInt32(4);
                                     entity.SirketPuani = reader.GetFloat(5);
+                                    entity.SirketGelir = reader.GetDecimal(6);
+                                    entity.SirketGider = reader.GetDecimal(7);
                                     sirket = entity;
                                     break;
                                 }
@@ -305,7 +315,7 @@ namespace DataAccesLayer.Concretes
             catch (Exception ex)
             {
 
-                throw new Exception("TransactionsRepository::SelectById:Error occured.", ex);
+                throw new Exception("SirketRepository:ID Seçme Hatası", ex);
             }
         }
 
@@ -320,7 +330,7 @@ namespace DataAccesLayer.Concretes
                 query.Append("DELETE ");
                 query.Append("FROM [dbo].[tblSirket] ");
                 query.Append("WHERE ");
-                query.Append("[tblSirket] = @id ");
+                query.Append("[SirketID] = @id ");
              
 
                 var commandText = query.ToString();
@@ -358,7 +368,7 @@ namespace DataAccesLayer.Concretes
             }
             catch (Exception ex)
             {
-                throw new Exception("TransactionsRepository::Insert:Error occured.", ex);
+                throw new Exception("SirketRepository:Silme Hatası", ex);
             }
         }
     }

@@ -8,13 +8,13 @@ using DataAccesLayer.Concretes;
 
 namespace Business.Concretes
 {
-    public class OdemelerBusiness:IDisposable
+    public class OdemeBusiness:IDisposable
     {
         public void Dispose()
         {
             GC.SuppressFinalize(true);
         }
-        public OdemelerBusiness()
+        public OdemeBusiness()
         {
 
         }
@@ -23,7 +23,7 @@ namespace Business.Concretes
             try
             {
                 bool basarilimi;
-                using (var repo = new OdemelerRepository())
+                using (var repo = new OdemeRepository())
                 {
                     basarilimi = repo.Ekle(entity);
                 }
@@ -40,7 +40,7 @@ namespace Business.Concretes
             try
             {
                 bool basarilimi;
-                using (var repo = new OdemelerRepository())
+                using (var repo = new OdemeRepository())
                 {
                     basarilimi = repo.Guncelle(entity);
                 }
@@ -57,7 +57,7 @@ namespace Business.Concretes
             try
             {
                 bool basarilimi;
-                using (var repo = new OdemelerRepository())
+                using (var repo = new OdemeRepository())
                 {
                     basarilimi = repo.IdSil(ID);
                 }
@@ -74,7 +74,7 @@ namespace Business.Concretes
             try
             {
                 Odeme responseEntitiy;
-                using (var repo = new OdemelerRepository())
+                using (var repo = new OdemeRepository())
                 {
                     responseEntitiy = repo.IdSec(OdemeId);
                     if (responseEntitiy == null)
@@ -94,7 +94,7 @@ namespace Business.Concretes
 
             try
             {
-                using (var repo = new OdemelerRepository())
+                using (var repo = new OdemeRepository())
                 {
                     foreach (var entity in repo.HepsiniSec())
                     {

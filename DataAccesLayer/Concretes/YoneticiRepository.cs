@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Commons.Concretes;
 using DataAccesLayer.Abstractions;
 using Models.Concretes;
+using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using Commons.Concretes;
-
+using System.Text;
 namespace DataAccesLayer.Concretes
 {
-    public class YoneticiRepository : IRepository<Yonetici>,IDisposable
+    public class YoneticiRepository : IRepository<Yonetici>, IDisposable
     {
         private string _connectionString;
         private string _dbProviderName;
@@ -44,16 +41,16 @@ namespace DataAccesLayer.Concretes
             _dbProviderName = DBHelper.GetConnectionProvider();
             _dbProviderFactory = DbProviderFactories.GetFactory(_dbProviderName);
         }
+
         public bool Ekle(Yonetici entity)
         {
             _rowsAffected = 0;
-            _errorCode = 0;
 
             try
             {
                 var query = new StringBuilder();
-                query.Append("INSERT INTO tblYonetici(TCKimlik,Ad,Soyad,Adres,Telefon,Email,DogumTarihi,Sifre,SirketID) ");
-                query.Append("VALUES( @TCKimlik,@Ad,@Soyad,@Adres,@Telefon,@Email,@DogumTarihi,@Sifre, @SirketID)");
+                query.Append("INSERT INTO tblYonetici(SirketID,KullaniciID)");
+                query.Append("VALUES(@SirketID,@KullaniciID)");
 
                 var commandText = query.ToString();
                 query.Clear();
@@ -68,32 +65,25 @@ namespace DataAccesLayer.Concretes
                     using (var dbCommand = _dbProviderFactory.CreateCommand())
                     {
                         if (dbCommand == null)
-                            throw new ArgumentNullException("dbCommand" + " The db Insert command for entity [tblMusteriler] can't be null. ");
+                            throw new ArgumentNullException("dbCommand" + " The db Insert command for entity [tblYonetici] can't be null. ");
 
                         dbCommand.Connection = dbConnection;
                         dbCommand.CommandText = commandText;
 
                         //Input Params
-                        
-                        DBHelper.AddParameter(dbCommand, "@Sifre", entity.Sifre);
-                        DBHelper.AddParameter(dbCommand, "@SirketID", entity.SirketId);
-                        DBHelper.AddParameter(dbCommand, "@TCKimlik", entity.TcKimlik);
-                        DBHelper.AddParameter(dbCommand, "@Ad", entity.Ad);
-                        DBHelper.AddParameter(dbCommand, "@Soyad", entity.Soyad);
-                        DBHelper.AddParameter(dbCommand, "@Adres", entity.Adres);
-                        DBHelper.AddParameter(dbCommand, "@Telefon", entity.Telefon);
-                        DBHelper.AddParameter(dbCommand, "@Email", entity.Email);
-                        DBHelper.AddParameter(dbCommand, "@DogumTarihi", entity.DogumTarihi.Date);
+                        DBHelper.AddParameter(dbCommand, "@SirketID", entity.SirketID);
+                        DBHelper.AddParameter(dbCommand, "@KullaniciID", entity.KullaniciID);
+                     
 
 
-                       
+
                         //Open Connection
                         if (dbConnection.State != ConnectionState.Open)
                             dbConnection.Open();
 
                         //Execute query
                         _rowsAffected = dbCommand.ExecuteNonQuery();
-                      
+
                     }
                 }
                 //Return the results of query/ies
@@ -102,7 +92,7 @@ namespace DataAccesLayer.Concretes
             catch (Exception ex)
             {
 
-                throw new Exception("TransactionsRepository::Insert:Error occured.", ex);
+                throw new Exception("YoneticiRepository:Ekleme Hatası", ex);
             }
         }
 
@@ -114,11 +104,11 @@ namespace DataAccesLayer.Concretes
             try
             {
                 var query = new StringBuilder();
-                query.Append(" UPDATE [dbo].[tblMusteri] ");
-                //KaraListe,KullaniciAdi,Sifre,EhliyetTarih,EhliyetTipi
-                query.Append(" SET [TCKimlik] = @TCKimlik, [Ad] = @Ad, [Soyad] =  @Soyad, [Adres] = @Adres, [Telefon] = @Telefon, [Email] = @Email, [DogumTarihi] =  @DogumTarihi, [Sifre] =  @Sifre, [SirketID] = @SirketID ");
+                query.Append(" UPDATE [dbo].[tblYonetici] ");
+                query.Append(" SET [SirketID] = @SirketID,[KullaniciID]=@KullaniciID ");
                 query.Append(" WHERE ");
                 query.Append(" [YoneticiID] = @YoneticiID ");
+
 
                 var commandText = query.ToString();
                 query.Clear();
@@ -139,26 +129,17 @@ namespace DataAccesLayer.Concretes
                         dbCommand.CommandText = commandText;
 
                         //Input Params
-
-                        DBHelper.AddParameter(dbCommand, "@Sifre", entity.Sifre);
-                        DBHelper.AddParameter(dbCommand, "@SirketID", entity.SirketId);
-                        DBHelper.AddParameter(dbCommand, "@TCKimlik", entity.TcKimlik);
-                        DBHelper.AddParameter(dbCommand, "@Ad", entity.Ad);
-                        DBHelper.AddParameter(dbCommand, "@Soyad", entity.Soyad);
-                        DBHelper.AddParameter(dbCommand, "@Adres", entity.Adres);
-                        DBHelper.AddParameter(dbCommand, "@Telefon", entity.Telefon);
-                        DBHelper.AddParameter(dbCommand, "@Email", entity.Email);
-                        DBHelper.AddParameter(dbCommand, "@DogumTarihi", entity.DogumTarihi.Date);
-
-                       
-
+                        DBHelper.AddParameter(dbCommand, "@YoneticiID", entity.YoneticiID);
+                        DBHelper.AddParameter(dbCommand, "@SirketID", entity.SirketID);
+                        DBHelper.AddParameter(dbCommand, "@KullaniciID", entity.KullaniciID);
+              
                         //Open Connection
                         if (dbConnection.State != ConnectionState.Open)
                             dbConnection.Open();
 
                         //Execute query
                         _rowsAffected = dbCommand.ExecuteNonQuery();
-                       
+
                     }
                 }
                 //Return the results of query/ies
@@ -166,25 +147,22 @@ namespace DataAccesLayer.Concretes
             }
             catch (Exception ex)
             {
-                throw new Exception("CustomersRepository::Update:Error occured.", ex);
+                throw new Exception("YoneticiRepository:Güncelleme Hatası", ex);
             }
         }
 
         public IList<Yonetici> HepsiniSec()
         {
-            _errorCode = 0;
             _rowsAffected = 0;
 
-            IList<Yonetici> yoneticiler = new List<Yonetici>();
+            IList<Yonetici> Yonetici = new List<Yonetici>();
 
             try
             {
                 var query = new StringBuilder();
                 query.Append("SELECT ");
-                query.Append(
-                    "[YoneticiID],[SirketID], [Sifre],[TCKimlik],[Ad],[Soyad],[Adres],[Telefon],[Email],[DogumTarihi]");
-                query.Append("FROM [dbo].[tblYonetici] ");
-                
+                query.Append("YoneticiID,SirketID,KullaniciID");
+                query.Append("FROM [dbo].[tblYonetici]");
 
                 var commandText = query.ToString();
                 query.Clear();
@@ -218,52 +196,41 @@ namespace DataAccesLayer.Concretes
                                 while (reader.Read())
                                 {
                                     var entity = new Yonetici();
-                                    entity.YoneticiId = reader.GetInt32(0);
-                                    entity.SirketId = reader.GetInt32(1);
-                                    entity.Sifre = reader.GetString(2);
-                                    entity.TcKimlik = reader.GetString(3);
-                                    entity.Ad = reader.GetString(4);
-                                    entity.Soyad = reader.GetString(5);
-                                    entity.Adres = reader.GetString(6);
-                                    entity.Telefon = reader.GetString(7);
-                                    entity.Email = reader.GetString(8);
-                                    entity.DogumTarihi = reader.GetDateTime(9).Date;
-                                    
-                                    yoneticiler.Add(entity);
+                                    entity.YoneticiID = reader.GetInt32(0);
+                                    entity.SirketID = reader.GetInt32(1);
+                                    entity.KullaniciID = reader.GetInt32(2);
+                    
+                                    Yonetici.Add(entity);
                                 }
                             }
 
                         }
-
-                        
                     }
                 }
                 // Return list
-                return yoneticiler;
+                return Yonetici;
             }
             catch (Exception ex)
             {
-                throw new Exception("CustomersRepository::SelectAll:Error occured.", ex);
+                throw new Exception("YoneticiRepository:Hepsini Seçme Hatası", ex);
             }
         }
 
         public Yonetici IdSec(int id)
         {
-            _errorCode = 0;
+
             _rowsAffected = 0;
 
-            Yonetici yonetici = null;
+            Yonetici Yonetici = null;
 
             try
             {
                 var query = new StringBuilder();
                 query.Append("SELECT ");
-                query.Append(
-                    "[YoneticiID],[SirketID], [Sifre],[TCKimlik],[Ad],[Soyad],[Adres],[Telefon],[Email],[DogumTarihi]");
-                query.Append("FROM [dbo].[tblYonetici] ");
+                query.Append("YoneticiID,SirketID,KullaniciID");
+                query.Append("FROM [dbo].[tblYonetici]");
                 query.Append("WHERE ");
                 query.Append("[YoneticiID] = @id ");
-               
 
                 var commandText = query.ToString();
                 query.Clear();
@@ -279,7 +246,7 @@ namespace DataAccesLayer.Concretes
                     {
                         if (dbCommand == null)
                             throw new ArgumentNullException(
-                                "dbCommand" + " The db SelectById command for entity [tblYonetici] can't be null. ");
+                                "dbCommand" + " The db SelectById command for entity [tbl_Transactions] can't be null. ");
 
                         dbCommand.Connection = dbConnection;
                         dbCommand.CommandText = commandText;
@@ -287,6 +254,7 @@ namespace DataAccesLayer.Concretes
                         //Input Parameters
                         DBHelper.AddParameter(dbCommand, "@id", id);
 
+
                         //Open Connection
                         if (dbConnection.State != ConnectionState.Open)
                             dbConnection.Open();
@@ -299,38 +267,30 @@ namespace DataAccesLayer.Concretes
                                 while (reader.Read())
                                 {
                                     var entity = new Yonetici();
-                                    entity.YoneticiId = reader.GetInt32(0);
-                                    entity.SirketId = reader.GetInt32(1);
-                                    entity.Sifre = reader.GetString(2);
-                                    entity.TcKimlik = reader.GetString(3);
-                                    entity.Ad = reader.GetString(4);
-                                    entity.Soyad = reader.GetString(5);
-                                    entity.Adres = reader.GetString(6);
-                                    entity.Telefon = reader.GetString(7);
-                                    entity.Email = reader.GetString(8);
-                                    entity.DogumTarihi = reader.GetDateTime(9).Date;
-
-                                    yonetici = entity;
+                                    entity.YoneticiID = reader.GetInt32(0);
+                                    entity.SirketID = reader.GetInt32(1);
+                                    entity.KullaniciID = reader.GetInt32(2);
+                                    Yonetici = entity;
                                     break;
                                 }
                             }
                         }
 
-                      
+
                     }
                 }
 
-                return yonetici;
+                return Yonetici;
             }
             catch (Exception ex)
             {
-                throw new Exception("TransactionsRepository::SelectById:Error occured.", ex);
+                throw new Exception("YoneticiRepository:ID ile Seçme Hatası", ex);
             }
         }
 
         public bool IdSil(int id)
         {
-            _errorCode = 0;
+
             _rowsAffected = 0;
 
             try
@@ -339,8 +299,8 @@ namespace DataAccesLayer.Concretes
                 query.Append("DELETE ");
                 query.Append("FROM [dbo].[tblYonetici] ");
                 query.Append("WHERE ");
-                query.Append("[tblYonetici] = @id ");
-               
+                query.Append("[YoneticiID] = @id ");
+
 
                 var commandText = query.ToString();
                 query.Clear();
@@ -364,7 +324,6 @@ namespace DataAccesLayer.Concretes
                         //Input Parameters
                         DBHelper.AddParameter(dbCommand, "@id", id);
 
-                        
 
                         //Open Connection
                         if (dbConnection.State != ConnectionState.Open)
@@ -379,7 +338,7 @@ namespace DataAccesLayer.Concretes
             }
             catch (Exception ex)
             {
-                throw new Exception("TransactionsRepository::Insert:Error occured.", ex);
+                throw new Exception("YoneticiRepository:Silme Hatası", ex);
             }
         }
     }
