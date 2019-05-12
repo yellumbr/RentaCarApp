@@ -38,54 +38,55 @@ namespace Business.Concretes
             _yoneticiBusiness = new YoneticiBusiness();
         }
 
-        public bool SirketEkle(Sirket entity)
+        public Sirket SirketEkle(Sirket entity)
         {
             try
             {
-                bool basarilimi;
                 using (var repo = new SirketRepository())
                 {
-                    basarilimi = repo.Ekle(entity);
+                    if (repo.Ekle(entity))
+                        return entity;
                 }
-                return basarilimi;
+
+                return null;
             }
             catch (Exception ex)
             {
-                throw new Exception("BusinessLogic:CustomerBusiness::InsertCustomer::Error occured.", ex);
+                throw new Exception("SirketBusiness:SirketRepository:Ekleme Hatası", ex);
             }
         }
 
-        public bool SirketGuncelle(Sirket entity)
+        public Sirket SirketGuncelle(Sirket entity)
         {
             try
             {
-                bool basarilimi;
                 using (var repo = new SirketRepository())
                 {
-                    basarilimi = repo.Guncelle(entity);
+                    if (repo.Guncelle(entity))
+                        return entity;
                 }
-                return basarilimi;
+                return null;
             }
             catch (Exception ex)
             {
-                throw new Exception("BusinessLogic:CustomerBusiness::UpdateCustomer::Error occured.", ex);
+                throw new Exception("SirketBusiness:SirketRepository:Güncelleme Hatası", ex);
             }
         }
 
-        public bool SirketIdSil(int ID)
+        public Sirket SirketIdSil(int sirketId)
         {
             try
             {
-                bool basarilimi;
                 using (var repo = new SirketRepository())
                 {
-                    basarilimi = repo.IdSil(ID);
+                    if (repo.IdSil(sirketId))
+                        return repo.IdSec(sirketId);
                 }
-                return basarilimi;
+                return null;
             }
             catch (Exception ex)
             {
-                throw new Exception("BusinessLogic:CustomerBusiness::DeleteCustomer::Error occured.", ex);
+                throw new Exception("SirketBusiness:SirketRepository:Silme Hatası", ex);
             }
         }
 
@@ -93,22 +94,23 @@ namespace Business.Concretes
         {
             try
             {
-                Sirket responseEntitiy;
+                Sirket responseEntitiy = null ;
                 using (var repo = new SirketRepository())
                 {
                     responseEntitiy = repo.IdSec(sirketId);
-                    if (responseEntitiy == null)
-                        throw new NullReferenceException("Böyle Bir Şirket Yok!");
+                    
                 }
                 return responseEntitiy;
             }
             catch (Exception ex)
             {
-                throw new Exception("BusinessLogic:CustomerBusiness::SelectCustomerById::Error occured.", ex);
+                throw new Exception("SirketBusiness:SirketRepository:Seçme Hatası", ex);
             }
         }
+        
 
-        public List<Sirket> SirketHepsiniSec()
+
+            public List<Sirket> SirketHepsiniSec()
         {
             var responseEntities = new List<Sirket>();
 
@@ -125,7 +127,7 @@ namespace Business.Concretes
             }
             catch (Exception ex)
             {
-                throw new Exception("BusinessLogic:CustomerBusiness::SelectAllCustomers::Error occured.", ex);
+                throw new Exception("SirketBusiness:SirketRepository:Hepsini Seçme Hatası", ex);
             }
         }
     }

@@ -141,7 +141,6 @@ namespace DataAccesLayer.Concretes
                         dbCommand.CommandText = commandText;
 
                         //Input Params
-                        DBHelper.AddParameter(dbCommand, "@KullaniciID", entity.KullaniciID);
                         DBHelper.AddParameter(dbCommand, "@TCKimlik", entity.TcKimlik);
                         DBHelper.AddParameter(dbCommand, "@Ad", entity.Ad);
                         DBHelper.AddParameter(dbCommand, "@Soyad", entity.Soyad);
@@ -181,7 +180,7 @@ namespace DataAccesLayer.Concretes
             {
                 var query = new StringBuilder();
                 query.Append("SELECT ");
-                query.Append("[TCKimlik],[Ad] ,[Soyad],[DogumTarihi],[Adres],[Telefon],[Email],[KullaniciAdi],[Parola],[KullaniciTipi]");
+                query.Append("[KullaniciID],[TCKimlik],[Ad] ,[Soyad],[DogumTarihi],[Adres],[Telefon],[Email],[KullaniciAdi],[Parola],[KullaniciTipi],[Anahtar]");
                 query.Append("FROM [dbo].[tblKullanici] ");
 
 
@@ -216,17 +215,19 @@ namespace DataAccesLayer.Concretes
                                 while (reader.Read())
                                 {
                                     var entity = new Kullanici();
-                                    entity.TcKimlik = reader.GetString(0);
-                                    entity.Ad = reader.GetString(1);
-                                    entity.Soyad = reader.GetString(2);
-                                    entity.DogumTarihi = reader.GetDateTime(3).Date;
-                                    entity.Adres = reader.GetString(4);
-                                    entity.Telefon = reader.GetString(5);
-                                    entity.Email = reader.GetString(6);
-                                    entity.KullaniciAdi = reader.GetString(7);
-                                    entity.Parola = reader.GetString(8);
-                                    entity.KullaniciTipi = reader.GetString(9);
-                                    //entity.Musteri 
+                                    entity.KullaniciID=reader.GetInt32(0);
+                                    entity.TcKimlik = reader.GetString(1);
+                                    entity.Ad = reader.GetString(2);
+                                    entity.Soyad = reader.GetString(3);
+                                    entity.DogumTarihi = reader.GetDateTime(4).Date;
+                                    entity.Adres = reader.GetString(5);
+                                    entity.Telefon = reader.GetString(6);
+                                    entity.Email = reader.GetString(7);
+                                    entity.KullaniciAdi = reader.GetString(8);
+                                    entity.Parola = reader.GetString(9);
+                                    entity.KullaniciTipi = reader.GetString(10);
+                                    entity.Anahtar = reader.GetGuid(11);
+                              
                                     Kullanicilar.Add(entity);
                                 }
                             }
@@ -255,7 +256,7 @@ namespace DataAccesLayer.Concretes
             {
                 var query = new StringBuilder();
                 query.Append("SELECT ");
-                query.Append("[TCKimlik],[Ad] ,[Soyad],[DogumTarihi],[Adres],[Telefon],[Email],[KullaniciAdi],[Parola],[KullaniciTipi]");
+                query.Append("[KullaniciID],[TCKimlik],[Ad] ,[Soyad],[DogumTarihi],[Adres],[Telefon],[Email],[KullaniciAdi],[Parola],[KullaniciTipi],[Anahtar]");
                 query.Append("FROM [dbo].[tblKullanici] ");
                 query.Append("WHERE ");
                 query.Append("[KullaniciID] = @id ");
@@ -295,16 +296,18 @@ namespace DataAccesLayer.Concretes
                                 while (reader.Read())
                                 {
                                     var entity = new Kullanici();
-                                    entity.TcKimlik = reader.GetString(0);
-                                    entity.Ad = reader.GetString(1);
-                                    entity.Soyad = reader.GetString(2);
-                                    entity.DogumTarihi = reader.GetDateTime(3).Date;
-                                    entity.Adres = reader.GetString(4);
-                                    entity.Telefon = reader.GetString(5);
-                                    entity.Email = reader.GetString(6);
-                                    entity.KullaniciAdi = reader.GetString(7);
-                                    entity.Parola = reader.GetString(8);
-                                    entity.KullaniciTipi = reader.GetString(9);
+                                    entity.KullaniciID = reader.GetInt32(0);
+                                    entity.TcKimlik = reader.GetString(1);
+                                    entity.Ad = reader.GetString(2);
+                                    entity.Soyad = reader.GetString(3);
+                                    entity.DogumTarihi = reader.GetDateTime(4).Date;
+                                    entity.Adres = reader.GetString(5);
+                                    entity.Telefon = reader.GetString(6);
+                                    entity.Email = reader.GetString(7);
+                                    entity.KullaniciAdi = reader.GetString(8);
+                                    entity.Parola = reader.GetString(9);
+                                    entity.KullaniciTipi = reader.GetString(10);
+                                    entity.Anahtar = reader.GetGuid(11);
                                     Kullanici = entity;
                                     break;
                                 }
@@ -377,11 +380,11 @@ namespace DataAccesLayer.Concretes
             }
         }
 
-        public string Giris(string kullaniciadi, string parola)
+        public Kullanici Giris(string kullaniciadi, string parola)
         {
             _rowsAffected = 0;
-
-            string tip = "tipsiz";
+            Kullanici Kullanici = null;
+            
             try
             {
                 var query = new StringBuilder();
@@ -425,27 +428,187 @@ namespace DataAccesLayer.Concretes
                             {
                                 while (reader.Read())
                                 {
-                                    if (reader["KullaniciTipi"] == "Müşteri")
-                                        tip = "true";
-                                    else
-                                        tip = "false";
+                                    var entity = new Kullanici();
+                                    entity.KullaniciID = reader.GetInt32(0);
+                                    entity.TcKimlik = reader.GetString(1);
+                                    entity.Ad = reader.GetString(2);
+                                    entity.Soyad = reader.GetString(3);
+                                    entity.DogumTarihi = reader.GetDateTime(4).Date;
+                                    entity.Adres = reader.GetString(5);
+                                    entity.Telefon = reader.GetString(6);
+                                    entity.Email = reader.GetString(7);
+                                    entity.KullaniciAdi = reader.GetString(8);
+                                    entity.Parola = reader.GetString(9);
+                                    entity.KullaniciTipi = reader.GetString(10);
+                                    entity.Anahtar = reader.GetGuid(11);
+                                    Kullanici = entity;
+                                    break;
                                 }
                             }
-                            else
-                            {
-                                tip = "yanlış";
-                            }
+
                         }
                     }
 
                 }
-                return tip;
 
+                return Kullanici;
             }
             catch (Exception ex)
             {
                 throw new Exception("KullaniciRepository:Giriş Hatası", ex);
             }
         }
+
+        public Kullanici KeySec(string anahtar)
+        {
+
+            _rowsAffected = 0;
+
+            Kullanici Kullanici = null;
+
+            try
+            {
+                var query = new StringBuilder();
+                query.Append("SELECT ");
+                query.Append("[KullaniciID],[TCKimlik],[Ad] ,[Soyad],[DogumTarihi],[Adres],[Telefon],[Email],[KullaniciAdi],[Parola],[KullaniciTipi],[Anahtar]");
+                query.Append("FROM [dbo].[tblKullanici] ");
+                query.Append("WHERE ");
+                query.Append("[Anahtar] = @anahtar ");
+
+
+                var commandText = query.ToString();
+                query.Clear();
+
+                using (var dbConnection = _dbProviderFactory.CreateConnection())
+                {
+                    if (dbConnection == null)
+                        throw new ArgumentNullException("dbConnection", "The db connection can't be null.");
+
+                    dbConnection.ConnectionString = _connectionString;
+
+                    using (var dbCommand = _dbProviderFactory.CreateCommand())
+                    {
+                        if (dbCommand == null)
+                            throw new ArgumentNullException(
+                                "dbCommand" + " The db SelectById command for entity [tblKullanici] can't be null. ");
+
+                        dbCommand.Connection = dbConnection;
+                        dbCommand.CommandText = commandText;
+
+                        //Input Parameters
+                        DBHelper.AddParameter(dbCommand, "@anahtar", anahtar);
+
+                        //Open Connection
+                        if (dbConnection.State != ConnectionState.Open)
+                            dbConnection.Open();
+
+                        //Execute query.
+                        using (var reader = dbCommand.ExecuteReader())
+                        {
+                            if (reader.HasRows)
+                            {
+                                while (reader.Read())
+                                {
+                                    var entity = new Kullanici();
+                                    entity.KullaniciID = reader.GetInt32(0);
+                                    entity.TcKimlik = reader.GetString(1);
+                                    entity.Ad = reader.GetString(2);
+                                    entity.Soyad = reader.GetString(3);
+                                    entity.DogumTarihi = reader.GetDateTime(4).Date;
+                                    entity.Adres = reader.GetString(5);
+                                    entity.Telefon = reader.GetString(6);
+                                    entity.Email = reader.GetString(7);
+                                    entity.KullaniciAdi = reader.GetString(8);
+                                    entity.Parola = reader.GetString(9);
+                                    entity.KullaniciTipi = reader.GetString(10);
+                                    entity.Anahtar = reader.GetGuid(11);
+                                    Kullanici = entity;
+                                    break;
+                                }
+                            }
+                        }
+
+
+                    }
+                }
+
+                return Kullanici;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception("KullaniciRepository:ID ile Seçim Hatası", ex);
+            }
+        }
+        //public string Giris(string kullaniciadi, string parola)
+        //{
+        //    _rowsAffected = 0;
+
+        //    string tip = "tipsiz";
+        //    try
+        //    {
+        //        var query = new StringBuilder();
+        //        query.Append("SELECT ");
+        //        query.Append("*");
+        //        query.Append("FROM [dbo].[tblKullanici]");
+        //        query.Append("WHERE ");
+        //        query.Append("[KullaniciAdi] = @KullaniciAdi AND [Parola]=@Parola ");
+
+        //        var commandText = query.ToString();
+        //        query.Clear();
+
+        //        using (var dbConnection = _dbProviderFactory.CreateConnection())
+        //        {
+        //            if (dbConnection == null)
+        //                throw new ArgumentNullException("dbConnection", "The db connection can't be null.");
+
+        //            dbConnection.ConnectionString = _connectionString;
+
+        //            using (var dbCommand = _dbProviderFactory.CreateCommand())
+        //            {
+        //                if (dbCommand == null)
+        //                    throw new ArgumentNullException(
+        //                        "dbCommand" + " The db SelectById command for entity [tbl_Transactions] can't be null. ");
+
+        //                dbCommand.Connection = dbConnection;
+        //                dbCommand.CommandText = commandText;
+
+        //                //Input Parameters
+        //                DBHelper.AddParameter(dbCommand, "@KullaniciAdi", kullaniciadi);
+        //                DBHelper.AddParameter(dbCommand, "@Parola", parola);
+
+        //                //Open Connection
+        //                if (dbConnection.State != ConnectionState.Open)
+        //                    dbConnection.Open();
+
+        //                //Execute query.
+        //                using (var reader = dbCommand.ExecuteReader())
+        //                {
+        //                    if (reader.HasRows)
+        //                    {
+        //                        while (reader.Read())
+        //                        {
+        //                            if (reader["KullaniciTipi"] == "Müşteri")
+        //                                tip = "true";
+        //                            else
+        //                                tip = "false";
+        //                        }
+        //                    }
+        //                    else
+        //                    {
+        //                        tip = "yanlış";
+        //                    }
+        //                }
+        //            }
+
+        //        }
+        //        return tip;
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception("KullaniciRepository:Giriş Hatası", ex);
+        //    }
+        //}
     }
 }

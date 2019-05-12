@@ -18,65 +18,55 @@ namespace Business.Concretes
         {
 
         }
-        public bool AracEkle(Arac arac, Sirket sirket)
+        public Arac AracEkle(Arac entity)
         {
             try
             {
-                bool basarilimiArac,basarilimiSirket;
                 using (var repo = new AracRepository())
                 {
-                    basarilimiArac = repo.Ekle(arac);
-
-                    using (var repo2 = new SirketRepository())
-                    {
-
-                        basarilimiSirket = repo2.Guncelle(sirket);
-                    }
+                    if (repo.Ekle(entity))
+                        return entity;
                 }
-                return (basarilimiArac && basarilimiSirket);
+
+                return null;
             }
             catch (Exception ex)
             {
-                throw new Exception("BusinessLogic:CustomerBusiness::InsertCustomer::Error occured.", ex);
+                throw new Exception("AracBusiness:AracRepository:Ekleme Hatası", ex);
             }
         }
 
-        public bool AracGuncelle(Arac entity)
+        public Arac AracGuncelle(Arac entity)
         {
             try
             {
-                bool basarilimi;
                 using (var repo = new AracRepository())
                 {
-                    basarilimi = repo.Guncelle(entity);
+                    if (repo.Guncelle(entity))
+                        return entity;
                 }
-                return basarilimi;
+                return null;
             }
             catch (Exception ex)
             {
-                throw new Exception("BusinessLogic:CustomerBusiness::UpdateCustomer::Error occured.", ex);
+                throw new Exception("AracBusiness:AracRepository:Güncelleme Hatası", ex);
             }
         }
 
-        public bool AracIdSil(int ID,Sirket sirket)
+        public Arac AracIdSil(int AracId)
         {
             try
             {
-                bool basarilimi,basarilimi2;
                 using (var repo = new AracRepository())
                 {
-                    basarilimi = repo.IdSil(ID);
-
-                    using (var repo2 = new SirketRepository())
-                    {
-                        basarilimi2 = repo2.Guncelle(sirket);
-                    }
+                    if (repo.IdSil(AracId))
+                        return repo.IdSec(AracId);
                 }
-                return (basarilimi&&basarilimi2);
+                return null;
             }
             catch (Exception ex)
             {
-                throw new Exception("BusinessLogic:CustomerBusiness::DeleteCustomer::Error occured.", ex);
+                throw new Exception("AracBusiness:AracRepository:Silme Hatası", ex);
             }
         }
 
@@ -84,18 +74,17 @@ namespace Business.Concretes
         {
             try
             {
-                Arac responseEntitiy;
+                Arac responseEntitiy = null;
                 using (var repo = new AracRepository())
                 {
                     responseEntitiy = repo.IdSec(AracId);
-                    if (responseEntitiy == null)
-                        throw new NullReferenceException("Böyle Bir Araç Yok!");
+
                 }
                 return responseEntitiy;
             }
             catch (Exception ex)
             {
-                throw new Exception("BusinessLogic:CustomerBusiness::SelectCustomerById::Error occured.", ex);
+                throw new Exception("AracBusiness:AracRepository:Seçme Hatası", ex);
             }
         }
 
@@ -116,10 +105,10 @@ namespace Business.Concretes
             }
             catch (Exception ex)
             {
-                throw new Exception("BusinessLogic:CustomerBusiness::SelectAllCustomers::Error occured.", ex);
+                throw new Exception("AracBusiness:AracRepository:Hepsini Seçme Hatası", ex);
             }
         }
 
-        
+
     }
 }

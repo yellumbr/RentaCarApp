@@ -17,9 +17,10 @@ namespace Models.Concretes
         public string Sehir { get; set; }
         public string Adres { get; set; }
         public int AracSayisi { get; set; }
-        public float SirketPuani { get; set; }
+        public int SirketPuani { get; set; }
         public decimal SirketGelir { get; set; }
         public decimal SirketGider { get; set; }
+        public string SirketLogo { get; set; }
         public List<Yonetici> Yoneticiler { get; set; }
     }
 }

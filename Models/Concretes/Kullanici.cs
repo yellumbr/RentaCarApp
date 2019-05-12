@@ -20,7 +20,6 @@ namespace Models.Concretes
         public string Parola { get; set; }
         public bool Durum { get; set; }
         public string KullaniciTipi { get; set; }
-        public Musteri Musteri { get; set; }
-        public Yonetici Yonetici { get; set; }
+        public Guid Anahtar { get; set; }
     }
 }

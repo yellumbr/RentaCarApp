@@ -18,66 +18,55 @@ namespace Business.Concretes
         {
 
         }
-        public bool YoneticiEkle(Yonetici Yonetici, Kullanici kullanici)
+        public Yonetici YoneticiEkle(Yonetici entity)
         {
             try
             {
-                bool YoneticiBasarilimi, kullaniciBasarilimi;
-                using (var kullaniciRepo = new KullaniciRepository())
+                using (var repo = new YoneticiRepository())
                 {
-                    kullaniciBasarilimi = kullaniciRepo.Ekle(kullanici);
-                    using (var YoneticiRepo = new YoneticiRepository())
-                    {
-                        YoneticiBasarilimi = YoneticiRepo.Ekle(Yonetici);
-                    }
+                    if (repo.Ekle(entity))
+                        return entity;
                 }
 
-                return (kullaniciBasarilimi && YoneticiBasarilimi);
+                return null;
             }
             catch (Exception ex)
             {
-                throw new Exception("YoneticiBusiness:KullaniciRepo||YoneticiRepo:Ekleme Hatası", ex);
+                throw new Exception("YoneticiBusiness:YoneticiRepository:Ekleme Hatası", ex);
             }
         }
 
-        public bool YoneticiGuncelle(Yonetici Yonetici, Kullanici kullanici)
+        public Yonetici YoneticiGuncelle(Yonetici entity)
         {
             try
             {
-                bool YoneticiBasarilimi, kullaniciBasarilimi;
-                using (var kullaniciRepo = new KullaniciRepository())
+                using (var repo = new YoneticiRepository())
                 {
-                    kullaniciBasarilimi = kullaniciRepo.Guncelle(kullanici);
-                    using (var YoneticiRepo = new YoneticiRepository())
-                    {
-                        YoneticiBasarilimi = YoneticiRepo.Guncelle(Yonetici);
-                    }
+                    if (repo.Guncelle(entity))
+                        return entity;
                 }
-
-                return (kullaniciBasarilimi && YoneticiBasarilimi);
+                return null;
             }
             catch (Exception ex)
             {
-                throw new Exception("YoneticiBusiness:KullaniciRepo||YoneticiRepo:Güncelleme Hatası", ex);
+                throw new Exception("YoneticiBusiness:YoneticiRepository:Güncelleme Hatası", ex);
             }
         }
 
-        //TODO
-        public bool YoneticiIdSil(int ID)
+        public Yonetici YoneticiIdSil(int YoneticiId)
         {
             try
             {
-                bool YoneticiBasarilimi;
-                using (var YoneticiRepo = new YoneticiRepository())
+                using (var repo = new YoneticiRepository())
                 {
-                    YoneticiBasarilimi = YoneticiRepo.IdSil(ID);
+                    if (repo.IdSil(YoneticiId))
+                        return repo.IdSec(YoneticiId);
                 }
-
-                return (YoneticiBasarilimi);
+                return null;
             }
             catch (Exception ex)
             {
-                throw new Exception("YoneticiBusiness:YoneticiRepo:IDSil Hatası", ex);
+                throw new Exception("YoneticiBusiness:YoneticiRepository:Silme Hatası", ex);
             }
         }
 
@@ -85,18 +74,17 @@ namespace Business.Concretes
         {
             try
             {
-                Yonetici responseEntitiy;
+                Yonetici responseEntitiy = null;
                 using (var repo = new YoneticiRepository())
                 {
                     responseEntitiy = repo.IdSec(YoneticiId);
-                    if (responseEntitiy == null)
-                        throw new NullReferenceException("Böyle Bir Müşteri Yok!");
+
                 }
                 return responseEntitiy;
             }
             catch (Exception ex)
             {
-                throw new Exception("YoneticiBusiness:YoneticiRepo:IDSec Hatası", ex);
+                throw new Exception("YoneticiBusiness:YoneticiRepository:Seçme Hatası", ex);
             }
         }
 
@@ -117,7 +105,7 @@ namespace Business.Concretes
             }
             catch (Exception ex)
             {
-                throw new Exception("YoneticiBusiness:YoneticiRepo:YoneticiHepsiniSec Hatası", ex);
+                throw new Exception("YoneticiBusiness:YoneticiRepository:Hepsini Seçme Hatası", ex);
             }
         }
     }

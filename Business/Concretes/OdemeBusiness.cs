@@ -18,54 +18,55 @@ namespace Business.Concretes
         {
 
         }
-        public bool OdemeEkle(Odeme entity)
+        public Odeme OdemeEkle(Odeme entity)
         {
             try
             {
-                bool basarilimi;
                 using (var repo = new OdemeRepository())
                 {
-                    basarilimi = repo.Ekle(entity);
+                    if (repo.Ekle(entity))
+                        return entity;
                 }
-                return basarilimi;
+
+                return null;
             }
             catch (Exception ex)
             {
-                throw new Exception("BusinessLogic:CustomerBusiness::InsertCustomer::Error occured.", ex);
+                throw new Exception("OdemeBusiness:OdemeRepository:Ekleme Hatası", ex);
             }
         }
 
-        public bool OdemeGuncelle(Odeme entity)
+        public Odeme OdemeGuncelle(Odeme entity)
         {
             try
             {
-                bool basarilimi;
                 using (var repo = new OdemeRepository())
                 {
-                    basarilimi = repo.Guncelle(entity);
+                    if (repo.Guncelle(entity))
+                        return entity;
                 }
-                return basarilimi;
+                return null;
             }
             catch (Exception ex)
             {
-                throw new Exception("BusinessLogic:CustomerBusiness::UpdateCustomer::Error occured.", ex);
+                throw new Exception("OdemeBusiness:OdemeRepository:Güncelleme Hatası", ex);
             }
         }
 
-        public bool OdemeIdSil(int ID)
+        public Odeme OdemeIdSil(int OdemeId)
         {
             try
             {
-                bool basarilimi;
                 using (var repo = new OdemeRepository())
                 {
-                    basarilimi = repo.IdSil(ID);
+                    if (repo.IdSil(OdemeId))
+                        return repo.IdSec(OdemeId);
                 }
-                return basarilimi;
+                return null;
             }
             catch (Exception ex)
             {
-                throw new Exception("BusinessLogic:CustomerBusiness::DeleteCustomer::Error occured.", ex);
+                throw new Exception("OdemeBusiness:OdemeRepository:Silme Hatası", ex);
             }
         }
 
@@ -73,18 +74,17 @@ namespace Business.Concretes
         {
             try
             {
-                Odeme responseEntitiy;
+                Odeme responseEntitiy = null;
                 using (var repo = new OdemeRepository())
                 {
                     responseEntitiy = repo.IdSec(OdemeId);
-                    if (responseEntitiy == null)
-                        throw new NullReferenceException("Böyle Bir Ödeme Yok!");
+
                 }
                 return responseEntitiy;
             }
             catch (Exception ex)
             {
-                throw new Exception("BusinessLogic:CustomerBusiness::SelectCustomerById::Error occured.", ex);
+                throw new Exception("OdemeBusiness:OdemeRepository:Seçme Hatası", ex);
             }
         }
 
@@ -105,7 +105,7 @@ namespace Business.Concretes
             }
             catch (Exception ex)
             {
-                throw new Exception("BusinessLogic:CustomerBusiness::SelectAllCustomers::Error occured.", ex);
+                throw new Exception("OdemeBusiness:OdemeRepository:Hepsini Seçme Hatası", ex);
             }
         }
     }

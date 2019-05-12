@@ -54,10 +54,10 @@ namespace DataAccesLayer.Concretes
             {
                 var query = new StringBuilder();
                 query.Append("INSERT [dbo].[tblSirket] ");
-                query.Append("( [SirketID], [SirketAdi], [Sehir], [Adres], [AracSayisi], [SirketPuani],[SirketLogo],[SirketGelir],[SirketGider] ) ");
+                query.Append("( [SirketAdi], [Sehir], [Adres], [AracSayisi], [SirketPuani],[SirketLogo],[SirketGelir],[SirketGider] ) ");
                 query.Append("VALUES ");
                 query.Append(
-                    "( @SirketId, @SirketAdi, @Sehir, @Adres, @AracSayisi, @SirketPuani,@SirketLogo,@SirketGelir,@SirketGider ) ");
+                    "(  @SirketAdi, @Sehir, @Adres, @AracSayisi, @SirketPuani,@SirketLogo,@SirketGelir,@SirketGider ) ");
                 
 
                 var commandText = query.ToString();
@@ -79,7 +79,6 @@ namespace DataAccesLayer.Concretes
                         dbCommand.CommandText = commandText;
 
                         //Input Params
-                        DBHelper.AddParameter(dbCommand, "@SirketId",  entity.SirketID);
                         DBHelper.AddParameter(dbCommand, "@SirketAdi", entity.SirketAdi);
                         DBHelper.AddParameter(dbCommand, "@Sehir", entity.Sehir);
                         DBHelper.AddParameter(dbCommand, "@Adres", entity.Adres);
@@ -87,7 +86,7 @@ namespace DataAccesLayer.Concretes
                         DBHelper.AddParameter(dbCommand, "@SirketPuani", entity.SirketPuani);
                         DBHelper.AddParameter(dbCommand, "@SirketGelir", entity.SirketGelir);
                         DBHelper.AddParameter(dbCommand, "@SirketGider", entity.SirketGider);
-
+                        DBHelper.AddParameter(dbCommand, "@SirketLogo", entity.SirketLogo);
 
                         //Open Connection
                         if (dbConnection.State != ConnectionState.Open)
@@ -149,6 +148,8 @@ namespace DataAccesLayer.Concretes
                         DBHelper.AddParameter(dbCommand, "@SirketPuani", entity.SirketPuani);
                         DBHelper.AddParameter(dbCommand, "@SirketGelir", entity.SirketGelir);
                         DBHelper.AddParameter(dbCommand, "@SirketGider", entity.SirketGider);
+                        DBHelper.AddParameter(dbCommand, "@SirketLogo", entity.SirketLogo);
+
 
                         //Open Connection
                         if (dbConnection.State != ConnectionState.Open)
@@ -179,7 +180,7 @@ namespace DataAccesLayer.Concretes
                 var query = new StringBuilder();
                 query.Append("SELECT ");
                 query.Append(
-                    "[SirketID], [SirketAdi], [Sehir], [Adres], [AracSayisi],[SirketGelir],[SirketGider] ");
+                    "[SirketID], [SirketAdi], [Sehir], [Adres], [AracSayisi],[SirketPuani],[SirketLogo],[SirketGelir],[SirketGider],[Anahtar] ");
                 query.Append("FROM [dbo].[tblSirket] ");
                
 
@@ -219,9 +220,11 @@ namespace DataAccesLayer.Concretes
                                     entity.Sehir = reader.GetString(2);
                                     entity.Adres = reader.GetString(3);
                                     entity.AracSayisi = reader.GetInt32(4);
-                                    entity.SirketPuani = reader.GetFloat(5);
-                                    entity.SirketGelir = reader.GetDecimal(6);
-                                    entity.SirketGider = reader.GetDecimal(7);
+                                    entity.SirketPuani = reader.GetInt32(5);
+                                    entity.SirketLogo = reader.GetString(6);
+                                    entity.SirketGelir = reader.GetDecimal(7);
+                                    entity.SirketGider = reader.GetDecimal(8);
+                                    entity.Anahtar = reader.GetGuid(9);
                                     sirketler.Add(entity);
                                 }
                             }
@@ -252,7 +255,7 @@ namespace DataAccesLayer.Concretes
                 var query = new StringBuilder();
                 query.Append("SELECT ");
                 query.Append(
-                    "[SirketID], [SirketAdi], [Sehir], [Adres], [AracSayisi], [SirketPuani] ");
+                    "[SirketID], [SirketAdi], [Sehir], [Adres], [AracSayisi],[SirketPuani],[SirketLogo],[SirketGelir],[SirketGider],[Anahtar] ");
                 query.Append("FROM [dbo].[tblSirket] ");
                 query.Append("WHERE ");
                 query.Append("[SirketID] = @id ");
@@ -297,9 +300,12 @@ namespace DataAccesLayer.Concretes
                                     entity.Sehir = reader.GetString(2);
                                     entity.Adres = reader.GetString(3);
                                     entity.AracSayisi = reader.GetInt32(4);
-                                    entity.SirketPuani = reader.GetFloat(5);
-                                    entity.SirketGelir = reader.GetDecimal(6);
-                                    entity.SirketGider = reader.GetDecimal(7);
+                                    entity.SirketPuani = reader.GetInt32(5);
+                                    entity.SirketLogo = reader.GetString(6);
+                                    entity.SirketGelir = reader.GetDecimal(7);
+                                    entity.SirketGider = reader.GetDecimal(8);
+                                    entity.Anahtar = reader.GetGuid(9);
+
                                     sirket = entity;
                                     break;
                                 }
@@ -371,5 +377,7 @@ namespace DataAccesLayer.Concretes
                 throw new Exception("SirketRepository:Silme Hatası", ex);
             }
         }
+
+        
     }
 }

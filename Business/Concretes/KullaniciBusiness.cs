@@ -18,63 +18,91 @@ namespace Business.Concretes
         {
 
         }
-        public bool KullaniciEkle(Kullanici Kullanici)
+        public Kullanici Giris(string kullaniciAdi,string parola)
         {
+            Kullanici kullanici = null;
             try
             {
-                bool KullaniciBasarilimi;
-               
-                    using (var KullaniciRepo = new KullaniciRepository())
-                    {
-                        KullaniciBasarilimi = KullaniciRepo.Ekle(Kullanici);
-                    }
-                
-
-                return (KullaniciBasarilimi);
+                using (var repo = new KullaniciRepository())
+                {
+                    kullanici = repo.Giris(kullaniciAdi,parola);
+                }
+                return kullanici;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw new Exception("KullaniciBusiness:KullaniciRepo:Ekleme Hatası", ex);
+
+                throw;
             }
         }
 
-        public bool KullaniciGuncelle(Kullanici Kullanici)
+        public Kullanici KullaniciAnahtarSec(string Anahtar)
         {
+
             try
             {
-                bool KullaniciBasarilimi;
-                using (var KullaniciRepo = new KullaniciRepository())
+                Kullanici responseEntitiy = null;
+                using (var repo = new KullaniciRepository())
                 {
-                    
-                
-                        KullaniciBasarilimi = KullaniciRepo.Guncelle(Kullanici);
-                    
-                }
+                    responseEntitiy = repo.KeySec(Anahtar);
 
-                return ( KullaniciBasarilimi);
+                }
+                return responseEntitiy;
             }
             catch (Exception ex)
             {
-                throw new Exception("KullaniciBusiness:KullaniciRepo||KullaniciRepo:Güncelleme Hatası", ex);
+                throw new Exception("KullaniciBusiness:KullaniciRepository:Key Seçme Hatası", ex);
+            }
+        }
+        public Kullanici KullaniciEkle(Kullanici entity)
+        {
+            try
+            {
+                using (var repo = new KullaniciRepository())
+                {
+                    if (repo.Ekle(entity))
+                        return entity;
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("KullaniciBusiness:KullaniciRepository:Ekleme Hatası", ex);
             }
         }
 
-        //TODO
-        public bool KullaniciIdSil(int ID)
+        public Kullanici KullaniciGuncelle(Kullanici entity)
         {
             try
             {
-                bool KullaniciBasarilimi;
-                using (var KullaniciRepo = new KullaniciRepository())
+                using (var repo = new KullaniciRepository())
                 {
-                    KullaniciBasarilimi = KullaniciRepo.IdSil(ID);
+                    if (repo.Guncelle(entity))
+                        return entity;
                 }
-
-                return (KullaniciBasarilimi);
+                return null;
             }
             catch (Exception ex)
             {
-                throw new Exception("KullaniciBusiness:KullaniciRepo:IDSil Hatası", ex);
+                throw new Exception("KullaniciBusiness:KullaniciRepository:Güncelleme Hatası", ex);
+            }
+        }
+
+        public Kullanici KullaniciIdSil(int KullaniciId)
+        {
+            try
+            {
+                using (var repo = new KullaniciRepository())
+                {
+                    if (repo.IdSil(KullaniciId))
+                        return repo.IdSec(KullaniciId);
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("KullaniciBusiness:KullaniciRepository:Silme Hatası", ex);
             }
         }
 
@@ -82,18 +110,17 @@ namespace Business.Concretes
         {
             try
             {
-                Kullanici responseEntitiy;
+                Kullanici responseEntitiy = null;
                 using (var repo = new KullaniciRepository())
                 {
                     responseEntitiy = repo.IdSec(KullaniciId);
-                    if (responseEntitiy == null)
-                        throw new NullReferenceException("Böyle Bir Müşteri Yok!");
+
                 }
                 return responseEntitiy;
             }
             catch (Exception ex)
             {
-                throw new Exception("KullaniciBusiness:KullaniciRepo:IDSec Hatası", ex);
+                throw new Exception("KullaniciBusiness:KullaniciRepository:Seçme Hatası", ex);
             }
         }
 
@@ -114,7 +141,7 @@ namespace Business.Concretes
             }
             catch (Exception ex)
             {
-                throw new Exception("KullaniciBusiness:KullaniciRepo:KullaniciHepsiniSec Hatası", ex);
+                throw new Exception("KullaniciBusiness:KullaniciRepository:Hepsini Seçme Hatası", ex);
             }
         }
     }
