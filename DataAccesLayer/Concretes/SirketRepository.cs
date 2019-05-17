@@ -180,7 +180,7 @@ namespace DataAccesLayer.Concretes
                 var query = new StringBuilder();
                 query.Append("SELECT ");
                 query.Append(
-                    "[SirketID], [SirketAdi], [Sehir], [Adres], [AracSayisi],[SirketPuani],[SirketLogo],[SirketGelir],[SirketGider],[Anahtar] ");
+                    "[SirketID], [SirketAdi], [Sehir], [Adres], [AracSayisi],[SirketPuani],[SirketLogo],[SirketGelir],[SirketGider] ");
                 query.Append("FROM [dbo].[tblSirket] ");
                
 
@@ -224,7 +224,6 @@ namespace DataAccesLayer.Concretes
                                     entity.SirketLogo = reader.GetString(6);
                                     entity.SirketGelir = reader.GetDecimal(7);
                                     entity.SirketGider = reader.GetDecimal(8);
-                                    entity.Anahtar = reader.GetGuid(9);
                                     sirketler.Add(entity);
                                 }
                             }
@@ -255,7 +254,7 @@ namespace DataAccesLayer.Concretes
                 var query = new StringBuilder();
                 query.Append("SELECT ");
                 query.Append(
-                    "[SirketID], [SirketAdi], [Sehir], [Adres], [AracSayisi],[SirketPuani],[SirketLogo],[SirketGelir],[SirketGider],[Anahtar] ");
+                    "[SirketID], [SirketAdi], [Sehir], [Adres], [AracSayisi],[SirketPuani],[SirketLogo],[SirketGelir],[SirketGider] ");
                 query.Append("FROM [dbo].[tblSirket] ");
                 query.Append("WHERE ");
                 query.Append("[SirketID] = @id ");
@@ -304,7 +303,6 @@ namespace DataAccesLayer.Concretes
                                     entity.SirketLogo = reader.GetString(6);
                                     entity.SirketGelir = reader.GetDecimal(7);
                                     entity.SirketGider = reader.GetDecimal(8);
-                                    entity.Anahtar = reader.GetGuid(9);
 
                                     sirket = entity;
                                     break;

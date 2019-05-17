@@ -18,11 +18,11 @@ namespace Business.Concretes
         {
 
         }
-        public Kullanici KullaniciEkle(Kullanici entity)
+        public Musteri MusteriEkle(Musteri entity)
         {
             try
             {
-                using (var repo = new KullaniciRepository())
+                using (var repo = new MusteriRepository())
                 {
                     if (repo.Ekle(entity))
                         return entity;
@@ -32,15 +32,15 @@ namespace Business.Concretes
             }
             catch (Exception ex)
             {
-                throw new Exception("KullaniciBusiness:KullaniciRepository:Ekleme Hatası", ex);
+                throw new Exception("MusteriBusiness:MusteriRepository:Ekleme Hatası", ex);
             }
         }
 
-        public Kullanici KullaniciGuncelle(Kullanici entity)
+        public Musteri MusteriGuncelle(Musteri entity)
         {
             try
             {
-                using (var repo = new KullaniciRepository())
+                using (var repo = new MusteriRepository())
                 {
                     if (repo.Guncelle(entity))
                         return entity;
@@ -49,52 +49,52 @@ namespace Business.Concretes
             }
             catch (Exception ex)
             {
-                throw new Exception("KullaniciBusiness:KullaniciRepository:Güncelleme Hatası", ex);
+                throw new Exception("MusteriBusiness:MusteriRepository:Güncelleme Hatası", ex);
             }
         }
 
-        public Kullanici KullaniciIdSil(int KullaniciId)
+        public Musteri MusteriIdSil(int MusteriId)
         {
             try
             {
-                using (var repo = new KullaniciRepository())
+                using (var repo = new MusteriRepository())
                 {
-                    if (repo.IdSil(KullaniciId))
-                        return repo.IdSec(KullaniciId);
+                    if (repo.IdSil(MusteriId))
+                        return repo.IdSec(MusteriId);
                 }
                 return null;
             }
             catch (Exception ex)
             {
-                throw new Exception("KullaniciBusiness:KullaniciRepository:Silme Hatası", ex);
+                throw new Exception("MusteriBusiness:MusteriRepository:Silme Hatası", ex);
             }
         }
 
-        public Kullanici KullaniciIdSec(int KullaniciId)
+        public Musteri MusteriIdSec(int MusteriId)
         {
             try
             {
-                Kullanici responseEntitiy = null;
-                using (var repo = new KullaniciRepository())
+                Musteri responseEntitiy = null;
+                using (var repo = new MusteriRepository())
                 {
-                    responseEntitiy = repo.IdSec(KullaniciId);
+                    responseEntitiy = repo.IdSec(MusteriId);
 
                 }
                 return responseEntitiy;
             }
             catch (Exception ex)
             {
-                throw new Exception("KullaniciBusiness:KullaniciRepository:Seçme Hatası", ex);
+                throw new Exception("MusteriBusiness:MusteriRepository:Seçme Hatası", ex);
             }
         }
 
-        public List<Kullanici> KullaniciHepsiniSec()
+        public List<Musteri> MusteriHepsiniSec()
         {
-            var responseEntities = new List<Kullanici>();
+            var responseEntities = new List<Musteri>();
 
             try
             {
-                using (var repo = new KullaniciRepository())
+                using (var repo = new MusteriRepository())
                 {
                     foreach (var entity in repo.HepsiniSec())
                     {
@@ -105,7 +105,7 @@ namespace Business.Concretes
             }
             catch (Exception ex)
             {
-                throw new Exception("KullaniciBusiness:KullaniciRepository:Hepsini Seçme Hatası", ex);
+                throw new Exception("MusteriBusiness:MusteriRepository:Hepsini Seçme Hatası", ex);
             }
         }
     }

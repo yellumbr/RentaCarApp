@@ -36,6 +36,24 @@ namespace Business.Concretes
             }
         }
 
+        public Kullanici KullaniciSecIsim(string kullaniciAdi)
+        {
+            try
+            {
+                Kullanici responseEntitiy = null;
+                using (var repo = new KullaniciRepository())
+                {
+                    responseEntitiy = repo.KullaniciAdSec(kullaniciAdi);
+
+                }
+                return responseEntitiy;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("KullaniciBusiness:KullaniciRepository:KullaniciAdi Seçme Hatası", ex);
+            }
+        }
+
         public Kullanici KullaniciAnahtarSec(string Anahtar)
         {
 

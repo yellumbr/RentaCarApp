@@ -176,8 +176,8 @@ namespace DataAccesLayer.Concretes
 
             IList<Kullanici> Kullanicilar = new List<Kullanici>();
 
-            try
-            {
+           // try
+           // {
                 var query = new StringBuilder();
                 query.Append("SELECT ");
                 query.Append("[KullaniciID],[TCKimlik],[Ad] ,[Soyad],[DogumTarihi],[Adres],[Telefon],[Email],[KullaniciAdi],[Parola],[KullaniciTipi],[Anahtar]");
@@ -238,11 +238,11 @@ namespace DataAccesLayer.Concretes
                 }
                 // Return list
                 return Kullanicilar;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("KullaniciRepository:Hepsini Seçim Hatası", ex);
-            }
+          //  }
+            //catch (Exception ex)
+            //{
+          //      throw new Exception("KullaniciRepository:Hepsini Seçim Hatası", ex);
+            //}
         }
 
         public Kullanici IdSec(int id)
@@ -327,6 +327,88 @@ namespace DataAccesLayer.Concretes
             }
         }
 
+        public Kullanici KullaniciAdSec(string kullaniciAdi)
+        {
+
+            _rowsAffected = 0;
+
+            Kullanici Kullanici = null;
+
+            try
+            {
+                var query = new StringBuilder();
+                query.Append("SELECT ");
+                query.Append("[KullaniciID],[TCKimlik],[Ad] ,[Soyad],[DogumTarihi],[Adres],[Telefon],[Email],[KullaniciAdi],[Parola],[KullaniciTipi],[Anahtar]");
+                query.Append("FROM [dbo].[tblKullanici] ");
+                query.Append("WHERE ");
+                query.Append("[KullaniciAdi] = @kullaniciAdi ");
+
+
+                var commandText = query.ToString();
+                query.Clear();
+
+                using (var dbConnection = _dbProviderFactory.CreateConnection())
+                {
+                    if (dbConnection == null)
+                        throw new ArgumentNullException("dbConnection", "The db connection can't be null.");
+
+                    dbConnection.ConnectionString = _connectionString;
+
+                    using (var dbCommand = _dbProviderFactory.CreateCommand())
+                    {
+                        if (dbCommand == null)
+                            throw new ArgumentNullException(
+                                "dbCommand" + " The db SelectById command for entity [tblKullanici] can't be null. ");
+
+                        dbCommand.Connection = dbConnection;
+                        dbCommand.CommandText = commandText;
+
+                        //Input Parameters
+                        DBHelper.AddParameter(dbCommand, "@kullaniciAdi", kullaniciAdi);
+
+                        //Open Connection
+                        if (dbConnection.State != ConnectionState.Open)
+                            dbConnection.Open();
+
+                        //Execute query.
+                        using (var reader = dbCommand.ExecuteReader())
+                        {
+                            if (reader.HasRows)
+                            {
+                                while (reader.Read())
+                                {
+                                    var entity = new Kullanici();
+                                    entity.KullaniciID = reader.GetInt32(0);
+                                    entity.TcKimlik = reader.GetString(1);
+                                    entity.Ad = reader.GetString(2);
+                                    entity.Soyad = reader.GetString(3);
+                                    entity.DogumTarihi = reader.GetDateTime(4).Date;
+                                    entity.Adres = reader.GetString(5);
+                                    entity.Telefon = reader.GetString(6);
+                                    entity.Email = reader.GetString(7);
+                                    entity.KullaniciAdi = reader.GetString(8);
+                                    entity.Parola = reader.GetString(9);
+                                    entity.KullaniciTipi = reader.GetString(10);
+                                    entity.Anahtar = reader.GetGuid(11);
+                                    Kullanici = entity;
+                                    break;
+                                }
+                            }
+                        }
+
+
+                    }
+                }
+
+                return Kullanici;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception("KullaniciRepository:KullaniciAdi ile Seçim Hatası", ex);
+            }
+        }
+
         public bool IdSil(int id)
         {
 
@@ -389,7 +471,7 @@ namespace DataAccesLayer.Concretes
             {
                 var query = new StringBuilder();
                 query.Append("SELECT ");
-                query.Append("*");
+                query.Append("[KullaniciID],[TCKimlik],[Ad] ,[Soyad],[DogumTarihi],[Adres],[Telefon],[Email],[KullaniciAdi],[Parola],[KullaniciTipi],[Anahtar]");
                 query.Append("FROM [dbo].[tblKullanici]");
                 query.Append("WHERE ");
                 query.Append("[KullaniciAdi] = @KullaniciAdi AND [Parola]=@Parola ");
