@@ -140,6 +140,8 @@ namespace DataAccesLayer.Concretes
                         dbCommand.Connection = dbConnection;
                         dbCommand.CommandText = commandText;
 
+                        DBHelper.AddParameter(dbCommand, "@KullaniciID", entity.KullaniciID);
+
                         //Input Params
                         DBHelper.AddParameter(dbCommand, "@TCKimlik", entity.TcKimlik);
                         DBHelper.AddParameter(dbCommand, "@Ad", entity.Ad);
