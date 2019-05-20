@@ -7,7 +7,6 @@ namespace Models.Concretes
     {
         public Arac()
         {
-            Sirket = new Sirket();
         }
         public int AracID { get; set; }
         public string Plaka { get; set; }
@@ -30,7 +29,6 @@ namespace Models.Concretes
         public string AracResmi { get; set; }
         public int MusteriID { get; set; }
         public int SirketID { get; set; }
-        public Sirket Sirket { get; set; }
         public decimal AracGider { get; set; }
 
 

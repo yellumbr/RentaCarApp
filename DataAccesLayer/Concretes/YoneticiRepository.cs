@@ -50,7 +50,7 @@ namespace DataAccesLayer.Concretes
             {
                 var query = new StringBuilder();
                 query.Append("INSERT INTO tblYonetici(SirketID,KullaniciID)");
-                query.Append("VALUES(@SirketID,@KullaniciID)");
+                query.Append("VALUES(@SirketID,(SELECT IDENT_CURRENT('tblKullanici') WHERE KullaniciTipi = 'Y'))");
 
                 var commandText = query.ToString();
                 query.Clear();

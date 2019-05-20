@@ -101,6 +101,8 @@ namespace Business.Concretes
                         responseEntities.Add(entity);
                     }
                 }
+                if (responseEntities == null)
+                    return responseEntities;
                 return responseEntities;
             }
             catch (Exception ex)

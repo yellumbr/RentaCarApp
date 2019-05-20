@@ -260,16 +260,19 @@ namespace DataAccesLayer.Concretes
                                     entity.YakitTipi = reader.GetString(14);
                                     entity.VitesTipi = reader.GetString(15);
                                     if (!reader.IsDBNull(16))
-                                         entity.AracResmi = reader.GetString(16);
+                                        entity.AracResmi = reader.GetString(16);
                                     if (!reader.IsDBNull(17))
                                         entity.KiralanmaTarihi = reader.GetDateTime(17).Date;
                                     if (!reader.IsDBNull(18))
                                         entity.KiradanDonusTarihi = reader.GetDateTime(18).Date;
-                                    entity.SirketID = reader.GetInt32(19);
-                                    entity.MusteriID = reader.GetInt32(20);
-                                    entity.AracGider = reader.GetDecimal(21);
+                                    if (!reader.IsDBNull(19))
+                                        entity.SirketID = reader.GetInt32(19);
+                                    if (!reader.IsDBNull(20))
+                                        entity.MusteriID = reader.GetInt32(20);
+                                    if (!reader.IsDBNull(21))
+                                        entity.AracGider = reader.GetDecimal(21);
 
-                                    
+
                                     araclar.Add(entity);
                                 }
                             }
@@ -366,9 +369,12 @@ namespace DataAccesLayer.Concretes
                                         entity.KiralanmaTarihi = reader.GetDateTime(17).Date;
                                     if (!reader.IsDBNull(18))
                                         entity.KiradanDonusTarihi = reader.GetDateTime(18).Date;
-                                    entity.SirketID = reader.GetInt32(19);
-                                    entity.MusteriID = reader.GetInt32(20);
-                                    entity.AracGider = reader.GetDecimal(21);
+                                    if (!reader.IsDBNull(19))
+                                        entity.SirketID = reader.GetInt32(19);
+                                    if (!reader.IsDBNull(20))
+                                        entity.MusteriID = reader.GetInt32(20);
+                                    if (!reader.IsDBNull(21))
+                                        entity.AracGider = reader.GetDecimal(21);
                                     arac = entity;
                                     break;
                                 }

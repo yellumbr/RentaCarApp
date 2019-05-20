@@ -50,7 +50,7 @@ namespace DataAccesLayer.Concretes
             {
                 var query = new StringBuilder();
                 query.Append("INSERT INTO tblMusteri(KullaniciID,EhliyetTipi,EhliyetTarihi,KaraListe,Ceza)");
-                query.Append("VALUES((SELECT IDENT_CURRENT('tblKullanici') WHERE KullaniciTipi = 'Müşteri'),@EhliyetTipi,@EhliyetTarihi,@KaraListe,@Ceza)");
+                query.Append("VALUES((SELECT IDENT_CURRENT('tblKullanici')),@EhliyetTipi,@EhliyetTarihi,@KaraListe,@Ceza)");
 
                 var commandText = query.ToString();
                 query.Clear();

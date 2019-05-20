@@ -13,4 +13,3 @@ Y:\rentacar\Models\bin\Debug\Models.pdb
 Y:\rentacar\Models\obj\Debug\Models.csproj.CoreCompileInputs.cache
 Y:\rentacar\Models\obj\Debug\Models.dll
 Y:\rentacar\Models\obj\Debug\Models.pdb
-Y:\rentacar\Models\obj\Debug\Models.csprojAssemblyReference.cache

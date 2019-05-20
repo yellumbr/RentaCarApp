@@ -422,7 +422,7 @@ namespace DataAccesLayer.Concretes
                 query.Append("DELETE ");
                 query.Append("FROM [dbo].[tblKullanici] ");
                 query.Append("WHERE ");
-                query.Append("[tblKullanici] = @id ");
+                query.Append("[KullaniciID] = @id ");
 
 
                 var commandText = query.ToString();
@@ -624,75 +624,5 @@ namespace DataAccesLayer.Concretes
                 throw new Exception("KullaniciRepository:ID ile Seçim Hatası", ex);
             }
         }
-        //public string Giris(string kullaniciadi, string parola)
-        //{
-        //    _rowsAffected = 0;
-
-        //    string tip = "tipsiz";
-        //    try
-        //    {
-        //        var query = new StringBuilder();
-        //        query.Append("SELECT ");
-        //        query.Append("*");
-        //        query.Append("FROM [dbo].[tblKullanici]");
-        //        query.Append("WHERE ");
-        //        query.Append("[KullaniciAdi] = @KullaniciAdi AND [Parola]=@Parola ");
-
-        //        var commandText = query.ToString();
-        //        query.Clear();
-
-        //        using (var dbConnection = _dbProviderFactory.CreateConnection())
-        //        {
-        //            if (dbConnection == null)
-        //                throw new ArgumentNullException("dbConnection", "The db connection can't be null.");
-
-        //            dbConnection.ConnectionString = _connectionString;
-
-        //            using (var dbCommand = _dbProviderFactory.CreateCommand())
-        //            {
-        //                if (dbCommand == null)
-        //                    throw new ArgumentNullException(
-        //                        "dbCommand" + " The db SelectById command for entity [tbl_Transactions] can't be null. ");
-
-        //                dbCommand.Connection = dbConnection;
-        //                dbCommand.CommandText = commandText;
-
-        //                //Input Parameters
-        //                DBHelper.AddParameter(dbCommand, "@KullaniciAdi", kullaniciadi);
-        //                DBHelper.AddParameter(dbCommand, "@Parola", parola);
-
-        //                //Open Connection
-        //                if (dbConnection.State != ConnectionState.Open)
-        //                    dbConnection.Open();
-
-        //                //Execute query.
-        //                using (var reader = dbCommand.ExecuteReader())
-        //                {
-        //                    if (reader.HasRows)
-        //                    {
-        //                        while (reader.Read())
-        //                        {
-        //                            if (reader["KullaniciTipi"] == "Müşteri")
-        //                                tip = "true";
-        //                            else
-        //                                tip = "false";
-        //                        }
-        //                    }
-        //                    else
-        //                    {
-        //                        tip = "yanlış";
-        //                    }
-        //                }
-        //            }
-
-        //        }
-        //        return tip;
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new Exception("KullaniciRepository:Giriş Hatası", ex);
-        //    }
-        //}
     }
 }

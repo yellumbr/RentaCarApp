@@ -6,12 +6,10 @@ namespace Models.Concretes
     {
         public Yonetici()
         {
-            Kullanici = new Kullanici();
         }
         public int YoneticiID { get; set; }
         public int SirketID { get; set; }
         public int KullaniciID { get; set; }
-        public Kullanici Kullanici { get; set; }
 
     }
 }
