@@ -301,8 +301,10 @@ namespace DataAccesLayer.Concretes
                                     entity.AracSayisi = reader.GetInt32(4);
                                     entity.SirketPuani = reader.GetInt32(5);
                                     entity.SirketLogo = reader.GetString(6);
-                                    entity.SirketGelir = reader.GetDecimal(7);
-                                    entity.SirketGider = reader.GetDecimal(8);
+                                    if (!reader.IsDBNull(7))
+                                        entity.SirketGelir = reader.GetDecimal(7);
+                                    if (!reader.IsDBNull(8))
+                                        entity.SirketGider = reader.GetDecimal(8);
 
                                     sirket = entity;
                                     break;

@@ -81,7 +81,7 @@ namespace DataAccesLayer.Concretes
                         DBHelper.AddParameter(dbCommand, "@OdemeMiktari", entity.OdemeMiktari);
                         DBHelper.AddParameter(dbCommand, "@OdemeTarihi",  entity.OdemeTarihi.Date);
                         DBHelper.AddParameter(dbCommand, "@OdemeBasarili", entity.OdemeBasarili);
-                        DBHelper.AddParameter(dbCommand, "@MusteriId", entity.MusteriId);
+                        DBHelper.AddParameter(dbCommand, "@MusteriID", entity.MusteriId);
 
                         
 
@@ -139,7 +139,7 @@ namespace DataAccesLayer.Concretes
                         DBHelper.AddParameter(dbCommand, "@OdemeMiktari",  entity.OdemeMiktari);
                         DBHelper.AddParameter(dbCommand, "@OdemeBasarili", entity.OdemeBasarili);
                         DBHelper.AddParameter(dbCommand, "@OdemeTarihi", entity.OdemeTarihi.Date);
-                        DBHelper.AddParameter(dbCommand, "@MusteriId", entity.MusteriId);
+                        DBHelper.AddParameter(dbCommand, "@MusteriID", entity.MusteriId);
 
 
 
@@ -213,11 +213,16 @@ namespace DataAccesLayer.Concretes
                                 while (reader.Read())
                                 {
                                     var entity = new Odeme();
-                                    entity.OdemeID = reader.GetInt32(0);
-                                    entity.OdemeMiktari = reader.GetDecimal(1);
-                                    entity.OdemeBasarili = reader.GetBoolean(2);
-                                    entity.OdemeTarihi = reader.GetDateTime(3).Date;
-                                    entity.MusteriId = reader.GetInt32(4);
+                                    if (!reader.IsDBNull(0))
+                                        entity.OdemeID = reader.GetInt32(0);
+                                    if (!reader.IsDBNull(1))
+                                        entity.OdemeMiktari = reader.GetDecimal(1);
+                                    if (!reader.IsDBNull(2))
+                                        entity.OdemeBasarili = reader.GetBoolean(2);
+                                    if (!reader.IsDBNull(3))
+                                        entity.OdemeTarihi = reader.GetDateTime(3).Date;
+                                    if (!reader.IsDBNull(4))
+                                        entity.MusteriId = reader.GetInt32(4);
                                     odemeler.Add(entity);
                                 }
                             }

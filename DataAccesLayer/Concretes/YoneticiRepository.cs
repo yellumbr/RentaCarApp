@@ -50,7 +50,7 @@ namespace DataAccesLayer.Concretes
             {
                 var query = new StringBuilder();
                 query.Append("INSERT INTO tblYonetici(SirketID,KullaniciID)");
-                query.Append("VALUES(@SirketID,(SELECT IDENT_CURRENT('tblKullanici') WHERE KullaniciTipi = 'Y'))");
+                query.Append("VALUES(@SirketID,(SELECT IDENT_CURRENT('tblKullanici') ))");
 
                 var commandText = query.ToString();
                 query.Clear();
@@ -104,7 +104,7 @@ namespace DataAccesLayer.Concretes
             try
             {
                 var query = new StringBuilder();
-                query.Append(" UPDATE [dbo].[tblYonetici] ");
+                query.Append(" UPDATE [tblYonetici] ");
                 query.Append(" SET [SirketID] = @SirketID,[KullaniciID]=@KullaniciID ");
                 query.Append(" WHERE ");
                 query.Append(" [YoneticiID] = @YoneticiID ");
@@ -161,8 +161,8 @@ namespace DataAccesLayer.Concretes
             {
                 var query = new StringBuilder();
                 query.Append("SELECT ");
-                query.Append("YoneticiID,SirketID,KullaniciID");
-                query.Append("FROM [dbo].[tblYonetici]");
+                query.Append("YoneticiID, SirketID, KullaniciID ");
+                query.Append("FROM tblYonetici");
 
                 var commandText = query.ToString();
                 query.Clear();
@@ -196,9 +196,15 @@ namespace DataAccesLayer.Concretes
                                 while (reader.Read())
                                 {
                                     var entity = new Yonetici();
-                                    entity.YoneticiID = reader.GetInt32(0);
-                                    entity.SirketID = reader.GetInt32(1);
-                                    entity.KullaniciID = reader.GetInt32(2);
+                                    if (!reader.IsDBNull(0))
+
+                                        entity.YoneticiID = reader.GetInt32(0);
+                                    if (!reader.IsDBNull(1))
+
+                                        entity.SirketID = reader.GetInt32(1);
+                                    if (!reader.IsDBNull(2))
+
+                                        entity.KullaniciID = reader.GetInt32(2);
                     
                                     Yonetici.Add(entity);
                                 }
@@ -216,6 +222,84 @@ namespace DataAccesLayer.Concretes
             }
         }
 
+        public Yonetici KullaniciIdSec(int id)
+        {
+
+            _rowsAffected = 0;
+
+            Yonetici Yonetici = null;
+
+            try
+            {
+                var query = new StringBuilder();
+                query.Append("SELECT ");
+                query.Append("YoneticiID,SirketID,KullaniciID");
+                query.Append("FROM [tblYonetici]");
+                query.Append("WHERE ");
+                query.Append("[KullaniciID] = @id ");
+
+                var commandText = query.ToString();
+                query.Clear();
+
+                using (var dbConnection = _dbProviderFactory.CreateConnection())
+                {
+                    if (dbConnection == null)
+                        throw new ArgumentNullException("dbConnection", "The db connection can't be null.");
+
+                    dbConnection.ConnectionString = _connectionString;
+
+                    using (var dbCommand = _dbProviderFactory.CreateCommand())
+                    {
+                        if (dbCommand == null)
+                            throw new ArgumentNullException(
+                                "dbCommand" + " The db SelectById command for entity [tbl_Transactions] can't be null. ");
+
+                        dbCommand.Connection = dbConnection;
+                        dbCommand.CommandText = commandText;
+
+                        //Input Parameters
+                        DBHelper.AddParameter(dbCommand, "@id", id);
+
+
+                        //Open Connection
+                        if (dbConnection.State != ConnectionState.Open)
+                            dbConnection.Open();
+
+                        //Execute query.
+                        using (var reader = dbCommand.ExecuteReader())
+                        {
+                            if (reader.HasRows)
+                            {
+                                while (reader.Read())
+                                {
+                                    var entity = new Yonetici();
+                                    if (!reader.IsDBNull(0))
+
+                                        entity.YoneticiID = reader.GetInt32(0);
+                                    if (!reader.IsDBNull(1))
+
+                                        entity.SirketID = reader.GetInt32(1);
+                                    if (!reader.IsDBNull(2))
+
+                                        entity.KullaniciID = reader.GetInt32(2);
+                                    Yonetici = entity;
+                                    break;
+                                }
+                            }
+                        }
+
+
+                    }
+                }
+
+                return Yonetici;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("YoneticiRepository:ID ile Seçme Hatası", ex);
+            }
+        }
+
         public Yonetici IdSec(int id)
         {
 
@@ -228,7 +312,7 @@ namespace DataAccesLayer.Concretes
                 var query = new StringBuilder();
                 query.Append("SELECT ");
                 query.Append("YoneticiID,SirketID,KullaniciID");
-                query.Append("FROM [dbo].[tblYonetici]");
+                query.Append("FROM [tblYonetici]");
                 query.Append("WHERE ");
                 query.Append("[YoneticiID] = @id ");
 
@@ -267,9 +351,14 @@ namespace DataAccesLayer.Concretes
                                 while (reader.Read())
                                 {
                                     var entity = new Yonetici();
+                                    if (!reader.IsDBNull(0))
                                     entity.YoneticiID = reader.GetInt32(0);
-                                    entity.SirketID = reader.GetInt32(1);
-                                    entity.KullaniciID = reader.GetInt32(2);
+                                    if (!reader.IsDBNull(1))
+
+                                        entity.SirketID = reader.GetInt32(1);
+                                    if (!reader.IsDBNull(2))
+
+                                        entity.KullaniciID = reader.GetInt32(2);
                                     Yonetici = entity;
                                     break;
                                 }
@@ -297,7 +386,7 @@ namespace DataAccesLayer.Concretes
             {
                 var query = new StringBuilder();
                 query.Append("DELETE ");
-                query.Append("FROM [dbo].[tblYonetici] ");
+                query.Append("FROM [tblYonetici] ");
                 query.Append("WHERE ");
                 query.Append("[YoneticiID] = @id ");
 

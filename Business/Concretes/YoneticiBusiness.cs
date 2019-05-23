@@ -78,6 +78,25 @@ namespace Business.Concretes
                 using (var repo = new YoneticiRepository())
                 {
                     responseEntitiy = repo.IdSec(YoneticiId);
+                    
+                }
+
+                return responseEntitiy;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("YoneticiBusiness:YoneticiRepository:Seçme Hatası", ex);
+            }
+        }
+
+        public Yonetici YoneticiKullaniciIdSec(int KullaniciId)
+        {
+            try
+            {
+                Yonetici responseEntitiy = null;
+                using (var repo = new YoneticiRepository())
+                {
+                    responseEntitiy = repo.KullaniciIdSec(KullaniciId);
 
                 }
                 return responseEntitiy;

@@ -53,6 +53,24 @@ namespace Business.Concretes
             }
         }
 
+        public Arac AracKirala(Arac entity)
+        {
+            try
+            {
+                using (var repo = new AracRepository())
+                {
+                    //var entity = repo.IdSec(arac.AracID);
+                    if (repo.Kirala(entity))
+                        return entity;
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("AracBusiness:AracRepository:Kiralama Hatası", ex);
+            }
+        }
+
         public Arac AracIdSil(int AracId)
         {
             try
@@ -88,6 +106,23 @@ namespace Business.Concretes
             }
         }
 
+        public Arac AracPlakaSec(string plaka)
+        {
+            try
+            {
+                Arac responseEntitiy = null;
+                using (var repo = new AracRepository())
+                {
+                    responseEntitiy = repo.PlakaSec(plaka);
+
+                }
+                return responseEntitiy;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("AracBusiness:AracRepository:Seçme Hatası", ex);
+            }
+        }
         public List<Arac> AracHepsiniSec()
         {
             var responseEntities = new List<Arac>();

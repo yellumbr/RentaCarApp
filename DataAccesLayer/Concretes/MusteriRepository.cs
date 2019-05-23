@@ -296,6 +296,81 @@ namespace DataAccesLayer.Concretes
             }
         }
 
+        public Musteri KullaniciIdSec(int kullaniciid)
+        {
+
+            _rowsAffected = 0;
+
+            Musteri musteri = null;
+
+            try
+            {
+                var query = new StringBuilder();
+                query.Append("SELECT ");
+                query.Append("MusteriID,KullaniciID,EhliyetTipi,EhliyetTarihi,KaraListe,Ceza");
+                query.Append("FROM [dbo].[tblMusteri]");
+                query.Append("WHERE ");
+                query.Append("[KullaniciID] = @kullaniciid ");
+
+                var commandText = query.ToString();
+                query.Clear();
+
+                using (var dbConnection = _dbProviderFactory.CreateConnection())
+                {
+                    if (dbConnection == null)
+                        throw new ArgumentNullException("dbConnection", "The db connection can't be null.");
+
+                    dbConnection.ConnectionString = _connectionString;
+
+                    using (var dbCommand = _dbProviderFactory.CreateCommand())
+                    {
+                        if (dbCommand == null)
+                            throw new ArgumentNullException(
+                                "dbCommand" + " The db SelectById command for entity [tbl_Transactions] can't be null. ");
+
+                        dbCommand.Connection = dbConnection;
+                        dbCommand.CommandText = commandText;
+
+                        //Input Parameters
+                        DBHelper.AddParameter(dbCommand, "@kullaniciid", kullaniciid);
+
+
+                        //Open Connection
+                        if (dbConnection.State != ConnectionState.Open)
+                            dbConnection.Open();
+
+                        //Execute query.
+                        using (var reader = dbCommand.ExecuteReader())
+                        {
+                            if (reader.HasRows)
+                            {
+                                while (reader.Read())
+                                {
+                                    var entity = new Musteri();
+                                    entity.MusteriID = reader.GetInt32(0);
+                                    entity.KullaniciID = reader.GetInt32(1);
+                                    entity.EhliyetTipi = reader.GetString(2);
+                                    entity.EhliyetTarihi = reader.GetDateTime(3).Date;
+                                    entity.KaraListe = reader.GetBoolean(4);
+                                    entity.Ceza = reader.GetDecimal(5);
+                                    musteri = entity;
+                                    break;
+                                }
+                            }
+                        }
+
+
+                    }
+                }
+
+                return musteri;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("MusteriRepository:ID ile Seçme Hatası", ex);
+            }
+        }
+
         public bool IdSil(int id)
         {
 

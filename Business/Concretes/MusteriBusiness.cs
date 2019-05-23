@@ -88,6 +88,24 @@ namespace Business.Concretes
             }
         }
 
+        public Musteri MusteriKullaniciIdSec(int KullaniciId)
+        {
+            try
+            {
+                Musteri responseEntitiy = null;
+                using (var repo = new MusteriRepository())
+                {
+                    responseEntitiy = repo.KullaniciIdSec(KullaniciId);
+
+                }
+                return responseEntitiy;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("MusteriBusiness:MusteriRepository:Seçme Hatası", ex);
+            }
+        }
+
         public List<Musteri> MusteriHepsiniSec()
         {
             var responseEntities = new List<Musteri>();
