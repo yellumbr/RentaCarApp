@@ -329,6 +329,9 @@ namespace DataAccesLayer.Concretes
             }
         }
 
+       
+
+
         public Kullanici KullaniciAdSec(string kullaniciAdi)
         {
 

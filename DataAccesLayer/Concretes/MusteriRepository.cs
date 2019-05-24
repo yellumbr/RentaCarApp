@@ -105,7 +105,7 @@ namespace DataAccesLayer.Concretes
             try
             {
                 var query = new StringBuilder();
-                query.Append(" UPDATE [dbo].[tblMusteri] ");
+                query.Append(" UPDATE tblMusteri ");
                 query.Append(" SET [EhliyetTipi] = @EhliyetTipi,[EhliyetTarih]=@EhliyetTarih, [KaraListe] = @KaraListe,[Ceza] = @Ceza ");
                 query.Append(" WHERE ");
                 query.Append(" [MusteriID] = @MusteriID ");
@@ -166,7 +166,7 @@ namespace DataAccesLayer.Concretes
                 var query = new StringBuilder();
                 query.Append("SELECT ");
                 query.Append("MusteriID,KullaniciID,EhliyetTipi,EhliyetTarihi,KaraListe,Ceza");
-                query.Append("FROM [dbo].[tblMusteri]");
+                query.Append("FROM tblMusteri");
 
                 var commandText = query.ToString();
                 query.Clear();
@@ -233,7 +233,7 @@ namespace DataAccesLayer.Concretes
                 var query = new StringBuilder();
                 query.Append("SELECT ");
                 query.Append("MusteriID,KullaniciID,EhliyetTipi,EhliyetTarihi,KaraListe,Ceza");
-                query.Append("FROM [dbo].[tblMusteri]");
+                query.Append("FROM tblMusteri");
                 query.Append("WHERE ");
                 query.Append("[MusteriID] = @id ");
 
@@ -308,7 +308,7 @@ namespace DataAccesLayer.Concretes
                 var query = new StringBuilder();
                 query.Append("SELECT ");
                 query.Append("MusteriID,KullaniciID,EhliyetTipi,EhliyetTarihi,KaraListe,Ceza");
-                query.Append("FROM [dbo].[tblMusteri]");
+                query.Append("FROM tblMusteri");
                 query.Append("WHERE ");
                 query.Append("[KullaniciID] = @kullaniciid ");
 
@@ -380,7 +380,7 @@ namespace DataAccesLayer.Concretes
             {
                 var query = new StringBuilder();
                 query.Append("DELETE ");
-                query.Append("FROM [dbo].[tblMusteri] ");
+                query.Append("FROM tblMusteri ");
                 query.Append("WHERE ");
                 query.Append("[MusteriID] = @id ");
 
